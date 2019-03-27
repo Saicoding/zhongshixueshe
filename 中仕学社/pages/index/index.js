@@ -202,4 +202,39 @@ Page({
     }
   },
 
+  /**
+   * 更多
+   */
+  more:function(e){
+    let type = e.currentTarget.dataset.type;
+    console.log(type);
+    wx.showToast({
+      title: '开发中',
+      duration:3000,
+      icon:'none'
+    })
+  },
+
+  /**
+   * 查看资讯
+   */
+  GOzixun:function(){
+    wx.showToast({
+      title: '开发中',
+      duration: 3000,
+      icon: 'none'
+    })
+  },
+
+  /**
+   * 查看课程
+   */
+  GOkecheng:function(){
+    wx.showToast({
+      title: '开发中',
+      duration: 3000,
+      icon: 'none'
+    })
+  }
+
 })

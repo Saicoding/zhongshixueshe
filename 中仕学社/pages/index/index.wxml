@@ -119,13 +119,13 @@
   <view class="zixun">
     <view class="zixun-top  flex">
       <view class="zixun-top-left">考试资讯</view>
-      <view class="flex">
+      <view data-type="zixun" class="flex" bindtap="more" hover-class='select2' hover-stay-time='500' style="border-radius:10rpx;padding-left:20rpx;padding-right:20rpx;">
         <view style="font-weight:normal;font-size:22rpx;color:#b6b6b6">更多资讯</view>
         <image class="zixun-top-icon" src="/images/index/right.png"></image>
       </view>
     </view>
 
-    <view class="zixun-down flex">
+    <view class="zixun-down flex" bindtap="GOzixun" hover-class='select3' hover-stay-time='500'>
       <image class="zixun-down-img" src="/images/test/zixun.png"></image>
       <view class="zixun-down-text">
         <view class="zixun-down-text-title">{{zixun.title}}</view>
@@ -138,7 +138,7 @@
   <view class="zixun">
     <view class="zixun-top  flex">
       <view class="zixun-top-left">视频课程</view>
-      <view class="flex">
+      <view class="flex" data-type="kecheng" class="flex" bindtap="more" hover-class='select2' hover-stay-time='500' style="border-radius:10rpx;padding-left:20rpx;padding-right:20rpx;">
         <view style="font-weight:normal;font-size:22rpx;color:#b6b6b6">更多课程</view>
         <image class="zixun-top-icon" src="/images/index/right.png"></image>
       </view>
@@ -146,7 +146,7 @@
 
     <view style ="margin-top:15rpx;">
       <view wx:for="{{kes}}" wx:for-item="ke" wx:key="k">
-        <view class="ke" style="margin-left:{{index%2 == 1?15:0}}rpx;">
+        <view class="ke" style="margin-left:{{index%2 == 1?15:0}}rpx;" bindtap="GOkecheng" hover-class="select3" hover-stay-time='500'>
           <image class="ke-img" src="{{ke.img}}"></image>
           <view class="ke-title wp">{{ke.title}}</view>
           <view class="ke-bottom flex">

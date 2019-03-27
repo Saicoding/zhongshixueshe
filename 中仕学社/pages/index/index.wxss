@@ -61,7 +61,7 @@
 }
 
 .swiper{
-  margin-top:15rpx;
+  
 }
 
 /* 目录列表 */
@@ -125,6 +125,7 @@
   height: 60rpx;
   color: #818181;
   font-size: 25rpx;
+  border-radius: 10rpx;
 }
 
 .info-up-name {
@@ -255,6 +256,7 @@
   padding:10rpx 30rpx 20rpx 30rpx;
   margin-top:30rpx;
 }
+
 .zixun-top{
   height:60rpx;
   line-height: 60rpx;
@@ -342,7 +344,11 @@
 }
 
 .select3{
-  opacity: 0.2
+  opacity: 0.5
+}
+
+.select4{
+  color:black;
 }
 
 
