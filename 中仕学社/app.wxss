@@ -1,1 +1,20 @@
 /**app.wxss**/
+.flex{
+  display: flex;
+}
+
+.clear{
+  clear: both;
+}
+
+/* 文字超行省略号显示 */
+.wp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wp1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

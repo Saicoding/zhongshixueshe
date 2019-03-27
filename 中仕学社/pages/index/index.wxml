@@ -1,4 +1,164 @@
 <!--index.wxml-->
 <view class="container">
+  <!-- 最上面一条 -->
+  <view class="topBar flex" style="justify-content: space-between;">
+    <view style="display:flex;margin-top:20rpx;">
+      <!-- 左边部分 -->
+      <view class="topBar-left flex" bindtap="switch" hover-class='select1' hover-stay-time='500'>
+        <!-- <image class ="topbar-left-icon" src="/images/index/more.png"></image> -->
+        <image class="topbar-left-icon" src="/images/index/more.png"></image>
+        <view>切换考试</view>
+      </view>
 
+      <!-- 中间部分 -->
+      <view class="topBar-mid flex">
+        <view>距离考试还有</view>
+        <view class="topBar-mid-num">23</view>
+        <view style="font-size:22rpx;">天</view>
+      </view>
+    </view>
+
+    <!-- 右边的图片 -->
+    <view animation="{{dakaAnimate}}" bindtap="attendance" hover-class='select3' hover-stay-time='500' class="topBar-right flex">
+      打卡
+    </view>
+  </view>
+
+  <!-- banner -->
+  <swiper autoplay indicator-dots circular indicator-active-color="white" class="swiper">
+    <block wx:for="{{banners}}" wx:key="b">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" class="swiper-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 导航目录列表 -->
+  <view class="catlogList">
+    <view wx:for="{{catlogList}}" wx:for-item="catlog" wx:key="c">
+      <view class="catlog-item" bindtap="GOpage" hover-class='select2' hover-stay-time='500'>
+        <image class="catlog-item-icon" src="{{catlog.src}}"></image>
+        <view class="catlog-item-text">{{catlog.text}}</view>
+      </view>
+    </view>
+
+    <view class="clear"></view>
+  </view>
+
+  <!-- 中间个人信息部分 -->
+  <view class="info">
+    <!-- 个人信息最上面部分 -->
+    <view class="info-up">
+      <!-- 个人信息的图像 -->
+      <image wx:if="{{random}}" class="info-up-avatar" src="{{user.Pic == '/images/avatar.png'?'/images/avatar.png':user.Pic+'?'+random}}"></image>
+
+      <!-- 个人信息最上面的中间部分 -->
+      <view class="info-up-mid">
+        <!-- 名字 -->
+        <!-- <view class="info-up-name">{{user.Nickname}}</view> -->
+        <view class="info-up-name">{{user.Nickname}}</view>
+        <!-- 是否加入计划 -->
+        <view class="info-up-jihua" bindtap="tapInfo" hover-class='select1' hover-stay-time='500'>
+          <image class="info-up-jihua-icon" src="{{user.loginIcon}}"></image>
+          <view class="info-up-jihua-text">{{user.text}}</view>
+        </view>
+      </view>
+      <!-- 打卡 -->
+      <view class="info-up-right flex" hover-class='select3' hover-stay-time='500'>
+        <view>进入个人主页</view>
+        <image class="info-up-right-icon " src="/images/index/right.png"></image>
+      </view>
+    </view>
+
+    <!-- 个人信息下面部分 -->
+    <view class="info-down">
+      <view class="info-down-item">
+        <image class="info-down-item-icon" src="/images/index/yishuati.png"></image>
+        <view class="info-down-item-mid">
+          <view class="info-down-item-num">{{todayNum?todayNum:0}}</view>
+          <view class="info-down-item-midtext">今日刷题</view>
+        </view>
+        <view class="info-down-item-text">道</view>
+      </view>
+      <view class="info-down-item">
+        <image class="info-down-item-icon" src="/images/index/yikanke.png"></image>
+        <view class="info-down-item-mid">
+          <view class="info-down-item-num">{{todayKeNum?todayKeNum:0}}</view>
+          <view class="info-down-item-midtext">今日看课</view>
+        </view>
+
+        <view class="info-down-item-text">节</view>
+      </view>
+      <view class="info-down-item">
+        <image class="info-down-item-icon" src="/images/index/yixuexi.png"></image>
+        <view class="info-down-item-mid">
+          <view class="info-down-item-num">{{QDdays?QDdays:0}}</view>
+          <view class="info-down-item-midtext">已学习</view>
+        </view>
+        <view class="info-down-item-text">天</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 刷题 & 看课 -->
+  <view class="mid" style="  margin-top: {{statusBarHeight+120}}rpx;">
+    <view class="mid-item" bindtap="continiueShuati" hover-class='select2' hover-stay-time='500'>
+      <view class="mid-item-image ">{{midtext}}</view>
+      <view class="mid-item-title">{{midtitle}}</view>
+      <image class="mid-item-bottom" src="/images/index/shuati.png"></image>
+    </view>
+    <view class="mid-item" bindtap="continiueKanke" hover-class='select2' hover-stay-time='500'>
+      <view class="mid-item-image ">{{ketext}}</view>
+      <view class="mid-item-title">{{ketitle}}</view>
+
+      <image class="mid-item-bottom" src="/images/index/kanke.png"></image>
+    </view>
+  </view>
+
+  <!-- 考试资讯 -->
+  <view class="zixun">
+    <view class="zixun-top  flex">
+      <view class="zixun-top-left">考试资讯</view>
+      <view class="flex">
+        <view style="font-weight:normal;font-size:22rpx;color:#b6b6b6">更多资讯</view>
+        <image class="zixun-top-icon" src="/images/index/right.png"></image>
+      </view>
+    </view>
+
+    <view class="zixun-down flex">
+      <image class="zixun-down-img" src="/images/test/zixun.png"></image>
+      <view class="zixun-down-text">
+        <view class="zixun-down-text-title">{{zixun.title}}</view>
+        <view class="zixun-down-text-content wp1">{{zixun.content}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 视频课程 -->
+  <view class="zixun">
+    <view class="zixun-top  flex">
+      <view class="zixun-top-left">视频课程</view>
+      <view class="flex">
+        <view style="font-weight:normal;font-size:22rpx;color:#b6b6b6">更多课程</view>
+        <image class="zixun-top-icon" src="/images/index/right.png"></image>
+      </view>
+    </view>
+
+    <view style ="margin-top:15rpx;">
+      <view wx:for="{{kes}}" wx:for-item="ke" wx:key="k">
+        <view class="ke" style="margin-left:{{index%2 == 1?15:0}}rpx;">
+          <image class="ke-img" src="{{ke.img}}"></image>
+          <view class="ke-title wp">{{ke.title}}</view>
+          <view class="ke-bottom flex">
+            <image class="ke-bottom-icon" src="/images/index/people.png"></image>
+            <view class="ke-bottom-text">{{ke.nums}}人</view>
+            <image class="ke-bottom-icon" src="/images/index/play.png"></image>
+            <view class="ke-bottom-text">{{ke.jieNums}}节</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="clear"></view>
+  </view>
 </view>
