@@ -1,0 +1,18 @@
+<!--pages/index/switch/switch.wxml-->
+<view class="container">
+  <view wx:for="{{list}}"  wx:key="l" wx:for-index="tIndex">
+    <!-- 标题 -->
+    <view class="title flex">
+      <view class="title-line"></view>
+      <view class="title-text">{{item.title}}</view>
+      <view class="title-line" style ="margin-left:20rpx;"></view>
+    </view>
+
+    <view wx:for="{{item.catalogs}}"  wx:for-item ="catalog" wx:key="c" wx:for-index="cIndex">
+      <view data-title="{{catalog}}" data-tIndex="{{tIndex}}" data-cIndex="{{cIndex}}" class ="catalog" style="float:{{cIndex%2==0?'left':'right'}};color:{{tIndex==titleIndex && cIndex==itemIndex?'white':'black'}};background:{{tIndex==titleIndex && cIndex==itemIndex?'#ff5b59':'white'}}" bindtap="change">
+        {{catalog}}
+      </view>
+    </view>
+    <view class="clear"></view>
+  </view>
+</view>

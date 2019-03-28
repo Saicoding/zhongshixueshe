@@ -104,7 +104,9 @@ Page({
    * 切换考试
    */
   switch:function(){
-    console.log('切换考试')
+    wx.navigateTo({
+      url: '/pages/index/switch/switch',
+    })
   },
 
   /**
@@ -235,6 +237,13 @@ Page({
       duration: 3000,
       icon: 'none'
     })
+  },
+
+  /**
+ * 用户点击右上角分享
+ */
+  onShareAppMessage: function () {
+
   }
 
 })
