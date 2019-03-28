@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/index/switch/switch",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/tiku/tiku"
   ],
   "window": {
     "backgroundTextStyle": "light",

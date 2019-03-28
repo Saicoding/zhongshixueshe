@@ -1,0 +1,452 @@
+/* pages/shuati/shuati.wxss */
+
+page {
+  background: white;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 自定义标题栏 */
+
+.container {
+  width: 100%;
+}
+
+.imgLoading{
+  margin-top: 136rpx;
+}
+
+.bars {
+  position: fixed;
+  display: flex;
+  background: white;
+  height: 40rpx;
+  width: 500rpx;
+  left: 10rpx;
+  padding:10rpx;
+  z-index:100;
+}
+
+
+.bar {
+  width: 100rpx;
+  text-align: center;
+  border-radius: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 23rpx;
+}
+
+/* 中间条 */
+.midline{
+  display: flex;
+  width:100%;
+  height:90rpx;
+  line-height: 90rpx;
+  background: #f1f5f8;
+  font-size:22rpx;
+}
+
+.midline-dot{
+  width:16rpx;
+  height:16rpx;
+  border-radius: 16rpx;
+  background: #23cb9a;
+  margin-top:37rpx;
+  margin-left:40rpx;
+}
+
+.midline-text{
+  margin-left:20rpx;
+}
+
+.fixed{
+  position: fixed;
+  top:0rpx;
+  z-index:99;
+}
+
+/* 上面部分 */
+.content {
+  box-shadow: 1rpx 1rpx 14rpx 7rpx rgba(8, 8, 8, 0.1);
+  padding-bottom: 30rpx;
+  background: white;
+}
+.up{
+  background: #ff6600;
+}
+
+.scroller{
+  width:750rpx;
+  height:100rpx;
+}
+
+.topBar-left {
+   display: flex;
+  width: 200rpx;
+  height: 50rpx;
+  border-radius: 0rpx 50rpx 50rpx 0rpx;
+  line-height: 50rpx;
+  color: white;
+  font-size: 22rpx;
+  background: linear-gradient(to right, #fc9c60, #fdbd95);
+}
+
+.topbar-left-icon{
+  width:30rpx;
+  height:30rpx;
+  margin:10rpx 20rpx 10rpx 40rpx;
+}
+.top {
+  display: flex;
+  width: 710;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  background: white;
+  justify-content: space-around;
+}
+
+.t_left {
+  display: float;
+  float: left;
+  width: 27%;
+  height: 420rpx;
+  text-align: center;
+}
+
+.t_right {
+  display: float;
+  float: right;
+  text-align: center;
+  width: 29%;
+  height: 420rpx;
+}
+
+.t_center {
+  display: float;
+  float: right;
+  width: 300rpx;
+  height: 420rpx;
+  text-align: center;
+}
+
+.t_center_pic {
+  display: flex;
+  position: relative;
+  top: 10rpx;
+  margin: 0 auto;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 220rpx;
+  background: linear-gradient(to right, #fd904c, #fca56f);
+  margin-top: 30rpx;
+  line-height: 220rpx;
+  text-align: center;
+  color: white;
+  justify-content: center;
+  z-index: 20;
+}
+
+.t_center_pic_text1 {
+  font-size: 80rpx;
+}
+
+.t_center_pic_text2 {
+  font-size: 25rpx;
+  line-height: 280rpx;
+  margin-left: 10rpx;
+}
+
+.t_center_text {
+  font-size: 28rpx;
+  color: rgb(77, 77, 77);
+  width: 100%;
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.wave1 {
+  position: relative;
+  left: 40rpx;
+  top: -208rpx;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 220rpx;
+  background:linear-gradient(to right, #fd904c, #fca56f);
+  color: white;
+  text-align: center;
+  animation: scaleout1 2s infinite ease-in-out;
+  z-index: 18;
+}
+
+.wave2 {
+  position: relative;
+  top: -428rpx;
+  left: 40rpx;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 220rpx;
+  background: linear-gradient(to right, #fd904c, #fca56f);
+  color: white;
+  text-align: center;
+  animation: scaleout2 2s infinite ease-in-out;
+  animation-delay: 1s;
+  z-index: 17;
+}
+
+@keyframes scaleout1 {
+  0% {
+    transform: scale(1.0);
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout2 {
+  0% {
+    transform: scale(1.0);
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.t_text {
+  width: 100%;
+  font-size: 25rpx;
+  text-align: center;
+  margin-top: 10rpx;
+  color: #a4a4a4;
+}
+
+.ti_z1 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.ti_img {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 30rpx;
+}
+
+.ti_z2 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.ti_z3 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.ti_z4 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.mid {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+}
+
+.mid-item {
+  width: 150rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  font-size: 25rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+
+/* 章节练习 */
+
+.ti {
+  clear:both;
+  width: 750rpx;
+  padding: 50rpx 0rpx 20rpx 0rpx;
+}
+
+.ti-icons {
+  width: 40rpx;
+}
+
+.ti-title-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left:20rpx;
+}
+
+.jie-border {
+  position: relative;
+  border-left: 1rpx solid #eaeaea;
+  height: 90rpx;
+  margin-left:45rpx;
+  margin-top:-50rpx;
+  z-index:1;
+}
+
+.jie{
+    /* hidden是为了实现点击后有动画效果 */
+  height: 0rpx;
+  overflow-y: hidden;
+  opacity: 1;
+}
+
+.jie-dot {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left:30rpx;
+  margin-top:5rpx;
+}
+
+.ti-block {
+  position: relative;
+  display: flex;
+  height:90rpx;
+  z-index:50;
+}
+
+.ti-block-right{
+  display: flex;
+  width:120rpx;
+  height:90rpx;
+}
+
+.ti-block-right-rate{
+  width:60rpx;
+  color:rgb(156, 156, 156);
+  font-size:22rpx;
+  height:90rpx;
+  line-height: 60rpx;
+  margin-left:20rpx;
+  text-align: right;
+}
+
+.ti-block-right-icon{
+  width:25rpx;
+  height:25rpx;
+  margin-top:19rpx;
+  margin-left:5rpx;
+}
+
+
+.ti-block-line,.ti-block-line1{
+  width: 500rpx;
+}
+
+.ti-block-line {
+  height: 90rpx;
+}
+
+.ti-block-line1 {
+  display: flex;
+}
+
+.ti-block-line1-title {
+  width: 410rpx;
+  height: 60rpx;
+  font-size:25rpx;
+}
+
+.ti-block-line1-num {
+  width: 130rpx;
+  height: 60rpx;
+  text-align: right;
+}
+
+.ti-block-line2, .ti-block-line3 {
+  height: 6rpx;
+  border-radius: 6rpx;
+}
+
+.ti-block-line2 {
+  width: 470rpx;
+  background: #e5e5e5;
+}
+
+.ti-block-line3 {
+  position: relative;
+  top: -6rpx;
+  width: 50rpx;
+  background: #0dda5b;
+}
+
+.ti-block-shu{
+  height:30rpx;
+  border:1rpx solid rgba(31, 31, 31,0.1);
+  margin:20rpx 0rpx 30rpx 20rpx;
+}
+
+.ti-block-answer{
+  width:50rpx;
+  height:50rpx;
+  margin-top:10rpx;
+  margin-left:20rpx;
+}
+
+.ti-block-line1-num{
+  font-size:22rpx;
+  color:#a2a1a2;
+  height:60rpx;
+  line-height: 60rpx;
+}
+
+/* 全真模拟和核心密卷 */
+.item{
+  width:100%;
+}
+
+.item-line1{
+  display: flex;
+  height:60rpx;
+  line-height:60rpx;
+}
+
+.item-line1-icon{
+  width:30rpx;
+  height:30rpx;
+  margin-top:15rpx;
+  margin-left:25rpx;
+}
+
+.item-line1-text{
+  font-size:25rpx;
+  margin-left:20rpx;
+}
+
+.item-line2{
+  display: flex;
+  border-left:1rpx solid #eaeaea;
+  height:60rpx;
+  margin-left:40rpx;
+  padding-left:35rpx;
+}
+
+.item-line2-icon{
+  width:30rpx;
+  height:30rpx;
+}
+
+.item-line2-text{
+  height:30rpx;
+  line-height: 30rpx;
+  font-size:22rpx;
+  color:rgb(151, 151, 151);
+    margin-left:10rpx;
+}
+
+.select1{
+  background: rgba(34, 34, 34,0.05);
+}
+
+.select2{
+  opacity: 0.5;
+}
+
+

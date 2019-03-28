@@ -36,7 +36,7 @@
   <!-- 导航目录列表 -->
   <view class="catlogList">
     <view wx:for="{{catlogList}}" wx:for-item="catlog" wx:key="c">
-      <view class="catlog-item" bindtap="GOpage" hover-class='select2' hover-stay-time='500'>
+      <view data-index="{{index}}" class="catlog-item" bindtap="GOpage" hover-class='select2' hover-stay-time='500'>
         <image class="catlog-item-icon" src="{{catlog.src}}"></image>
         <view class="catlog-item-text">{{catlog.text}}</view>
       </view>

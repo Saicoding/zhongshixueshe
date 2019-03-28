@@ -1,0 +1,21 @@
+<!--components/Dialog/dialog.wxml-->
+<view wx:if="{{isShow}}" class="container" catchtap='stopBubbling' style="top:{{(windowHeight-500)/2}}rpx;">
+  <view class="up">
+    <view class="up-line"></view>
+    <view class="up-text">解锁题库套餐</view>
+    <view class="up-line"></view>
+  </view>
+
+  <view class="down">
+    <image class="down-img" src="/images/jiesuo1.png"></image>
+    <view wx:if="{{platform !='ios'}}" class="down-text">108元即可解锁所有题库功能,并赠送100元代金券,立即可用。</view>
+    <view wx:if="{{platform == 'ios'}}" class="down-text1" >因Apple政策原因，IOS暂不支持小程序内解锁试题题库，苹果用户请使用安卓设备开通权限！</view>
+    <view wx:if="{{platform !='ios'}}" data-product="108" class="down-btn" bindtap="_buy" hover-class='select2' hover-stay-time='500'>108元解锁全部试题题库
+      <span style="font-size:22rpx;">(赠100元代金券)</span>
+    </view>
+
+    <button bindtap ="phone" wx:if="{{platform == 'ios'}}" class ="btn" hover-class='select2' hover-stay-time='500'>拨打解锁服务电话:4006-456-114</button>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" bindtap="tapBlank" catchtouchmove='true'></view>

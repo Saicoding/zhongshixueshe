@@ -1,0 +1,162 @@
+<!--pages/shuati/shuati.wxml-->
+<view class="container">
+  <view class="content" style="opacity:{{opacity}};">
+    <!-- 最上面部分 -->
+    <view class="up">
+      <view class="topBar-left flex" bindtap="switch" hover-class='select1' hover-stay-time='500'>
+        <image class="topbar-left-icon" src="/images/index/more.png"></image>
+        <view>切换考试</view>
+      </view>
+
+      <!-- 滚动条 -->
+      <scroll-view scroll-x="{{true}}" style="width: 750rpx;white-space: nowrap;display:inline-block" class="scroller">
+        <view  style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:#ff6600;border-radius:50rpx;font-size:25rpx;background:white;margin-left:30rpx;">初级会计实务</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">学习快乐了</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">超越极限</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">浪漫土耳其</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">说好只牵手</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">说对对对</view>
+        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">初级得到</view>
+      </scroll-view>
+
+    </view>
+    <!-- 上面部分 -->
+    <view class='top'>
+      <view class='t_left'>
+        <view data-type="note" class='ti_z1' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
+          <image class="ti_img" src="/images/shua-1.png" mode="aspectFit"></image>
+          <view class='t_text'>我的笔记</view>
+        </view>
+        <view data-type="err" class='ti_z2' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
+          <image class="ti_img" src="/images/shua-2.png" mode="aspectFit"></image>
+          <view class='t_text'>我的错题</view>
+        </view>
+      </view>
+      <view class='t_center' bindtap="test1">
+        <view class="t_center_text">{{bars[currentIndex].title3}}</view>
+        <view class="t_center_pic">
+          <view class="t_center_pic_text1" style="font-size:{{jindu.length>=5?60:80}}rpx">{{jindu == "0.00"?"0":jindu}}</view>
+          <view class="t_center_pic_text2">%</view>
+        </view>
+        <view class="wave1">
+        </view>
+        <view class="wave2">
+        </view>
+      </view>
+      <view class='t_right'>
+        <view data-index="{{currentIndex}}" class='ti_z3' bindtap="GOmark" hover-class='select1' hover-stay-time='500'>
+          <image class="ti_img" src="/images/shua-3.png" mode="aspectFit"></image>
+          <view class='t_text'>收藏试题</view>
+        </view>
+        <view data-index="{{currentIndex}}" bindtap="GORandom" class='ti_z4' hover-class='select1' hover-stay-time='500'>
+          <image class="ti_img" src="/images/shua-4.png" mode="aspectFit"></image>
+          <view class='t_text'>随机练习</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 章节练习,全真模拟，核心密卷 -->
+    <view class="mid">
+      <view data-type="0" data-index="0" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==0?'#fd904d':'white'}};color:{{currentMidIndex ==0?'white':'#9f9f9f'}}">章节练习</view>
+      <view data-type="0" data-index="1" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==1?'#fd904d':'white'}};color:{{currentMidIndex ==1?'white':'#9f9f9f'}}">全真模拟</view>
+      <view data-type="0" data-index="2" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==2?'#fd904d':'white'}};color:{{currentMidIndex ==2?'white':'#9f9f9f'}}">核心密卷</view>
+    </view>
+  </view>
+
+  <!-- 中间条 -->
+  <view class="midline {{fixed}}" >
+    <view class="midline-dot"></view>
+    <view class="midline-text">本题库根据2019年最新导游考试大纲命题</view>
+  </view>
+
+  <!-- 占位块 -->
+  <view wx:if="{{showBlock}}" style="width:100%;height:90rpx;"></view>
+
+  <view class="ti">
+    <!-- 章节练习-->
+    <view wx:if="{{currentMidIndex == 0&&isLoaded}}">
+      <view style="margin-bottom:50rpx;" wx:for="{{zhangjies}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
+        <view data-index="{{zhangIdx}}" class="ti-block" bindtap="toogleFolder">
+          <image class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
+          <view class="ti-block-line" style="margin-left:30rpx;">
+            <view class="ti-block-line1">
+              <view class="ti-block-line1-title wp">{{zhangjie.title}}</view>
+              <view class="ti-block-line1-num">{{zhangjie.donenum}}/{{zhangjie.all_num}}</view>
+            </view>
+            <view class="ti-block-line2"></view>
+            <view class="ti-block-line3" style="width:{{zhangjie.rateWidth}}rpx;"></view>
+          </view>
+
+          <view class="ti-block-shu"></view>
+
+          <view class="ti-block-right">
+            <view class="ti-block-right-rate" style="color:{{zhangjie.rate >=60 ?'#32d584':'#f98b01'}}">{{zhangjie.rate}}</view>
+            <image class="ti-block-right-icon" src="{{zhangjie.rate >=60 ? '/images/rate.png':'/images/rate1.png'}}"></image>
+          </view>
+        </view>
+        <view wx:if="{{!zhangjie.isFolder}}" class="jie-border"></view>
+
+        <!-- 节 -->
+        <view class="jie" animation="{{!zhangjie.isFolder?zhangjie.spreadData:zhangjie.folderData}}">
+          <view wx:for="{{zhangjie.list}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
+            <view data-videoid="{{jie.video_id}}" data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-f_id="{{jie.id}}" data-rightRate="{{jie.rightrate}}" data-doneNum="{{jie.donenum}}" data-num="{{jie.all_num}}" data-title="{{jie.title}}" class="ti-block"
+              bindtap="showAnswerModel" hover-class='select1' hover-stay-time='500'>
+              <image class="jie-dot" src="/images/dot.png"></image>
+              <view class="ti-block-line" style="margin-left:40rpx;">
+                <view class="ti-block-line1">
+                  <view class="ti-block-line1-title wp" style="color:{{jie.selected?'rgb(233, 73, 10);':jie.donenum == jie.all_num?'rgb(165, 165, 165);':'black'}}">{{jie.title}}</view>
+                  <view class="ti-block-line1-num">{{jie.donenum}}/{{jie.all_num}}</view>
+                </view>
+                <view class="ti-block-line2"></view>
+                <view class="ti-block-line3" style="width:{{jie.rateWidth}}rpx;"></view>
+              </view>
+
+              <view class="ti-block-shu"></view>
+              <view style="height:90rpx;width:90rpx;">
+                <image class="ti-block-answer" style="{{jie.selected?'width:60rpx;height:60rpx;margin-top:5rpx;margin-left:15rpx;':'width:50rpx;height:50rpx;margin-top:10rpx;margin-left:20rpx;'}}" src="{{jie.selected?'/images/answer.gif':'/images/answer.png'}}"></image>
+              </view>
+            </view>
+
+            <view wx:if="{{jieIdx != zhangjie.list.length-1 }}" class="jie-border"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 全真模拟和核心密卷 -->
+    <view wx:if="{{currentMidIndex !=0 &&isLoaded}}">
+      <view wx:for="{{zhangjies}}" wx:for-item="moni" wx:key="m">
+        <view data-maxScore="{{moni.MaxScore}}" data-highScore="{{moni.HighScroe}}" data-nums="{{moni.nums}}" data-time="{{moni.time}}" data-id="{{moni.ID}}" data-title="{{moni.title}}" data-buy="{{jiesuoall || user.TKflag == 1?'1':moni.buy}}" class="item" bindtap="showModelanswerModel"
+          hover-class='select1' hover-stay-time='500'>
+          <view class="item-line1">
+            <image class="item-line1-icon" src="{{moni.buy=='1'|| jiesuoall || user.TKflag == 1?'/images/suo1.png':'/images/suo2.png'}}"></image>
+            <view class="item-line1-text">{{moni.title}}</view>
+          </view>
+
+          <view class="item-line2" style="border-left:{{index == zhangjies.length-1?'none':'1rpx solid #eaeaea;'}}">
+            <image class="item-line2-icon" src="/images/tishu.png"></image>
+            <view class="item-line2-text">{{moni.nums}}题</view>
+            <image class="item-line2-icon" src="/images/time.png" style="margin-left:20rpx;"></image>
+            <view class="item-line2-text">{{moni.time}}分</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{zhangjies.length ==0}}">
+        <image class="hasNopage" src="/images/hasNopage/nosearch2.png" style="margin-top:10rpx;width:180rpx;height:180rpx;"></image>
+        <view style="text-align:center;color: rgb(146, 146, 146);font-size:22rpx;margin-top:15rpx;">该科目下没有{{currentMidIndex == 1?'模拟试卷':'核心密卷'}}...</view>
+      </view>
+    </view>
+
+    <!-- 载入动画 -->
+    <image wx:if="{{!isLoaded}}" class="loading-img" src="/images/imgLoading.gif" style="margin-top:100rpx;"></image>
+  </view>
+
+</view>
+
+<!-- 弹窗 -->
+<modelAnswerModel id="modelAnswerModel" bindGOmoni="_GOmoni" windowHeight="{{windowHeight}}"></modelAnswerModel>
+
+<goAnswerModel id="goAnswerModel" bindGOzuoti="_GOzuoti" windowHeight="{{windowHeight}}"></goAnswerModel>
+
+<jiesuoti platform="{{platform}}" id="jiesuoti" bindbuy="_buy" windowHeight="{{windowHeight}}"></jiesuoti>

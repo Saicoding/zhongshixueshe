@@ -170,6 +170,9 @@
   width: 33.2%;
   float: left;
   text-align: center;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+  border-radius: 10rpx;
 }
 
 .sankuai image {

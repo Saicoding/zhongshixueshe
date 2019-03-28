@@ -217,6 +217,22 @@ Page({
     })
   },
 
+    /**
+   * 导航页面
+   */
+  GOpage:function(e){
+    let index = e.currentTarget.dataset.index;
+    switch(index){
+      case 0://动态
+        break;
+      case 1://题库
+        wx.navigateTo({
+          url: '/pages/tiku/tiku',
+        })
+      break;
+    }
+  },
+
   /**
    * 查看资讯
    */

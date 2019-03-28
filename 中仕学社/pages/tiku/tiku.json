@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "goAnswerModel": "/components/goAnswerModel/goAnswerModel",
+    "jiesuoti": "/components/jiesuo/jiesuoti/jiesuoti",
+    "modelAnswerModel": "/components/modelAnswerModel/modelAnswerModel"
+  },
+  "enablePullDownRefresh": false
+}

@@ -1,0 +1,41 @@
+<!--components/Dialog/dialog.wxml-->
+<view wx:if="{{isShow}}" catchtap='stopBubbling' class="container" style = "top:{{(windowHeight-600)/2}}rpx">
+  <view class="title">{{title}}</view>
+  <view class="num">总数量：{{num}}</view>
+  <view class="mid">
+    <view class="mid-item">
+      <view class="mid-item-1">{{donenum}}</view>
+      <view class="mid-item-2">已答题</view>
+    </view>
+    <view class="mid-item" style = "width:200rpx;">
+      <view class="mid-item-1">{{rightrate}}
+        <span style="color:white;font-size:20rpx;">%</span>
+      </view>
+      <view class="mid-item-2">正确率</view>
+    </view>
+  </view>
+
+  <!-- 选项 -->
+  <view class="selects">
+    <view wx:if="{{!type.none}}"  data-index="{{index}}" bindtap="changeType" class="select" wx:for="{{types}}" wx:for-item="type" wx:key="t" >
+      <view  class="selectitem" style="background:{{currentIndex == index?'#32d584':'#f2f4f5'}};color:{{currentIndex == index?'white':'black'}}">
+        {{type.title}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 滑块 -->
+  <view class="switch">
+    <view class="switch-label" style="color:{{selected?'#36d787':'#e0e0e0'}}">全部</view>
+    <view class="switch-container">
+      <switch class="switch-body" checked bindchange="switchChange"></switch>
+    </view>
+    <view class="switch-label" style="color:{{!selected?'#36d787':'#e0e0e0'}}">继续做题</view>
+  </view>
+
+  <!-- 开始刷题 -->
+  <view class="submit" bindtap = "_GOzuoti" hover-class='select1' hover-stay-time='500'>开始刷题</view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" catchtap="tapBlank">
+</view>

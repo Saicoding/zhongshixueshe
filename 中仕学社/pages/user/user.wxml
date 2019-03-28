@@ -17,22 +17,18 @@
   <!-- 学习计划 -->
 
   <view class='sankuai'>
-    <view class='sub'>
-      <navigator url='course/list'>
+    <view class='sub' hover-class='select1' hover-stay-time='500'>
         <image src='../../images/wodekcheng@3x.png' mode='aspectFit'></image>
-        <view>我的课程</view>
-      </navigator>
+        <view style="margin-top:10rpx;">我的课程</view>
     </view>
 
-    <view class='sub'>
-      <navigator url="degree/degree">
+    <view class='sub' hover-class='select1' hover-stay-time='500'>
         <image src='../../images/zhuanqin@3x.png' mode='aspectFit'></image>
-        <view>边学边赚</view>
-      </navigator>
+        <view style="margin-top:10rpx;">边学边赚</view>
     </view>
-    <view class='sub rel' bindtap="GOnews">
+    <view class='sub rel'  hover-class='select1' hover-stay-time='500'>
       <image src='../../images/zhangwo@3x.png' mode='aspectFit'></image>
-      <view>掌握情况</view>
+      <view style="margin-top:10rpx;">掌握情况</view>
       <view class='hongdian abs' wx:if="{{news_num!=0}}">{{news_num}}</view>
     </view>
     <view class='clear'></view>
