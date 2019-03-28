@@ -9,6 +9,28 @@
  *6.step-start 动画第一帧就跳至结束状态直到结束
  *7.step-end 动画一直保持开始状态，最后一帧跳到结束状态
  */
+function easeOutAnimation() {
+  let myAnimation = wx.createAnimation({
+    duration: 500,
+    delay: 0,
+    timingFunction: "ease-out",
+    transformOrigin: "50%,50%"
+  })
+
+  return myAnimation;
+}
+
+function easeInAnimation() {
+  let myAnimation = wx.createAnimation({
+    duration: 500,
+    delay: 0,
+    timingFunction: "ease-in",
+    transformOrigin: "50%,50%"
+  })
+
+  return myAnimation;
+}
+
 function myAnimation(obj){
   let ani = wx.createAnimation({
     duration: obj.duration ? obj.duration:400,
@@ -17,6 +39,17 @@ function myAnimation(obj){
     transformOrigin: obj.transformOrigin ? obj.transformOrigin :'50% 50%'
   })
   return ani
+}
+
+
+/**
+ * 边移动边改变宽度动画
+ */
+function moveX(myAnimation, x) {
+  myAnimation.translateX(x).step({
+    duration: 500,
+  });
+  return myAnimation.export();
 }
 
 
@@ -40,5 +73,8 @@ function rate2(obj,num){
 
 module.exports = {
   rate1: rate1,
-  rate2: rate2
+  rate2: rate2,
+  easeOutAnimation: easeOutAnimation,
+  easeInAnimation: easeInAnimation,
+  moveX: moveX,
 }

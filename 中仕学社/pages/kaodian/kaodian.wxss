@@ -1,0 +1,119 @@
+/* pages/kaodian/kaodian.wxss */
+
+.mytitle {
+  display: flex;
+  width: 710rpx;
+  height: 100rpx;
+  margin-left: 20rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+
+.title1, .title2 {
+  width: 355rpx;
+  text-align: center;
+  font-size: 28rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: black;
+}
+
+.blockMove {
+  position: absolute;
+  top: 99rpx;
+  left: 105rpx;
+  width: 185rpx;
+  border-bottom: 3rpx solid #ff6500;
+  border-radius: 3rpx;
+}
+
+/* 正文部分 */
+
+.content {
+  height: 1000rpx;
+  padding-top: 30rpx;
+}
+
+/* 列表 */
+
+.ti-block {
+  position: relative;
+  display: flex;
+  height: 80rpx;
+  line-height: 80rpx;
+  z-index: 53;
+}
+
+.ti-title-icon {
+  position: relative;
+  z-index: 53;
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+  margin-top: 15rpx;
+}
+
+.ti-block-line {
+  justify-content: space-between;
+  font-size: 28rpx;
+  width: 630rpx;
+  height: 80rpx;
+
+}
+
+.ti-block-line-title {
+  position: relative;
+  z-index: 52;
+  width: 470rpx;
+  height: 80rpx;
+  font-size: 25rpx;
+  margin-left: -53rpx;
+  padding-left: 53rpx;
+  border-left: 1rpx solid #eaeaea;
+}
+
+.line{
+  position: relative;
+  z-index: 52;
+  margin-left: -53rpx;
+  height: 40rpx;
+  width:53rpx;
+  border-left: 1rpx solid #eaeaea;
+}
+
+
+.blank{
+  position: relative;
+  z-index: 55;
+  height:60rpx;
+  width:50rpx;
+  border-left: 1rpx solid #eaeaea;
+  left:30rpx;
+  top:-30rpx;
+}
+
+.ti-block-line-num {
+  width: 150rpx;
+  font-size: 22rpx;
+  color: #999;
+  text-align: right;
+}
+
+.jie {
+  /* hidden是为了实现点击后有动画效果 */
+  height: 0rpx;
+  overflow-y: hidden;
+  opacity: 1;
+}
+
+.jie-dot {
+  position: relative;
+  z-index: 55;
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 30rpx;
+  margin-top: 25rpx;
+}
+
+.select1 {
+  background: rgba(34, 34, 34, 0.05);
+}

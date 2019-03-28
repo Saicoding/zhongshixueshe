@@ -1,0 +1,34 @@
+<!--pages/kaodian/kaodian.wxml-->
+<view class="container">
+  <view class="mytitle">
+    <view data-product="jjr" bindtap='changeProduct' class="title1">房地产经纪人</view>
+    <view data-product="xl" bindtap='changeProduct' class="title2">房地产经纪人协理</view>
+    <view class="blockMove" animation="{{moveData}}"></view>
+  </view>
+
+  <scroll-view scroll-y class="content" style="height:{{windowHeight-135}}rpx;">
+    <view wx:for="{{list}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
+      <view data-index="{{zhangIdx}}" class="ti-block" bindtap="toogleFolder">
+        <image class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
+
+        <view class="ti-block-line" style="margin-left:30rpx;">
+          {{zhangjie.title}}
+        </view>
+      </view>
+
+      <!-- 节 -->
+      <view class="jie" animation="{{!zhangjie.isFolder?zhangjie.spreadData:zhangjie.folderData}}">
+        <view wx:for="{{zhangjie.jies}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
+          <view data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-title="{{jie.title}}" class="ti-block" bindtap="GOview" hover-class='select1' hover-stay-time='500'>
+            <image class="jie-dot" src="/images/dot.png"></image>
+            <view class="ti-block-line flex" style="margin-left:40rpx;">
+               <view wx:if="{{jieIdx == zhangjie.jies.length-1}}" class="line"></view>
+              <view class="ti-block-line-title wp"  style="margin-left:{{jieIdx == zhangjie.jies.length-1?0:-53}}rpx;padding-left:{{jieIdx == zhangjie.jies.length-1?0:-53}}rpx;border-left:{{jieIdx == zhangjie.jies.length-1?'none':'1rpx solid #eaeaea'}}">{{jie.title}}</view>
+              <view class="ti-block-line-num " >已学<span style ="color:#33a8f2;text-align:right;">{{jie.donenum}}/{{jie.all_num}}</span></view>
+            </view>
+          </view>    
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

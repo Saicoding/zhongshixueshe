@@ -230,6 +230,13 @@ Page({
           url: '/pages/tiku/tiku',
         })
       break;
+      case 2://视频
+      break;
+      case 3://考点
+        wx.navigateTo({
+          url: '/pages/kaodian/kaodian',
+        })
+      break;
     }
   },
 

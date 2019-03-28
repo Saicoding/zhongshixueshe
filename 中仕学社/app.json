@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/index/switch/switch",
     "pages/user/user",
-    "pages/tiku/tiku"
+    "pages/tiku/tiku",
+    "pages/kaodian/kaodian"
   ],
   "window": {
     "backgroundTextStyle": "light",
