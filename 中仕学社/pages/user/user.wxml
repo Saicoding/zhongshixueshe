@@ -1,2 +1,127 @@
 <!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="body-container">
+
+  <!-- 最上面 -->
+  <view class="up flex">
+    <view class="up-head-container">
+      <image class="up-head" src="/images/test/banner.png"></image>
+    </view>
+    <view class="up-right">
+      <view class="up-right-top">关联账号</view>
+      <view class="up-right-bottom">超凡人圣
+        <span style="font-size:20rpx;">(W77772737273723)</span>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学习计划 -->
+
+  <view class='sankuai'>
+    <view class='sub'>
+      <navigator url='course/list'>
+        <image src='../../images/wodekcheng@3x.png' mode='aspectFit'></image>
+        <view>我的课程</view>
+      </navigator>
+    </view>
+
+    <view class='sub'>
+      <navigator url="degree/degree">
+        <image src='../../images/zhuanqin@3x.png' mode='aspectFit'></image>
+        <view>边学边赚</view>
+      </navigator>
+    </view>
+    <view class='sub rel' bindtap="GOnews">
+      <image src='../../images/zhangwo@3x.png' mode='aspectFit'></image>
+      <view>掌握情况</view>
+      <view class='hongdian abs' wx:if="{{news_num!=0}}">{{news_num}}</view>
+    </view>
+    <view class='clear'></view>
+  </view>
+
+
+
+  <view class="line" hover-class="select1" hover-stay-time="500">
+    <view class="block">
+      <view class="mytext fl">
+        账户余额
+      </view>
+      <view class='fr hong'>{{user.Money}}元</view>
+    </view>
+  </view>
+  <view class="line" bindtap="GOcoupon" hover-class="select1" hover-stay-time="500">
+    <view class="block">
+      <view class="mytext fl">
+        我的优惠券
+      </view>
+      <view class='fr'>
+        <image src='/images/right.png' class='more'></image>
+      </view>
+
+      <view class='hui fr' wx:if="{{user.YHQ==1&&guoqi!= 'true'}}">100元</view>
+      <view class='clear'></view>
+    </view>
+  </view>
+  <view class="line" bindtap="GOpindan" hover-class="select1" hover-stay-time="500">
+    <view class="block">
+      <view class="mytext fl">
+        我的拼单
+      </view>
+      <view class='fr'>
+        <image src='/images/right.png' class='more'></image>
+      </view>
+      <view class='hong fr'></view>
+      <view class='clear'></view>
+    </view>
+  </view>
+
+  <view class="line" wx:if="{{isnum}}" bindtap="GOpwd" hover-class="select1" hover-stay-time="500">
+    <view class="block">
+      <view class="mytext fl">
+        修改密码
+      </view>
+      <view class='fr'>
+        <image src='/images/right.png' class='more'></image>
+      </view>
+      <view class='hong fr'></view>
+      <view class='clear'></view>
+    </view>
+  </view>
+
+  <button open-type="contact" class="line" hover-class="select1" hover-stay-time="500" style='border-top:10rpx solid #f0f3fa;'>
+    <view class="block">
+      <view class="mytext fl">
+        在线咨询
+      </view>
+      <view class='fr hui'></view>
+      <view class='hui fr'>周一至周六 08：30~17：30</view>
+    </view>
+  </button>
+  <view class="line" hover-class="select1" hover-stay-time="500">
+    <view class="block" bindtap='calling' data-tel='4006456114'>
+
+      <view class="mytext fl">
+        客服热线
+      </view>
+      <view class='fr hui'></view>
+      <view class='hui fr'>4006-456-114</view>
+
+    </view>
+  </view>
+
+
+  <view class="line" bindtap="GOtuijian" hover-class="select1" hover-stay-time="500" style='border-top:10rpx solid #f0f3fa;border-bottom:10rpx solid #f0f3fa;'>
+    <view class="block">
+      <view class="mytext fl">
+        精品推荐
+      </view>
+      <view class='fr'>
+        <image src='/images/right.png' class='more'></image>
+      </view>
+      <view class='hong fr'></view>
+      <view class='clear'></view>
+    </view>
+  </view>
+
+  <view class="submit" bindtap="logout" hover-class='select2' hover-stay-time='500'>退出登陆</view>
+
+</view>

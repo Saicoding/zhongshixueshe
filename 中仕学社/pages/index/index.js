@@ -240,6 +240,15 @@ Page({
   },
 
   /**
+   * 导航到个人主页
+   */
+  GOuser:function(){
+    wx.navigateTo({
+      url: '/pages/user/user',
+    })
+  },
+
+  /**
  * 用户点击右上角分享
  */
   onShareAppMessage: function () {

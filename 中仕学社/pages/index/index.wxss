@@ -9,7 +9,7 @@
   line-height: 50rpx;
   color: white;
   font-size: 22rpx;
-  background: linear-gradient(to right, #fcc4c3, #fab2af);
+  background: linear-gradient(to right, #fc9c60, #fdbd95);
 }
 
 .topbar-left-icon{

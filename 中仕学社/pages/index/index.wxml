@@ -64,7 +64,7 @@
         </view>
       </view>
       <!-- 打卡 -->
-      <view class="info-up-right flex" hover-class='select3' hover-stay-time='500'>
+      <view class="info-up-right flex" bindtap ="GOuser" hover-class='select3' hover-stay-time='500'>
         <view>进入个人主页</view>
         <image class="info-up-right-icon " src="/images/index/right.png"></image>
       </view>
