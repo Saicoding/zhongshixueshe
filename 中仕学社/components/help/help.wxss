@@ -1,0 +1,59 @@
+/* components/help/help.wxss */
+.up{
+  display: flex;
+  padding-left:245rpx;
+}
+
+.container{
+  position: fixed;
+  top:0rpx;
+  z-index:101;
+}
+
+.up-text{
+  font-size:30rpx;
+  color:white;
+  margin-top:110rpx;
+}
+
+.up-img{
+  width:81rpx;
+  height:112rpx;
+  margin-left:30rpx;
+  margin-top:20rpx;
+}
+
+.mid-img{
+  width:500rpx;
+  height:228rpx;
+  margin-left:125rpx;
+}
+
+.mid-img2{
+  width:600rpx;
+  height:401rpx;
+  margin-left:75rpx;
+  margin-top:30rpx;
+}
+
+.submit{
+  width:250rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  border-radius: 60rpx;
+  text-align: center;
+  color:#dbb177;
+  font-size:25rpx;
+  border:1rpx solid #dbb177;
+  margin-left:250rpx;
+  margin-top:10rpx;
+}
+
+.model{
+  position: fixed;
+  top:0rpx;
+  width:750rpx;
+  height:100%;
+  background: rgba(0, 0, 0,0.8);
+  z-index:100;
+}

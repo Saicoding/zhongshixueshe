@@ -1,0 +1,12 @@
+<!--components/help/help.wxml-->
+<view wx:if="{{show}}" class ="container">
+  <view class ="up">
+    <view class ="up-text">收藏中仕学社小程序</view>
+    <image class="up-img" src="/images/help/oval.png" style = "position:relative;z-index:200"></image>
+  </view>
+  <image class="mid-img" src="/images/help/discript.png"></image>
+  <image class ="mid-img2" src="/images/help/mask.png"></image>
+  <view class = "submit" bindtap = "hide">我知道了</view>
+</view>
+<!-- 蒙版 -->
+<view wx:if="{{show}}" class="model"></view>

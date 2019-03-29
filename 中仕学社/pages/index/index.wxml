@@ -13,29 +13,30 @@
       <!-- 中间部分 -->
       <view class="topBar-mid flex">
         <view>距离考试还有</view>
-        <view class="topBar-mid-num">23</view>
+        <view class="topBar-mid-num">{{ks_date?ks_date:0}}</view>
         <view style="font-size:22rpx;">天</view>
       </view>
     </view>
 
     <!-- 右边的图片 -->
-    <view animation="{{dakaAnimate}}" bindtap="attendance" hover-class='select3' hover-stay-time='500' class="topBar-right flex">
-      打卡
+    <view class="topBar-right" bindtap="scan" hover-class='select2' hover-stay-time='500'>
+      <image class="topBar-right-img" src="/images/scan.png"></image>
     </view>
+
   </view>
 
   <!-- banner -->
   <swiper autoplay indicator-dots circular indicator-active-color="white" class="swiper">
-    <block wx:for="{{banners}}" wx:key="b">
+    <block wx:for="{{info.AD}}" wx:key="b">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" class="swiper-image" />
+        <image src="{{item.pic}}" class="slide-image" class="swiper-image" />
       </swiper-item>
     </block>
   </swiper>
 
   <!-- 导航目录列表 -->
   <view class="catlogList">
-    <view wx:for="{{catlogList}}" wx:for-item="catlog" wx:key="c">
+    <view wx:for="{{currentList}}" wx:for-item="catlog" wx:key="c">
       <view data-index="{{index}}" class="catlog-item" bindtap="GOpage" hover-class='select2' hover-stay-time='500'>
         <image class="catlog-item-icon" src="{{catlog.src}}"></image>
         <view class="catlog-item-text">{{catlog.text}}</view>
@@ -64,9 +65,8 @@
         </view>
       </view>
       <!-- 打卡 -->
-      <view class="info-up-right flex" bindtap ="GOuser" hover-class='select3' hover-stay-time='500'>
-        <view>进入个人主页</view>
-        <image class="info-up-right-icon " src="/images/index/right.png"></image>
+      <view animation="{{dakaAnimate}}" bindtap="attendance" hover-class='select3' hover-stay-time='500' class="info-up-right flex">
+        打卡
       </view>
     </view>
 
@@ -125,7 +125,7 @@
       </view>
     </view>
 
-    <view class="zixun-down flex" bindtap="GOzixun" hover-class='select3' hover-stay-time='500'>
+    <view class="zixun-down flex" bindtap="GOzixunDetail" hover-class='select3' hover-stay-time='500'>
       <image class="zixun-down-img" src="/images/test/zixun.png"></image>
       <view class="zixun-down-text">
         <view class="zixun-down-text-title">{{zixun.title}}</view>
@@ -144,9 +144,9 @@
       </view>
     </view>
 
-    <view style ="margin-top:15rpx;">
+    <view style="margin-top:15rpx;">
       <view wx:for="{{kes}}" wx:for-item="ke" wx:key="k">
-        <view class="ke" style="margin-left:{{index%2 == 1?15:0}}rpx;" bindtap="GOkecheng" hover-class="select3" hover-stay-time='500'>
+        <view class="ke" style="margin-left:{{index%2 == 1?15:0}}rpx;" bindtap="GOplay" hover-class="select3" hover-stay-time='500'>
           <image class="ke-img" src="{{ke.img}}"></image>
           <view class="ke-title wp">{{ke.title}}</view>
           <view class="ke-bottom flex">
@@ -162,3 +162,5 @@
     <view class="clear"></view>
   </view>
 </view>
+
+<help id="help"></help>

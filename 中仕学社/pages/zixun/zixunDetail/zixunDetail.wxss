@@ -1,0 +1,174 @@
+/* pages/zixun/zixunDetail/zixunDetail.wxss */
+.container{
+  width:720rpx;
+  margin:30rpx 15rpx 0rpx 15rpx;
+}
+
+.load-img {
+  display: block;
+  width: 96rpx;
+  height: 112rpx;
+  margin: 200rpx auto;
+}
+
+.title{
+  width:720rpx;
+  border-bottom: 1rpx solid rgb(218, 218, 218);
+  padding-bottom: 20rpx;
+}
+
+.title-text{
+  width:100%;
+  font-size:30rpx;
+  line-height: 50rpx;
+  letter-spacing: 3rpx;
+}
+
+.title-info{
+  width:100%;
+  font-size:22rpx;
+  color:rgb(175, 175, 175);
+  margin-top:15rpx;
+}
+
+.content{
+  width:100%;
+  font-size:30rpx;
+  line-height: 40rpx;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+}
+
+.comment{
+  position: fixed;
+  width:720rpx;
+  margin:0rpx auto;
+  bottom: 0rpx;
+  height:80rpx;
+  border-top:1rpx solid rgb(218, 218, 218);
+  background: white;
+  opacity: 0.9;
+  overflow: hidden;
+}
+
+.comment-input,.comment-button,.comment-icon{
+  display: float;
+  float:left;
+}
+
+.comment-input{
+  background: rgb(224, 224, 224);
+  height:60rpx;
+  border-radius: 5rpx;
+  width:485rpx;
+  margin-top:10rpx;
+  font-size:25rpx;
+  padding-left:70rpx;
+  margin-left:-50rpx;
+}
+
+.comment-icon{
+  position: relative;
+  width:44rpx;
+  height:44rpx;
+  z-index: 10000;
+  top:18rpx;
+  left:10rpx;
+}
+
+.comment-button{
+  width:120rpx;
+  height:60rpx;
+  color:white;
+  margin-top:10rpx;
+  font-size:25rpx;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius:5rpx;
+  margin-left:45rpx;
+  background: rgb(253, 23, 23);
+}
+
+.comments{
+  margin-bottom: 20rpx;
+}
+
+.comments-top{
+  height:70rpx;
+  line-height: 70rpx;
+  font-size:25rpx;
+}
+
+.comments-top-icon,.comments-top-text{
+  display: float;
+  float:left;
+}
+
+.comments-top-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-top:15rpx;
+}
+
+.comments-content-block{
+  display: inline-flex;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+  border-top:1rpx solid rgb(221, 221, 221);
+}
+
+.comment-img{
+  height:80rpx;
+  width:80rpx;
+  border-radius: 80rpx;
+  margin-left:10rpx;
+  margin-top:10rpx;
+}
+
+.comment-right{
+  width:600rpx;
+  margin-left:40rpx;
+}
+
+.comment-right-line1{
+  font-size:28rpx;
+}
+
+.comment-right-line2{
+  color:rgb(197, 197, 197);
+  font-size:24rpx;
+  height:70rpx;
+  line-height: 70rpx;
+}
+
+.comment-right-line3{
+  font-size:28rpx;
+}
+
+.loading-block {
+  width: 100%;
+  height: 50rpx;
+  font-size: 23rpx;
+  line-height: 30rpx;
+  margin: 0rpx auto;
+  text-align: center;
+  color: rgb(156, 156, 156);
+  margin-bottom: 100rpx;
+}
+
+.loading-gif {
+  width: 30rpx;
+  height: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loading-text {
+  display: inline-block;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}
+
+.select1{
+  background: rgb(163, 46, 46);
+}
