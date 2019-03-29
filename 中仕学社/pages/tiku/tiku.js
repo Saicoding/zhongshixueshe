@@ -42,6 +42,15 @@ Page({
   },
 
   /**
+ * 切换考试
+ */
+  switch: function () {
+    wx.navigateTo({
+      url: '/pages/index/switch/switch',
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {

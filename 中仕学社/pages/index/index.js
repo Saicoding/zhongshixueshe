@@ -109,10 +109,7 @@ Page({
     })
   },
 
-  /**
-   * 分享事件
-   */
-  
+
   /**
    * 生命周期事件
    */
@@ -231,6 +228,9 @@ Page({
         })
       break;
       case 2://视频
+        wx.navigateTo({
+          url: '/pages/video/video',
+        })
       break;
       case 3://考点
         wx.navigateTo({

@@ -1,0 +1,48 @@
+<!--pages/video/video.wxml-->
+<view class="container">
+  <!-- 左边部分 -->
+  <view class="topBar-left flex" bindtap="switch" hover-class='select1' hover-stay-time='500'>
+    <!-- <image class ="topbar-left-icon" src="/images/index/more.png"></image> -->
+    <image class="topbar-left-icon" src="/images/index/more.png"></image>
+    <view>切换考试</view>
+  </view>
+  <swiper circular autoplay indicator-active-color="white" class="swiper" class="swiper">
+    <block wx:for="{{banners}}" wx:key="b">
+      <swiper-item>
+        <image src="{{item}}" class="banner" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 中间目录选择 -->
+  <view class="catalog flex">
+    <view data-index="0" class="catalog-item" style="color:{{currentIndex==0?'black':'#6c6d6f'}};font-weight:{{currentIndex==0?'bold':'normal'}}" bindtap="changeCatalog">基础</view>
+    <view data-index="1" class="catalog-item" style="color:{{currentIndex==1?'black':'#6c6d6f'}};font-weight:{{currentIndex==1?'bold':'normal'}}" bindtap="changeCatalog">提升</view>
+    <view data-index="2" class="catalog-item" style="color:{{currentIndex==2?'black':'#6c6d6f'}};font-weight:{{currentIndex==2?'bold':'normal'}}" bindtap="changeCatalog">讲座</view>
+  </view>
+  <view animation="{{moveData}}" class="line"></view>
+
+
+  <!-- 提示条 -->
+  <view wx:if="{{!hidePrompt}}" class="prompt flex" bindtap="close">
+    <view class="prompt-text">这里的课程适合零基础的小伙伴学习哦</view>
+    <image class="prompt-icon" src="/images/close.png"></image>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="list">
+    <view wx:for="{{list}}" wx:for-item="ke" wx:key="l">
+      <view class="ke" style ="margin-left:{{index%2 == 1?30:0}}rpx">
+        <image class="ke-img" src="{{ke.img}}"></image>
+        <view class="ke-title wp">{{ke.title}}</view>
+        <view class="ke-bottom flex">
+          <image class="ke-bottom-icon" src="/images/index/people.png"></image>
+          <view class="ke-bottom-text">{{ke.nums}}人</view>
+          <image class="ke-bottom-icon" src="/images/index/play.png"></image>
+          <view class="ke-bottom-text">{{ke.jieNums}}节</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class ="clear"></view>
+</view>

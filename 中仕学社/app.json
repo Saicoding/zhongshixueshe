@@ -1,10 +1,15 @@
 {
   "pages": [
+    "pages/learn/learn",
     "pages/index/index",
     "pages/index/switch/switch",
+    "pages/learn/pay",
+    "pages/learn/play",
     "pages/user/user",
     "pages/tiku/tiku",
-    "pages/kaodian/kaodian"
+    "pages/kaodian/kaodian",
+    "pages/video/video"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

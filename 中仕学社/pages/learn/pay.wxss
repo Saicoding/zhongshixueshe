@@ -1,0 +1,59 @@
+/* pages/learn/pay.wxss */
+page { background: #f7f7f7; padding-bottom:200rpx; }
+.title { color: #222; font-size: 31rpx;}
+.topk { margin:40rpx auto; margin-top: -70px; width: 94%; background: #fff; border-radius:8px; line-height: 30px; overflow: hidden ;-webkit-box-shadow: 0 4px 8px #eee;box-shadow: 0 4px 8px #eee; }
+.topk .hui text { margin-right: 15px;}
+.tishi { background: #faf9ff; padding: 4%; font-size:28rpx;line-height: 44rpx; }
+.tishi image { margin-right: 4px;width:30rpx; height:30rpx; float: left; margin-top: 8rpx;  }
+.tishi .f13 {color: #666; margin-top:7px;  }
+.lv { color: #15b259}
+
+.tuijian { background: #fff8f5; padding:3%;line-height: 40rpx;}
+.tuijian image {margin-right: 4px;width:40rpx; height:40rpx; vertical-align: middle}
+
+.ditiao { line-height: 100rpx;height: 100rpx; overflow: hidden; background: #fff; border-bottom: 1px #eee solid; padding: 0 4%;  font-size:28rpx;}
+.ditiao .lab{ width:5.5em; display: block; float: left;}
+.ditiao .orange { color: #f60}
+.ditiao image { width: 40rpx; height: 40rpx; vertical-align: middle; }
+.ditiao .fr image { width: 30rpx; height: 30rpx; margin: 0}
+.ditiao image.fr { margin-left: 8px}
+.liuyan { width:70%;display: block; float: left; line-height: 50rpx; height: 100rpx; }
+.ditiao2 { background: #fff; padding: 4%; line-height: 46rpx;}
+
+.bottom {
+  position: fixed;
+  bottom: 0rpx;
+  background: #fff;
+  height: 100rpx;
+  width: 100%;line-height: 100rpx; border-top:1px #eee solid; 
+}
+.bottom-price,.bottom-buy{
+  display: float;
+  float:left;
+}
+
+.bottom-price{
+  width:60%;
+  text-align: center;
+  color: #555
+}
+.bottom-price text {font-size:40rpx;color:#dc3f0c;}
+.bottom-buy{
+  width:40%; 
+  background: #e02e24;
+  color:white;
+  text-align: center;
+  font-size:35rpx;
+}
+.bg {width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); position: fixed;bottom: 0; left: 0; z-index:19}
+.dizhiadd { width: 100%; background: #fff; bottom: 0; left: 0; z-index: 20}
+.dizhiadd .close { width: 30rpx; height:30rpx; position: absolute; top: 4%; right: 4%; }
+.dizhibtn { background: #02c255;color: #fff; text-align: center; font-size: 30rpx; line-height: 80rpx; width: 94%; margin:30rpx auto}
+
+.select1{
+  background: rgba(199, 199, 199,0.1);
+}
+
+.select2{
+  background: #c00a00;
+}

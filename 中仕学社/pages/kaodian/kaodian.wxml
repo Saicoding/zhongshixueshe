@@ -10,7 +10,6 @@
     <view wx:for="{{list}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
       <view data-index="{{zhangIdx}}" class="ti-block" bindtap="toogleFolder">
         <image class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
-
         <view class="ti-block-line" style="margin-left:30rpx;">
           {{zhangjie.title}}
         </view>

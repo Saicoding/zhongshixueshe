@@ -1,0 +1,132 @@
+/* pages/video/video.wxss */
+page{
+  background: #f1f4f9;
+  padding-bottom:50rpx;
+}
+.swiper,.banner{
+  position: relative;
+  z-index: 55;
+  width:750rpx;
+  height:322rpx;
+}
+
+.topBar-left {
+  position: absolute;
+  top:0rpx;
+  left:0rpx;
+   display: flex;
+  width: 200rpx;
+  height: 50rpx;
+  border-radius: 0rpx 50rpx 50rpx 0rpx;
+  line-height: 50rpx;
+  color: white;
+  font-size: 22rpx;
+  background: linear-gradient(to right, #7fd0ff, #9fdbfd);
+  z-index:100;
+}
+
+.topbar-left-icon{
+  width:30rpx;
+  height:30rpx;
+  margin:10rpx 20rpx 10rpx 40rpx;
+}
+
+/* 中间的目录 */
+.catalog{
+  background: white;
+  height:80rpx;
+  line-height: 80rpx;
+  font-size:25rpx;
+  border-bottom:1rpx solid #e1e5e8;
+}
+
+.catalog-item{
+  width:250rpx;
+  text-align: center;
+}
+
+.line{
+  position: relative;
+  width:50rpx;
+  border-top:1rpx solid #ff5b57;
+  top:-1rpx;
+  left:100rpx;
+}
+
+/* 提示条 */
+.prompt{
+  justify-content: space-between;
+  width:590rpx;
+  height:50rpx;
+  border-radius: 50rpx;
+  line-height: 50rpx;
+  margin:30rpx auto;
+  border:1rpx dashed #efb23d;
+  background: #fff8c4;
+  padding-left:40rpx;
+  padding-right:20rpx;
+}
+
+.prompt-text{
+  font-size:22rpx;
+}
+
+.prompt-icon{
+  width:36rpx;
+  height:36rpx;
+  margin-top:7rpx;
+}
+
+/* 列表 */
+.list{
+  width:730rpx;
+  margin-left:10rpx;
+}
+.ke{
+  position: relative;
+  float: left;
+  width:350rpx;
+  background: white;
+  margin-top:60rpx;
+}
+
+.ke-img{
+  position: relative;
+  width:310rpx;
+  height:174rpx;
+  left:20rpx;
+  top:-40rpx;
+}
+
+.ke-title{
+  position: absolute;
+  top:148rpx;
+  padding-left:20rpx;
+  font-size:25rpx;
+}
+
+.ke-bottom{
+  position: relative;
+  height:60rpx;
+  line-height: 60rpx;
+  color:#bfbfbf;
+  padding-left:20rpx;
+}
+
+.ke-bottom-icon{
+  width:26rpx;
+  height:26rpx;
+  margin-top:17rpx;
+}
+
+.ke-bottom-text{
+  font-size:20rpx;
+  margin-left:15rpx;
+  width:120rpx;
+}
+
+.ke-down{
+  width:100%;
+  text-align: right;
+  padding-right:20rpx;
+}

@@ -272,7 +272,6 @@ Page({
       // })
     }
 
-    console.log(moveData)
     self.setData({
       product: product,
       moveData: moveData
