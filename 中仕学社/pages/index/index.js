@@ -32,13 +32,7 @@ Page({
         text: '线下课'
       },
     ],
-    //测试用
-    user: {
-      text: "你已加入学习计划,快去学习吧!",
-      loginIcon: "/images/index/vip.png",
-      Pic: '/images/avatar.png',
-      Nickname: '说好只牵手'
-    },
+
     midtext:'开始刷题',
     midtitle:'测试用',
     ketext:'开始看课',
@@ -155,9 +149,6 @@ Page({
     let self = this;
     let user = wx.getStorageSync('user'); //获取本地用户缓存
 
-    //测试用
-    user = self.data.user;
-
     let zcode = user.zcode == undefined ? "" : user.zcode; //缓存标识
     let token = user.token;
     let first = this.data.first;
@@ -184,10 +175,31 @@ Page({
       })
     })
 
-    //设置图像随机数
-    self.setData({
-      user: user,
+    this.setData({ //设置已经载入一次
+      first: false
     })
+
+    if (user) { //如果已经登录
+      if (user.taocan == '0') { //未加入学习计划
+        user.text = "你尚未加入学习计划,去加入>>";
+        user.loginIcon = "/images/index/danger.png";
+      } else {
+        user.text = "你已加入学习计划,快去学习吧!"
+        user.loginIcon = "/images/index/vip.png";
+      }
+      self.setData({
+        user: user
+      })
+    } else { //如果没有登录
+      let user = {};
+      user.Pic = '/images/avatar.png'
+      user.Nickname = '未登录'
+      user.loginIcon = "/images/index/login.png";
+      user.text = "点此登录"
+      self.setData({
+        user: user
+      })
+    }
   },
 
   /**
@@ -296,6 +308,25 @@ Page({
         })
       }
     })
+  },
+
+  /**
+ * 点击“点此登录”或者“学习计划”等信息
+ */
+  tapInfo: function (e) {
+    let user = this.data.user;
+    switch (user.text) {
+      case "你尚未加入学习计划,去加入>>":
+        wx.navigateTo({
+          url: '/pages/index/xuexijihua/xuexijihua',
+        })
+        break;
+      case "点此登录":
+        wx.navigateTo({
+          url: '/pages/login/login',
+        })
+        break;
+    }
   },
 
     /**

@@ -59,7 +59,7 @@
         <!-- <view class="info-up-name">{{user.Nickname}}</view> -->
         <view class="info-up-name">{{user.Nickname}}</view>
         <!-- 是否加入计划 -->
-        <view class="info-up-jihua" bindtap="tapInfo" hover-class='select1' hover-stay-time='500'>
+        <view class="info-up-jihua" bindtap="tapInfo" hover-class='select2' hover-stay-time='500'>
           <image class="info-up-jihua-icon" src="{{user.loginIcon}}"></image>
           <view class="info-up-jihua-text">{{user.text}}</view>
         </view>

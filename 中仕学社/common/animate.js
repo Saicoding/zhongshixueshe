@@ -96,6 +96,16 @@ function moveX(myAnimation,x){
 }
 
 /**
+ * 变高动画
+ */
+function comeHeight(myAnimation, h){
+  myAnimation.height(h+'rpx').step({
+    duration: 500,
+  });
+  return myAnimation.export();
+}
+
+/**
  * 问题折叠动画
  */
 function questionFoldAnimation(max,min,question){
@@ -196,5 +206,6 @@ module.exports = {
   tiaoAnimation: tiaoAnimation,
   opacityOutAnimation: opacityOutAnimation,
   opacityInAnimation: opacityInAnimation,
-  opacityAnimation: opacityAnimation
+  opacityAnimation: opacityAnimation,
+  comeHeight: comeHeight
 }
