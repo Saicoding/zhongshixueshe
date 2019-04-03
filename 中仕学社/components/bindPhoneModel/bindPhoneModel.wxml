@@ -1,0 +1,41 @@
+<!--components/Dialog/dialog.wxml-->
+<view wx:if="{{isShow}}" catchtap='stopBubbling' class="container" style="top:{{(windowHeight-900)/2}}rpx">
+  <view style="width:100%;" bindtap='close'>
+    <image class="pic" src="/images/bindphone.png"></image>
+  </view>
+
+  <!-- 有背景部分 -->
+  <view class="content">
+    <view class="close" bindtap="close">
+      <image class="close-icon" src="/images/close.png"></image>
+    </view>
+    <view class="content-line">还差最后一步...</view>
+    <view class="num">
+      <view class="num-text">+86</view>
+      <view class="phone-input-container">
+        <input type="number" value = "{{phone}}" class="phone-input1" placeholder-style='font-size:25rpx;' placeholder='请输入手机号'  bindinput="phoneInput"></input>
+        <button open-type='getPhoneNumber' bindgetphonenumber="getphonenumber" class="phoneBtn"></button>
+      </view>
+    </view>
+    <view class="num">
+      <input type="number" class="phone-input" placeholder='请输入验证码' class="phone-input" style="width:400rpx;" bindinput="codeInput"></input>
+      <button class="identify-code" bindtap="codeButtonTap" disabled='{{disabled}}' style="background-color:{{color}}" bindtap="bindButtonTap">
+        {{text}}
+      </button>
+    </view>
+
+    <view class="num">
+      <view class="num-text">密码</view>
+      <input cursor-spacing='50rpx' type="password" class="phone-input" placeholder-style='font-size:25rpx;' placeholder='请输入密码' bindinput='pwdInput'></input>
+    </view>
+
+
+    <view class="submit">
+      <view class="submit-btn1" hover-class='select1' hover-stay-time='500' bindtap="_ignore">跳过绑定</view>
+      <view class="submit-btn2" hover-class='select2' hover-stay-time='500' bindtap="_confrim">确认绑定</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" bindtap="tapBlank">
+</view>

@@ -31,7 +31,7 @@
             <view class="block flex" style="justify-content: space-between;">
               <view class="flex">
                 <image class="block-icon" src="/images/login/lock.png"></image>
-                <input type="{{eye?'text':'password'}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput='pwdInput'></input>
+                <input type="{{eye != undefined?eye:'password'}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput='pwdInput'></input>
               </view>
               <view class="eye" bindtap="changeEye">
                 <image class="eye-icon" src="{{eye == 'text'?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
@@ -81,7 +81,7 @@
           <!-- 验证码框 -->
           <view class="block flex" style="justify-content: space-between;">
             <image class="block-icon" src="/images/login/icon.png"></image>
-            <input type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;"></input>
+            <input type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;" bindinput="signCodeInput" ></input>
             <button class="identify-code" bindtap="signCodeButtonTap" disabled='{{signDisabled}}' style="background-color:{{signColor}}">
               {{signText}}
             </button>
@@ -91,15 +91,15 @@
           <view class="block flex" style="justify-content: space-between;">
             <view class="flex">
               <image class="block-icon" src="/images/login/lock.png"></image>
-              <input type="{{eye}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;'></input>
+              <input type="{{eye != undefined?eye:'password'}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput="signPwdinput"></input>
             </view>
             <view class="eye" bindtap="changeEye">
               <image class="eye-icon" src="{{eye == 'text'?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
             </view>
           </view>
 
-          <!-- 登录按钮-->
-          <view class="submit" style = "background: linear-gradient(to right,{{submit_disabled?'#f49f22,#f56a20':'#d3d3d3,#969696'}});box-shadow: 3rpx 6rpx 14rpx {{submit_disabled?'#f39e22':'#d3d3d3'}};">注册</view>
+          <!-- 注册按钮-->
+          <view class="submit" style = "background: linear-gradient(to right,{{signSubmit_disabled?'#f49f22,#f56a20':'#d3d3d3,#969696'}});box-shadow: 3rpx 6rpx 14rpx {{signSubmit_disabled?'#f39e22':'#d3d3d3'}};" bindtap="sign">注册</view>
 
           <!-- 忘记密码 -->
           <view class="forget" data-type ="1" bindtap="changeLoginType">帐号密码登录 ></view>
@@ -129,3 +129,6 @@
     </view>
   </view>
 </view>
+
+<!-- 弹窗 -->
+<bindPhoneModel windowWidth="{{windowWidth}}" windowHeight="{{windowHeight}}" id="bindPhoneModel" bindconfirm="_confirm" bindignore="_ignore"></bindPhoneModel>
