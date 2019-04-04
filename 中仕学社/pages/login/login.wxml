@@ -17,26 +17,26 @@
 
       <!-- 输入框 -->
       <swiper current="{{currentIndex}}" animation="{{heightData}}" class="content" bindchange="changeSwiper">
-
         <swiper-item>
           <!-- 账号密码登录 -->
           <view wx:if="{{!fast}}">
             <!-- 账号 -->
             <view class="block flex">
               <image class="block-icon" src="/images/login/phone.png"></image>
-              <input value="{{phone}}" type="text" class="block-input" placeholder='请输入您的登录帐号' placeholder-style='color:#b3b3b3;' bindinput="phoneInput"></input>
+              <input data-type="user" bindtap="setFocus" focus="{{userFocus}}" value="{{phone}}" type="text" class="block-input" placeholder='请输入您的登录帐号' placeholder-style='color:#b3b3b3;' bindinput="phoneInput"></input>
             </view>
-
+<view>{{eye}}</view>
             <!-- 密码 -->
-            <view class="block flex" style="justify-content: space-between;">
+            <view class="block flex" style="justify-content: space-between;" >
               <view class="flex">
                 <image class="block-icon" src="/images/login/lock.png"></image>
-                <input type="{{eye != undefined?eye:'password'}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput='pwdInput'></input>
+                <input data-type="pwd" bindtap="setFocus" focus="{{pwdFocus}}" cursor-spacing="15" password="{{!showPwd}}" class="block-input" placeholder='请输入您的密码'  placeholder-style='color:#b3b3b3;' bindinput='pwdInput'></input>
               </view>
               <view class="eye" bindtap="changeEye">
-                <image class="eye-icon" src="{{eye == 'text'?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
+                <image class="eye-icon" src="{{showPwd?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
               </view>
             </view>
+            
 
             <!-- 登录按钮-->
             <view class="submit {{submit_disabled?'subClass2':'subClass1'}}" bindtap="userLogin"   hover-class="select2" hover-stay-time='300'>登录</view>
@@ -56,7 +56,7 @@
             <!-- 验证码框 -->
             <view class="block flex" style="justify-content: space-between;">
               <image class="block-icon" src="/images/login/icon.png"></image>
-              <input type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;"></input>
+              <input cursor-spacing="15" type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;"></input>
               <button class="identify-code" bindtap="codeButtonTap" disabled='{{disabled}}' style="background-color:{{color}}">
                 {{text}}
               </button>
@@ -81,7 +81,7 @@
           <!-- 验证码框 -->
           <view class="block flex" style="justify-content: space-between;">
             <image class="block-icon" src="/images/login/icon.png"></image>
-            <input type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;" bindinput="signCodeInput" ></input>
+            <input cursor-spacing="15" type="number" class="block-input" placeholder='请输手机验证码' placeholder-style='color:#b3b3b3;' style="width:240rpx;" bindinput="signCodeInput" ></input>
             <button class="identify-code" bindtap="signCodeButtonTap" disabled='{{signDisabled}}' style="background-color:{{signColor}}">
               {{signText}}
             </button>
@@ -91,10 +91,10 @@
           <view class="block flex" style="justify-content: space-between;">
             <view class="flex">
               <image class="block-icon" src="/images/login/lock.png"></image>
-              <input type="{{eye != undefined?eye:'password'}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput="signPwdinput"></input>
+              <input  cursor-spacing="15" password="{{!showPwd}}" class="block-input" placeholder='请输入您的密码' placeholder-style='color:#b3b3b3;' bindinput="signPwdinput"></input>
             </view>
             <view class="eye" bindtap="changeEye">
-              <image class="eye-icon" src="{{eye == 'text'?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
+              <image class="eye-icon" src="{{showPwd?'/images/login/eye2.png':'/images/login/eye1.png'}}"></image>
             </view>
           </view>
 

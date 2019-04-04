@@ -128,10 +128,33 @@ Page({
    * 隐藏和显示密码
    */
   changeEye: function() {
-    console.log(this.data.eye)
     this.setData({
-      eye: this.data.eye == 'text'? 'password' : 'text'
+      showPwd: !this.data.showPwd
     })
+  },
+
+  /**
+   * 处理输入完账号后直接点击密码框自动关闭键盘的BUG
+   */
+  setFocus: function (e) {
+    let type = e.currentTarget.dataset.type;
+    let self = this;
+    if (type == "user") {
+      setTimeout(function () {
+        self.setData({
+          userFocus: true,
+          pwdFocus: false
+        })
+      }, 100)
+    } else {
+      console.log("mima")
+      setTimeout(function () {
+        self.setData({
+          userFocus: false,
+          pwdFocus: true
+        })
+      }, 300)
+    }
   },
 
   /**
