@@ -112,6 +112,23 @@ Page({
    */
   onReady:function(){
     let self = this;
+    this.rili = this.selectComponent("#rili");
+    this.haibao = this.selectComponent("#haibao");
+    wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+      success: function (res) { //转换窗口高度
+        let windowHeight = res.windowHeight;
+        let windowWidth = res.windowWidth;
+        //最上面标题栏不同机型的高度不一样(单位PX)
+        let statusBarHeight = res.statusBarHeight * (750 / windowWidth);
+
+        windowHeight = (windowHeight * (750 / windowWidth));
+        self.setData({
+          windowWidth: windowWidth,
+          windowHeight: windowHeight,
+          statusBarHeight: statusBarHeight
+        })
+      }
+    });
     wx.getStorage({//获取帮助缓存
       key: 'help',
       success: function(res) {},
@@ -120,6 +137,19 @@ Page({
         self.help.show();
       }
     })
+  },
+
+  /**
+  * 创建海报
+  */
+  _createHaibao: function (e) {
+    let self = this;
+    let SignDays = e.detail.SignDays;
+    let SignTotalDays = e.detail.SignTotalDays;
+    this.haibao.setData({
+      imageUrl: false
+    })
+    this.haibao.draw(SignDays, SignTotalDays, self);
   },
 
   /**

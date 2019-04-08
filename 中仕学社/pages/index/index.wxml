@@ -101,7 +101,7 @@
   </view>
 
   <!-- 刷题 & 看课 -->
-  <view class="mid" style="  margin-top: {{statusBarHeight+120}}rpx;">
+  <view class="mid" >
     <view class="mid-item" bindtap="continiueShuati" hover-class='select2' hover-stay-time='500'>
       <view class="mid-item-image ">{{midtext}}</view>
       <view class="mid-item-title">{{midtitle}}</view>
@@ -164,3 +164,9 @@
 </view>
 
 <help id="help"></help>
+
+<!-- 海报 -->
+<haibao id="haibao" windowHeight="{{windowHeight}}"></haibao>
+
+<!-- 打卡 -->
+<rili windowHeight="{{windowHeight}}" id="rili" bind:createHaibao="_createHaibao"></rili>

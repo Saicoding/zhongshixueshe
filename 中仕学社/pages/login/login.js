@@ -153,7 +153,7 @@ Page({
           userFocus: false,
           pwdFocus: true
         })
-      }, 300)
+      }, 200)
     }
   },
 

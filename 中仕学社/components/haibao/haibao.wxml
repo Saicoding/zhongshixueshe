@@ -1,0 +1,12 @@
+<!--components/Dialog/dialog.wxml-->
+<view wx:if="{{imageUrl && isShow}}" catchtap='stopBubbling' class="container" style="top:{{(windowHeight-1150)/2}}rpx">
+  <view  class="close" bindtap="hideDialog">
+    <image class="close-icon" src="/images/close2.png"></image>
+  </view>
+  <image class ='pic' src="{{imageUrl}}"></image>
+  <view  class='baocun' bindtap='baocun' hover-class='select1' hover-stay-time='500'>保存相册，分享到朋友圈</view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" catchtap="tapBlank"></view>
+
+<canvas  class="mycanvas" canvas-id="mycanvas"  style = "width:600px;height:820px;position:fixed;"/>

@@ -1,0 +1,10 @@
+<!--components/Dialog/dialog.wxml-->
+<view wx:if="{{isShow}}" catchtap='stopBubbling' class="container" style = "top:{{(windowHeight-550)/2}}rpx">
+  <view class ="bar">打卡成功</view>
+  <view class ="content">
+    <view class ="content-text">获得 <span  style = "color:#f79f02;">{{jifen}}</span> 积分</view>
+    <view class ="content-icon" animation = "{{bigAnimate}}"  >积分</view>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" catchtap="tapBlank"></view>

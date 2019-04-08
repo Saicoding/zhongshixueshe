@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "help": "/components/help/help"
+    "help": "/components/help/help",
+    "rili": "/components/rili/rili",
+    "haibao": "/components/haibao/haibao"
   }
 }
