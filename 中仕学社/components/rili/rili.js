@@ -52,8 +52,9 @@ Component({
       let zcode = user.zcode ? user.zcode : '';
       let token = user.token ? user.token : '';
       let qiandaos = this.data.qiandaos;
+      let that = this;
 
-      self.setData({
+      that.setData({
         isShow: true,
       })
 
@@ -76,7 +77,7 @@ Component({
 
         let current = SignDays - 3 <= 0 ? 0 : SignDays - 3;
        
-        self.setQiandao(SignDays);
+        that.setQiandao(SignDays);
        
         if (SendJifen) {
           let myDate = new Date(); //获取系统当前时间

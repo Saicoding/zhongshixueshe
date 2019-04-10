@@ -16,5 +16,8 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "中仕学社",
     "navigationBarTextStyle": "black"
-  }
+  },
+    "navigateToMiniProgramAppIdList": [
+      "wxfc4ecbaf91acfaf6"
+    ]
 }

@@ -1,58 +1,31 @@
 // pages/index/switch/switch.js
+const app = getApp()
+const API_URL = 'https://xcx2.chinaplat.com/main/'; //接口地址
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //测试数据
-    list:[
-      {
-        title:'健康管理师',
-        id:1,
-        catalogs:[
-          '金融类小程序',
-          '教师资格证',
-          '导游从业资格',
-          '劳动关系协调师',
-          '健康管理师',
-          '房地产经纪人'
-        ]
-      },
-      {
-        title:'导游资格证',
-        id:2,
-        catalogs:[
-          '金融类小程序',
-          '教师资格证',
-          '导游从业资格证',
-          '劳动关系协调师'
-        ]
-      },
-      {
-        title:'房地产经纪人',
-        id:3,
-        catalogs: [
-          '金融类小程序',
-        ]
-      },
-      {
-        title: '房地产经纪人协理',
-        id:4,
-        catalogs: [
-          '金融类小程序',
-          '房地产经纪人'
-        ]
-      },
-    ]
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let self = this;
     wx.setNavigationBarTitle({
       title: '切换考试',
+    })
+
+    app.post(API_URL,"action=getTypeList",false,false,"").then(res=>{
+      let list = res.data.data;
+      console.log(list)
+      self.setData({
+        list:list
+      })
     })
   },
 
@@ -104,20 +77,36 @@ Page({
     let tIndex = e.currentTarget.dataset.tindex;
     let title = e.currentTarget.dataset.title;//点击的标题
     let tid = e.currentTarget.dataset.tid;
+    let appid = e.currentTarget.dataset.appid;
 
-    wx.setStorage({
-      key: 'kaoshi',
-      data: {cIndex: cIndex, tIndex: tIndex,title:title,tid:tid},
-    })
+    appid = "wxfc4ecbaf91acfaf6";
 
-    this.setData({
-      titleIndex: tIndex,
-      itemIndex: cIndex,
-      title: title
-    })
-    wx.navigateBack({
-      delta: 1,
-    })
+    if(appid){//如果有appid,导航到对应app
+      wx.navigateToMiniProgram({
+        appId: appid,
+        path: '',
+        extraData: {},
+        envVersion: 'release',
+        success(res) {
+          // 打开成功
+        }
+      })
+
+    }else{
+      wx.setStorage({
+        key: 'kaoshi',
+        data: { cIndex: cIndex, tIndex: tIndex, title: title, tid: tid },
+      })
+
+      this.setData({
+        titleIndex: tIndex,
+        itemIndex: cIndex,
+        title: title
+      })
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
   },
 
   /**

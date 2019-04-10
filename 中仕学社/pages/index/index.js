@@ -158,14 +158,14 @@ Page({
     let type = wx.getStorageSync('kaoshi');//本地考试类别
     let tid;
 
-    console.log(type)
-
     if (type) {
       title = type.title;
       tid = type.tid;
     }else{
       tid = 1;
     }
+
+    console.log("action=getMainInfo&id=" + tid)
 
     app.post(API_URL, "action=getMainInfo&id=" +tid, false, false, "").then(res => {
       let info = res.data.data[0];
