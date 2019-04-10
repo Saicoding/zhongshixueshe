@@ -1,6 +1,6 @@
 // pages/zixun/zixun.js
 let app = getApp();
-let API_URL = "https://xcx2.chinaplat.com/xy/";
+let API_URL = "https://xcx2.chinaplat.com/main/";
 let util = require('../../utils/util.js');
 
 let buttonClicked = false;//默认还没有点击可以导航页面的按钮
@@ -21,10 +21,12 @@ Page({
    */
   onLoad: function (options) {
     let requesttime = util.formatTime2(new Date()); //请求时间（第一次请求的时间）
+    let xcx_id = options.xcx_id;
 
     this.setData({ //最后请求的时间
       requesttime: requesttime,
-      first: true //第一次载入默认首次载入
+      first: true ,//第一次载入默认首次载入
+      xcx_id, xcx_id//小程序类别
     })
   },
 
@@ -39,23 +41,14 @@ Page({
       loadingMore: false
     })
     let self = this;
-    let user = wx.getStorageSync('user');
 
     let isReLoad = self.data.isReLoad; //是否是重复登录
     let first = self.data.first; //是否是第一次渲染页面
+    let xcx_id = self.data.xcx_id;//小程序类别
 
     buttonClicked = false;
 
-    if ((isReLoad || first) && user != "") { //如果重复登录或者第一次渲染才执行
-
-      wx.setNavigationBarTitle({ //设置标题
-        title: user.colleage
-      })
-
-      //用户信息
-      let loginrandom = user.Login_random;
-      let zcode = user.zcode;
-
+    if (isReLoad || first) { //如果重复登录或者第一次渲染才执行
       let date = new Date(); //当前信息
       let day = date.getDate(); //几日
       let dateStr = util.formatTime1(date); //日期字符串
@@ -69,9 +62,11 @@ Page({
       let url = encodeURIComponent('/pages/index/index');
       wx.setStorageSync('first', false);
 
-      app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res => {
+      console.log("action=getNewsList&xcx_id=" + xcx_id)
+      app.post(API_URL, "action=getNewsList&xcx_id=" + xcx_id, false, false, "", "", "", self).then(res => {
         let news = res.data.data[0].list; //所有资讯
-        let allpage = res.data.data[0].allpage //所有页码
+        console.log(news)
+        let allpage = res.data.data[0].page_all //所有页码
 
         self.setData({
           isLoaded: true,

@@ -1,11 +1,11 @@
 <!--pages/zixun/zixunDetail/zixunDetail.wxml-->
-<image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+<image wx:if="{{!isLoaded}}" class="load-img" src="/images/imgLoading.gif" mode='aspectFit'></image>
 
 <view wx:if="{{isLoaded}}" class="container">
   <!-- 标题 -->
   <view class="title">
     <view class="title-text">{{zixun.title}}</view>
-    <text space="nbsp" class="title-info">{{zixun.adduser}}    {{zixun.addtime}}    浏览 : {{zixun.hit}}</text>
+    <text space="nbsp" class="title-info">{{zixun.addtime}}    浏览 : {{zixun.hot}}</text>
   </view>
 
   <!-- 内容 -->
@@ -16,7 +16,7 @@
   <!-- 评论block -->
   <view class="comments">
     <view class="comments-top">
-      <image class="comments-top-icon" src="/imgs/line.png"></image>
+      <image class="comments-top-icon" src="/images/line.png"></image>
       <view class="comments-top-text">评论 {{comments.length}} 条</view>
     </view>
 
@@ -45,7 +45,7 @@
 
   <!-- 评论 -->
   <view class="comment">
-    <image class="comment-icon" src="/imgs/comment.png" mode="aspectFit"></image>
+    <image class="comment-icon" src="/images/comment.png" mode="aspectFit"></image>
     <input value="{{currentComment}}" bindinput='inputComment' cursor-spacing="10" class="comment-input"></input>
 
     <view hover-class='select1' hover-stay-time="500" bindtap="sendComment" class="comment-button">发表</view>
@@ -53,7 +53,7 @@
 
   <!-- 最下面的加载条 -->
   <view class="loading-block">
-    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/images/loading.gif"></image>
     <view class="loading-text"> {{loadingText}}</view>
   </view>
 </view>

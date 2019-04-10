@@ -13,26 +13,25 @@
     <view wx:for="{{news}}" wx:for-item="new" wx:key="k">
 
       <!-- 图文模式 -->
-      <view hover-class='select1' hover-stay-time='500' data-id="{{new.id}}" wx:if="{{new.isPic == 1}}" class="block" bindtap = "viewNewsDetail">
+      <view hover-class='select1' hover-stay-time='500' data-id="{{new.id}}" wx:if="{{new.pic.length !=0}}" class="block" bindtap = "viewNewsDetail">
         <!-- 文章图片 -->
         <image class="content-image" src="{{new.pic}}" mode="aspectFit"></image>
         <!-- 文章右侧文字信息 -->
         <view class="content-text-block">
           <view class="content-title">{{new.title}}</view>
-          <view class="content-info">{{new.adduser}} {{new.addtime}} 热度 : {{new.hit}}</view>
+          <view class="content-info">{{new.addtime}} 热度 : {{new.hot}}</view>
         </view>
       </view>
 
       <!-- 只有文字 -->
-      <view hover-class='select1' hover-stay-time='500' data-id="{{new.id}}" wx:if="{{new.isPic == 0}}" class="block" bindtap = "viewNewsDetail">
+      <view hover-class='select1' hover-stay-time='500' data-id="{{new.id}}" wx:if="{{new.pic.length ==0}}" class="block" bindtap = "viewNewsDetail">
         <!-- 文章右侧文字信息 -->
         <view class="content-text-block" style="width:100%;">
           <view class="content-title" style="width:100%;padding:0rpx 20rpx 30rpx 0rpx;">{{new.title}}</view>
           <view class="content-info" style="width:100%;padding:0rpx 20rpx 30rpx 0rpx;line-height:1.1rem;text-indent:50rpx;">{{new.content}}</view>
-          <view class="content-info" style="width:100%;padding:0rpx 20rpx 30rpx 0rpx;">{{new.adduser}} {{new.addtime}} 热度 : {{new.hit}}</view>
+          <view class="content-info" style="width:100%;padding:0rpx 20rpx 30rpx 0rpx;">{{new.addtime}} 热度 : {{new.hot}}</view>
         </view>
       </view>
-
     </view>
   </view>
   <!-- 最下面的加载条 -->

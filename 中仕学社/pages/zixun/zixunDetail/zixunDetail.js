@@ -1,6 +1,6 @@
 // pages/zixun/zixunDetail/zixunDetail.js
 let app = getApp();
-let API_URL = "https://xcx2.chinaplat.com/xy/";
+let API_URL = "https://xcx2.chinaplat.com/main/";
 let util = require('../../../utils/util.js');
 
 let buttonClicked = false;
@@ -42,17 +42,13 @@ Page({
 
     let self = this;
 
-    //用户信息
-    let user = wx.getStorageSync('user');
-    let loginrandom = user.Login_random;
-    let zcode = user.zcode;
-
     let id = self.data.id; //资讯ID
 
     buttonClicked = false;
 
     //获取资讯
-    app.post(API_URL, "action=getNewsShow&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id, false, false, "", "", "", self).then(res => {
+    app.post(API_URL, "action=getNewsShow&xcx_id=" + xcx_id + "&id=" + id, false, false, "", "", "", self).then(res => {
+      console.log(res)
       let zixun = res.data.data[0];
       self.setData({
         zixun: zixun,

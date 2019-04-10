@@ -369,11 +369,10 @@ Page({
    */
   GOpage:function(e){
     let index = e.currentTarget.dataset.index;
+
     switch(index){
       case 0://资讯
-        wx.navigateTo({
-          url: '/pages/zixun/zixun',
-        })
+        this.GOzixun();
         break;
       case 1://题库
         wx.navigateTo({
@@ -397,8 +396,16 @@ Page({
    * 查看资讯列表
    */
   GOzixun:function(){
+    let type = wx.getStorageSync('kaoshi');
+    let xcx_id;//小程序类别
+    if (type){
+      xcx_id = type.tid;
+    }else{
+      xcx_id = 1;
+    }
+
     wx.navigateTo({
-      url: '/pages/zixun/zixun',
+      url: '/pages/zixun/zixun?xcx_id='+xcx_id,
     })
   },
 
