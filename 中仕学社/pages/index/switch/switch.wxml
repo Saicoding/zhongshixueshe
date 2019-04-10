@@ -9,7 +9,7 @@
     </view>
 
     <view wx:for="{{item.catalogs}}"  wx:for-item ="catalog" wx:key="c" wx:for-index="cIndex">
-      <view data-title="{{catalog}}" data-tIndex="{{tIndex}}" data-cIndex="{{cIndex}}" class ="catalog" style="float:{{cIndex%2==0?'left':'right'}};color:{{tIndex==titleIndex && cIndex==itemIndex?'white':'black'}};background:{{tIndex==titleIndex && cIndex==itemIndex?'#ff5b59':'white'}};border:{{tIndex==titleIndex && cIndex==itemIndex?'1rpx solid white':'1rpx solid rgba(97, 97, 97,0.2)'}}" bindtap="change">
+      <view data-tid = "{{item.id}}" data-title="{{catalog}}" data-tIndex="{{tIndex}}" data-cIndex="{{cIndex}}" class ="catalog" style="float:{{cIndex%2==0?'left':'right'}};color:{{tIndex==titleIndex && cIndex==itemIndex?'white':'black'}};background:{{tIndex==titleIndex && cIndex==itemIndex?'#ff5b59':'white'}};border:{{tIndex==titleIndex && cIndex==itemIndex?'1rpx solid white':'1rpx solid rgba(97, 97, 97,0.2)'}}" bindtap="change">
         {{catalog}}
       </view>
     </view>

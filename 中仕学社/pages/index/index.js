@@ -74,37 +74,6 @@ Page({
    * 生命周期事件
    */
   onLoad: function () {
-    let self = this;
-    //设置标题,先获取本地缓存,如果有就用缓存，没有就用默认标题
-    let title = "房地产经纪人";//默认标题
-    let type = wx.getStorageSync('kaoshi') ? wx.getStorageSync('kaoshi'):1;//本地考试类别
-    switch(type){//根据类别设置标题
-      case 1:
-      title = "导游考试通";
-      break;
-      default:
-      break;
-    }
-
-    app.post(API_URL,"action=getMainInfo&id="+type,false,false,"").then(res=>{
-      let info = res.data.data[0];
-      let catlogList = self.data.catlogList;//页面的所有目录
-      let currentList = [];
-      let ks_date = self.datedifference(info.ks_date);
-
-      for(let i = 0;i<info.menu.length;i++){
-        currentList.push(catlogList[info.menu[i]]);
-      }
-
-      self.setData({
-        info:info,
-        currentList: currentList,
-        ks_date: ks_date
-      })
-    })
-    wx.setNavigationBarTitle({
-      title: title,
-    })
   },
 
   /**
@@ -182,6 +151,42 @@ Page({
     let zcode = user.zcode == undefined ? "" : user.zcode; //缓存标识
     let token = user.token;
     let first = this.data.first;
+
+
+    //设置标题,先获取本地缓存,如果有就用缓存，没有就用默认标题
+    let title = "房地产经纪人";//默认标题
+    let type = wx.getStorageSync('kaoshi');//本地考试类别
+    let tid;
+
+    console.log(type)
+
+    if (type) {
+      title = type.title;
+      tid = type.tid;
+    }else{
+      tid = 1;
+    }
+
+    app.post(API_URL, "action=getMainInfo&id=" +tid, false, false, "").then(res => {
+      let info = res.data.data[0];
+      let catlogList = self.data.catlogList;//页面的所有目录
+      let currentList = [];
+      let ks_date = self.datedifference(info.ks_date);
+
+      for (let i = 0; i < info.menu.length; i++) {
+        currentList.push(catlogList[info.menu[i]]);
+      }
+
+      self.setData({
+        info: info,
+        currentList: currentList,
+        ks_date: ks_date
+      })
+    })
+
+    wx.setNavigationBarTitle({
+      title: title,
+    })
 
     //用于控制打卡动画
     let todayDaka = wx.getStorageSync('todayDaka' + zcode);//今日打卡本地字符串,用于判断是否打过卡

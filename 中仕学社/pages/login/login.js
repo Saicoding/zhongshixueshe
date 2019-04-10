@@ -147,7 +147,6 @@ Page({
         })
       }, 100)
     } else {
-      console.log("mima")
       setTimeout(function () {
         self.setData({
           userFocus: false,
@@ -170,7 +169,6 @@ Page({
     } else {
       submit_disabled = false;
     }
-    console.log(phone)
 
     this.setData({
       phone: e.detail.value,
@@ -207,7 +205,6 @@ Page({
     })
 
     let signPhone = self.data.signPhone;
-    console.log(signPhone)
     let signCurrentTime = self.data.signCurrentTime //把手机号跟倒计时值变例成js值
 
     let warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
@@ -227,7 +224,6 @@ Page({
           duration: 2000
         });
         let signIdentifyCode = res.data.data[0].yzm;
-        console.log(signIdentifyCode)
         self.setData({
           signIdentifyCode: signIdentifyCode
         })
@@ -550,7 +546,7 @@ Page({
     wx.login({
       success: res => {
         let code = res.code;
-        console.log("action=getSessionKey&code=" + code)
+
         app.post(API_URL, "action=getSessionKey&code=" + code, false, false, "").then((res) => {
           let sesstion_key = res.data.data[0].sessionKey;
           let openid = res.data.data[0].openid;

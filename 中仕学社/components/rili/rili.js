@@ -47,11 +47,10 @@ Component({
       })
     },
     //展示弹框
-    showDialog(that) {
+    showDialog(self) {
       let user = wx.getStorageSync('user');
       let zcode = user.zcode ? user.zcode : '';
       let token = user.token ? user.token : '';
-      let self = this;
       let qiandaos = this.data.qiandaos;
 
       self.setData({
@@ -84,7 +83,7 @@ Component({
           let year = myDate.getFullYear();
           let month = myDate.getMonth() + 1;
           let day = myDate.getDate();
-          let interval = that.data.interval;
+          let interval = self.data.interval;
 
           if (SignDays * 1 == 7) {
             SendJifen = SendJifen*1 + 100;
@@ -96,7 +95,7 @@ Component({
 
           user.Money = money;  
          
-          that.clear();
+          self.clear();
 
           myDate = "" + year + month + day; //得到当前答题字符串
 
