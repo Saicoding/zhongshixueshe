@@ -47,8 +47,7 @@ Page({
     buttonClicked = false;
 
     //获取资讯
-    app.post(API_URL, "action=getNewsShow&xcx_id=" + xcx_id + "&id=" + id, false, false, "", "", "", self).then(res => {
-      console.log(res)
+    app.post(API_URL, "action=getNewsShow&id=" + id, false, false, "", "", "", self).then(res => {
       let zixun = res.data.data[0];
       self.setData({
         zixun: zixun,
@@ -56,10 +55,10 @@ Page({
       })
 
       //获取评论
-      app.post(API_URL, "action=getBrokeNewsPllist&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id + "&page=1", false, false, "", "", "", self).then(res => {
-        let comments = res.data.data[0].list;
-        let pageall = res.data.data[0].pageall;//评论总页数
-        let pagenow = res.data.data[0].pagenow;//当前评论页
+      app.post(API_URL, "action=GetCoursePL&cid=" + id + "&page=1", false, false, "", "", "", self).then(res => {
+        let comments = res.data.data[0].pllist;
+        let pageall = res.data.data[0].page_all;//评论总页数
+        let pagenow = res.data.data[0].page_now;//当前评论页
         // let PLcounts = res.data.data[0].PLcounts;
         self.setData({
           comments: comments,
@@ -91,19 +90,18 @@ Page({
 
     //用户信息
     let user = wx.getStorageSync('user');
-    let loginrandom = user.Login_random;
-    let zcode = user.zcode;
+    let token = user.token ? user.token:'';
+    let zcode = user.zcode?user.zcode:'';
 
     //保存评论内容到服务器
-    app.post(API_URL, "action=addBrokeNewsPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&aid=" + aid + "&content=" + comment_content, false, false, "", "", "", self).then(res => {
-
+    app.post(API_URL, "action=SaveCoursePL&cid=" + aid + "&plcontent=" + comment_content + "&token=" + token+"&zcode="+zcode, false, false, "", "", "", self).then(res => {
       //自定义一个时时显示的评论对象
       let mycomment = {};
-      mycomment.addtime = "1秒前"; //提交时间
-      mycomment.content = comment_content; //评论内容
+      mycomment.pl_time = "1秒前"; //提交时间
+      mycomment.pc_content = comment_content; //评论内容
       mycomment.nickname = user.Nickname;
-      mycomment.userpic = user.Pic;
-      mycomment.from = "保密(开发中)";
+      mycomment.userimg = user.Pic;
+      comments.push(mycomment)
 
       self.setData({
         comments: comments,
@@ -142,22 +140,20 @@ Page({
 
     //用户信息
     let user = wx.getStorageSync('user');
-    let loginrandom = user.Login_random;
-    let zcode = user.zcode;
 
     let comments = self.data.comments;
     page++;
 
     //获取资讯
-    app.post(API_URL, "action=getNewsShow&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id, false, false, "", "", "", self).then(res => {
+    app.post(API_URL, "action=getNewsShow&id=" + id, false, false, "", "", "", self).then(res => {
       let zixun = res.data.data[0];
       self.setData({
         zixun: zixun,
       })
 
       //获取评论
-      app.post(API_URL, "action=getBrokeNewsPllist&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id + "&page=" + page, false, false, "", "", "", self).then(res => {
-        comments = comments.concat(res.data.data[0].list);
+      app.post(API_URL, "action=GetCoursePL&cid=" + id + "&page=" + page, false, false, "", "", "", self).then(res => {
+        comments = comments.concat(res.data.data[0].pllist);
 
         self.setData({
           showLoadingGif: false,

@@ -109,7 +109,7 @@ App({
           } else if (status == -2020) { //绑定的手机号已经存在
             resolve(res);
           } else {
-            //console.log(res);
+            console.log('异常',res);
             wx.showToast({
               icon: 'none',
               title: message,

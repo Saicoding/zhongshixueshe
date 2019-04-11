@@ -23,20 +23,20 @@
     <view class="comments-content">
       <!-- 我的评论 -->
       <view wx:if="{{mycomment.nickname!=undefined}}" class="comments-content-block" style = "background:rgb(149, 213, 255);">
-        <image class="comment-img" src="{{mycomment.userpic}}" mode="aspectFit"></image>
+        <image class="comment-img" src="{{mycomment.userimg}}" mode="aspectFit"></image>
         <view class="comment-right">
-          <text class="comment-right-line2" space='nbsp' style = "color:rgb(255, 146, 103);">{{mycomment.addtime}}  来自{{mycomment.nickname}}</text>
-          <view class="comment-right-line3">{{mycomment.content}}</view>
+          <text class="comment-right-line2" space='nbsp' style = "color:rgb(255, 146, 103);">{{mycomment.pl_time}}  来自{{mycomment.nickname}}</text>
+          <view class="comment-right-line3">{{mycomment.pc_content}}</view>
         </view>
       </view>
       <!-- 正常评论 -->
       <view wx:for="{{comments}}" wx:for-item="comment" wx:key="k">
         <view class="comments-content-block">
-          <image class="comment-img" src="{{comment.userpic}}" mode="aspectFit"></image>
+          <image class="comment-img" src="{{comment.userimg}}" mode="aspectFit"></image>
           <view class="comment-right">
             <view class="comment-right-line1" space='nbsp'>{{comment.nickname}}   ({{index+1}}楼)</view>
-            <text class="comment-right-line2" space='nbsp'>{{comment.addtime}}  来自({{comment.from}})</text>
-            <view class="comment-right-line3">{{comment.content}}</view>
+            <text class="comment-right-line2" space='nbsp'>{{comment.pl_time}} </text>
+            <view class="comment-right-line3">{{comment.pc_content}}</view>
           </view>
         </view>
       </view>
