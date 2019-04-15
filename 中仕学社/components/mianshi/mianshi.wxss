@@ -1,0 +1,27 @@
+/* components/singleSelect/singleSelect.wxss */
+
+.container {
+  width: 94%;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  background: #f4f7f9;
+}
+
+.question {
+  font-size: 32rpx;
+  line-height: 42rpx;
+  margin-top: 10rpx;
+}
+
+.question-type {
+  background: #cbfee2;
+  color: #04c358;
+  font-size: 22rpx;
+  text-align: center;
+  width: 90rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  border-radius: 8rpx;
+  padding:5rpx 10rpx 5rpx 10rpx;
+  margin-right:20rpx;
+}

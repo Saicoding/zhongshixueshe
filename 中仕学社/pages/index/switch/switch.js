@@ -79,8 +79,6 @@ Page({
     let tid = e.currentTarget.dataset.tid;
     let appid = e.currentTarget.dataset.appid;
 
-    appid = "wxfc4ecbaf91acfaf6";
-
     if(appid){//如果有appid,导航到对应app
       wx.navigateToMiniProgram({
         appId: appid,

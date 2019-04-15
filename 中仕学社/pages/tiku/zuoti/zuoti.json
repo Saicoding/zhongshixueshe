@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "tongji": "/components/tongji/tongji",
+    "jiesuo": "/components/jiesuo/jiesuo",
+    "mianshi": "/components/mianshi/mianshi",
+    "count": "/components/count/count",
+    "markAnswer": "/components/markAnswer/markAnswer",
+    "question": "/components/question/question",
+    "singleSelect": "/components/singleSelect/singleSelect",
+    "multiSelect": "/components/multiSelect/multiSelect",
+    "jiexi": "/components/jiexi/jiexi",
+    "errorRecovery": "/components/errorRecovery/errorRecovery",
+    "hasNoPage": "/components/hasNoPage/hasNoPage",
+    "clJiexi": "/components/clJiexi/clJiexi"
+  }
+}

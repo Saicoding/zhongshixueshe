@@ -301,9 +301,7 @@ Page({
   more:function(e){
     let type = e.currentTarget.dataset.type;
     if(type == "zixun"){
-      wx.navigateTo({
-        url: '/pages/zixun/zixun',
-      })
+      this.GOzixun();
     }else{
       wx.navigateTo({
         url: '/pages/video/video',

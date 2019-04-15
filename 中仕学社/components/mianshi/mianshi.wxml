@@ -1,0 +1,6 @@
+<!--components/singleSelect/singleSelect.wxml-->
+<view class="container">
+  <view class ="question" >
+    <span class = "question-type">面试</span>{{shiti.question}}
+  </view>
+</view>

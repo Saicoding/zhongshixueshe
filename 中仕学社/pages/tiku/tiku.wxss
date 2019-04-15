@@ -11,7 +11,7 @@ page {
   width: 100%;
 }
 
-.imgLoading{
+.imgLoading {
   margin-top: 136rpx;
 }
 
@@ -22,66 +22,73 @@ page {
   height: 40rpx;
   width: 500rpx;
   left: 10rpx;
-  padding:10rpx;
-  z-index:100;
+  padding: 10rpx;
+  z-index: 100;
 }
 
-
 .bar {
-  width: 100rpx;
+  margin-top: 25rpx;
+  display: inline-block;
+  width: 180rpx;
   text-align: center;
-  border-radius: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 23rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  color: #f60;
+  border-radius: 50rpx;
+  font-size: 25rpx;
+  background: white;
+  margin-left: 30rpx;
 }
 
 /* 中间条 */
-.midline{
+
+.midline {
   display: flex;
-  width:100%;
-  height:90rpx;
+  width: 100%;
+  height: 90rpx;
   line-height: 90rpx;
   background: #f1f5f8;
-  font-size:22rpx;
+  font-size: 22rpx;
 }
 
-.midline-dot{
-  width:16rpx;
-  height:16rpx;
+.midline-dot {
+  width: 16rpx;
+  height: 16rpx;
   border-radius: 16rpx;
   background: #23cb9a;
-  margin-top:37rpx;
-  margin-left:40rpx;
+  margin-top: 37rpx;
+  margin-left: 40rpx;
 }
 
-.midline-text{
-  margin-left:20rpx;
+.midline-text {
+  margin-left: 20rpx;
 }
 
-.fixed{
+.fixed {
   position: fixed;
-  top:0rpx;
-  z-index:99;
+  top: 0rpx;
+  z-index: 99;
 }
 
 /* 上面部分 */
+
 .content {
   box-shadow: 1rpx 1rpx 14rpx 7rpx rgba(8, 8, 8, 0.1);
   padding-bottom: 30rpx;
   background: white;
 }
-.up{
-  background: #ff6600;
+
+.up {
+  background: #f60;
 }
 
-.scroller{
-  width:750rpx;
-  height:100rpx;
+.scroller {
+  width: 750rpx;
+  height: 100rpx;
 }
 
 .topBar-left {
-   display: flex;
+  display: flex;
   width: 200rpx;
   height: 50rpx;
   border-radius: 0rpx 50rpx 50rpx 0rpx;
@@ -91,11 +98,12 @@ page {
   background: linear-gradient(to right, #fc9c60, #fdbd95);
 }
 
-.topbar-left-icon{
-  width:30rpx;
-  height:30rpx;
-  margin:10rpx 20rpx 10rpx 40rpx;
+.topbar-left-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin: 10rpx 20rpx 10rpx 40rpx;
 }
+
 .top {
   display: flex;
   width: 710;
@@ -171,7 +179,7 @@ page {
   width: 220rpx;
   height: 220rpx;
   border-radius: 220rpx;
-  background:linear-gradient(to right, #fd904c, #fca56f);
+  background: linear-gradient(to right, #fd904c, #fca56f);
   color: white;
   text-align: center;
   animation: scaleout1 2s infinite ease-in-out;
@@ -267,7 +275,7 @@ page {
 /* 章节练习 */
 
 .ti {
-  clear:both;
+  clear: both;
   width: 750rpx;
   padding: 50rpx 0rpx 20rpx 0rpx;
 }
@@ -279,20 +287,20 @@ page {
 .ti-title-icon {
   width: 50rpx;
   height: 50rpx;
-  margin-left:20rpx;
+  margin-left: 20rpx;
 }
 
 .jie-border {
   position: relative;
   border-left: 1rpx solid #eaeaea;
   height: 90rpx;
-  margin-left:45rpx;
-  margin-top:-50rpx;
-  z-index:1;
+  margin-left: 45rpx;
+  margin-top: -50rpx;
+  z-index: 1;
 }
 
-.jie{
-    /* hidden是为了实现点击后有动画效果 */
+.jie {
+  /* hidden是为了实现点击后有动画效果 */
   height: 0rpx;
   overflow-y: hidden;
   opacity: 1;
@@ -301,42 +309,41 @@ page {
 .jie-dot {
   width: 30rpx;
   height: 30rpx;
-  margin-left:30rpx;
-  margin-top:5rpx;
+  margin-left: 30rpx;
+  margin-top: 5rpx;
 }
 
 .ti-block {
   position: relative;
   display: flex;
-  height:90rpx;
-  z-index:50;
+  height: 90rpx;
+  z-index: 50;
 }
 
-.ti-block-right{
+.ti-block-right {
   display: flex;
-  width:120rpx;
-  height:90rpx;
+  width: 120rpx;
+  height: 90rpx;
 }
 
-.ti-block-right-rate{
-  width:60rpx;
-  color:rgb(156, 156, 156);
-  font-size:22rpx;
-  height:90rpx;
+.ti-block-right-rate {
+  width: 60rpx;
+  color: rgb(156, 156, 156);
+  font-size: 22rpx;
+  height: 90rpx;
   line-height: 60rpx;
-  margin-left:20rpx;
+  margin-left: 20rpx;
   text-align: right;
 }
 
-.ti-block-right-icon{
-  width:25rpx;
-  height:25rpx;
-  margin-top:19rpx;
-  margin-left:5rpx;
+.ti-block-right-icon {
+  width: 25rpx;
+  height: 25rpx;
+  margin-top: 19rpx;
+  margin-left: 5rpx;
 }
 
-
-.ti-block-line,.ti-block-line1{
+.ti-block-line, .ti-block-line1 {
   width: 500rpx;
 }
 
@@ -351,7 +358,7 @@ page {
 .ti-block-line1-title {
   width: 410rpx;
   height: 60rpx;
-  font-size:25rpx;
+  font-size: 25rpx;
 }
 
 .ti-block-line1-num {
@@ -377,76 +384,75 @@ page {
   background: #0dda5b;
 }
 
-.ti-block-shu{
-  height:30rpx;
-  border:1rpx solid rgba(31, 31, 31,0.1);
-  margin:20rpx 0rpx 30rpx 20rpx;
+.ti-block-shu {
+  height: 30rpx;
+  border: 1rpx solid rgba(31, 31, 31, 0.1);
+  margin: 20rpx 0rpx 30rpx 20rpx;
 }
 
-.ti-block-answer{
-  width:50rpx;
-  height:50rpx;
-  margin-top:10rpx;
-  margin-left:20rpx;
+.ti-block-answer {
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
 }
 
-.ti-block-line1-num{
-  font-size:22rpx;
-  color:#a2a1a2;
-  height:60rpx;
+.ti-block-line1-num {
+  font-size: 22rpx;
+  color: #a2a1a2;
+  height: 60rpx;
   line-height: 60rpx;
 }
 
 /* 全真模拟和核心密卷 */
-.item{
-  width:100%;
+
+.item {
+  width: 100%;
 }
 
-.item-line1{
+.item-line1 {
   display: flex;
-  height:60rpx;
-  line-height:60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
 }
 
-.item-line1-icon{
-  width:30rpx;
-  height:30rpx;
-  margin-top:15rpx;
-  margin-left:25rpx;
+.item-line1-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 15rpx;
+  margin-left: 25rpx;
 }
 
-.item-line1-text{
-  font-size:25rpx;
-  margin-left:20rpx;
+.item-line1-text {
+  font-size: 25rpx;
+  margin-left: 20rpx;
 }
 
-.item-line2{
+.item-line2 {
   display: flex;
-  border-left:1rpx solid #eaeaea;
-  height:60rpx;
-  margin-left:40rpx;
-  padding-left:35rpx;
+  border-left: 1rpx solid #eaeaea;
+  height: 60rpx;
+  margin-left: 40rpx;
+  padding-left: 35rpx;
 }
 
-.item-line2-icon{
-  width:30rpx;
-  height:30rpx;
+.item-line2-icon {
+  width: 30rpx;
+  height: 30rpx;
 }
 
-.item-line2-text{
-  height:30rpx;
+.item-line2-text {
+  height: 30rpx;
   line-height: 30rpx;
-  font-size:22rpx;
-  color:rgb(151, 151, 151);
-    margin-left:10rpx;
+  font-size: 22rpx;
+  color: rgb(151, 151, 151);
+  margin-left: 10rpx;
 }
 
-.select1{
-  background: rgba(34, 34, 34,0.05);
+.select1 {
+  background: rgba(34, 34, 34, 0.05);
 }
 
-.select2{
+.select2 {
   opacity: 0.5;
 }
-
-

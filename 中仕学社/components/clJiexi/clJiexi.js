@@ -6,7 +6,19 @@ Component({
   properties: {
     windowHeight: {
       type: Number,
-      value: 1333
+      value: 0,
+    },
+    windowWidth: {
+      type: Number,
+      value: 0
+    },
+    cl_jiexi:{
+      type:String,
+      value:""
+    },
+    cl_answer:{
+      type:String,
+      value:""
     }
   },
 
@@ -14,10 +26,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    nums: 0,//总题量
-    maxScore: 100,//总分值
-    highStore:0,//最好分数
-    time:0,//总时间
+    isShow: false
   },
 
   /**
@@ -43,20 +52,14 @@ Component({
       })
     },
     //阻止事件冒泡
-    stopBubbling: function (e) { },
+    stopBubbling: function (e) {
+    },
 
     //点击了空地,让蒙版消失
     tapBlank: function (e) {
       this.setData({
         isShow: false
       })
-    },
-
-    //点击开始刷题按钮
-    _GOmoni: function (e) {
-      this.hideDialog();
-      this.triggerEvent('GOmoni', { id: this.data.id, title: this.data.title, times: this.data.time, nums: this.data.nums, maxScore:this.data.maxScore,highScore:this.data.highScore});
     }
   }
-
 })

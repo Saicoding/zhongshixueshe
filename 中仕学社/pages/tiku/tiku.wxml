@@ -10,13 +10,9 @@
 
       <!-- 滚动条 -->
       <scroll-view scroll-x="{{true}}" style="width: 750rpx;white-space: nowrap;display:inline-block" class="scroller">
-        <view  style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:#ff6600;border-radius:50rpx;font-size:25rpx;background:white;margin-left:30rpx;">初级会计实务</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">学习快乐了</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">超越极限</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">浪漫土耳其</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">说好只牵手</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">说对对对</view>
-        <view style="margin-top:25rpx;display:inline-block;width:180rpx;text-align:center;height:50rpx;line-height:50rpx;color:white;border-radius:50rpx;font-size:25rpx;">初级得到</view>
+        <view data-index="{{index}}" data-type="1" data-barid="{{bar.id}}" class="bar" bindtap="changeBar" style="background:{{currentIndex == index?'white':'#f60'}};color:{{currentIndex == index?'#f60':'white'}};" wx:for="{{bars}}" wx:for-item="bar" wx:key="b">
+          {{bar.title}}
+        </view>
       </scroll-view>
 
     </view>
@@ -64,7 +60,7 @@
   </view>
 
   <!-- 中间条 -->
-  <view class="midline {{fixed}}" >
+  <view class="midline {{fixed}}">
     <view class="midline-dot"></view>
     <view class="midline-text">本题库根据2019年最新导游考试大纲命题</view>
   </view>
@@ -76,12 +72,12 @@
     <!-- 章节练习-->
     <view wx:if="{{currentMidIndex == 0&&isLoaded}}">
       <view style="margin-bottom:50rpx;" wx:for="{{zhangjies}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
-        <view data-index="{{zhangIdx}}" class="ti-block" bindtap="toogleFolder">
-          <image class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
+        <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}"  data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block" bindtap="toogleFolder">
+          <image wx:if="{{zhangjie.zhangjie_child.length !=0}}" class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
           <view class="ti-block-line" style="margin-left:30rpx;">
             <view class="ti-block-line1">
               <view class="ti-block-line1-title wp">{{zhangjie.title}}</view>
-              <view class="ti-block-line1-num">{{zhangjie.donenum}}/{{zhangjie.all_num}}</view>
+              <view class="ti-block-line1-num">{{zhangjie.donenum}}/{{zhangjie.nums}}</view>
             </view>
             <view class="ti-block-line2"></view>
             <view class="ti-block-line3" style="width:{{zhangjie.rateWidth}}rpx;"></view>
@@ -93,14 +89,16 @@
             <view class="ti-block-right-rate" style="color:{{zhangjie.rate >=60 ?'#32d584':'#f98b01'}}">{{zhangjie.rate}}</view>
             <image class="ti-block-right-icon" src="{{zhangjie.rate >=60 ? '/images/rate.png':'/images/rate1.png'}}"></image>
           </view>
+
         </view>
+
         <view wx:if="{{!zhangjie.isFolder}}" class="jie-border"></view>
 
         <!-- 节 -->
         <view class="jie" animation="{{!zhangjie.isFolder?zhangjie.spreadData:zhangjie.folderData}}">
           <view wx:for="{{zhangjie.list}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
             <view data-videoid="{{jie.video_id}}" data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-f_id="{{jie.id}}" data-rightRate="{{jie.rightrate}}" data-doneNum="{{jie.donenum}}" data-num="{{jie.all_num}}" data-title="{{jie.title}}" class="ti-block"
-              bindtap="showAnswerModel" hover-class='select1' hover-stay-time='500'>
+              bindtap="GOzuoti" hover-class='select1' hover-stay-time='500'>
               <image class="jie-dot" src="/images/dot.png"></image>
               <view class="ti-block-line" style="margin-left:40rpx;">
                 <view class="ti-block-line1">
@@ -153,9 +151,6 @@
   </view>
 
 </view>
-
-<!-- 弹窗 -->
-<modelAnswerModel id="modelAnswerModel" bindGOmoni="_GOmoni" windowHeight="{{windowHeight}}"></modelAnswerModel>
 
 <goAnswerModel id="goAnswerModel" bindGOzuoti="_GOzuoti" windowHeight="{{windowHeight}}"></goAnswerModel>
 

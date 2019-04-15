@@ -1,0 +1,39 @@
+<view hidden="{{!isAnswer}}" class="container">
+  <view class="jiexi_border">
+    <view class="line"></view>
+    <text class="txt">试题详解</text>
+    <view class="line"></view>
+  </view>
+
+  <!-- 解析描述 -->
+  <view class='jiexi'>
+    <view class="jiexi-top">
+      <view class="jiexi-top-left">答案： {{answer}}</view>
+      <view class="jiexi-top-right" bindtap="_toggleErrorRecovery" hover-class='select1' hover-stay-time='500'>题目纠错</view>
+    </view>
+    <view wx:if="{{buy == 1}}" class="jiexi-text2">
+      <span style="color:#21c867;">宝典秘籍：</span>{{jiexi}}</view>
+
+    <view wx:if="{{buy == 0}}" class="suoding">
+      <image class="suoding-icon" src="/images/suoding.png"></image>
+      <view class="suoding-right">
+        <view class="suoding-right-line1">哎呦?解析不能看?</view>
+        <view class="suoding-right-line2" bindtap="_jiesuo" hover-class='select1' hover-stay-time='500'>立即解锁</view>
+      </view>
+
+    </view>
+    <!-- 难度-->
+    <view class="difficulty">
+      <view class="difficulty-text">难度</view>
+      <view class ="difficulty-icons">
+        <image  class="difficulty-icon" wx:for="{{levels}}" wx:for-item="star" wx:key="s" src="/images/star.png"></image>
+      </view>
+    </view>
+
+    <!-- 横线 -->
+    <view class="downline"></view>
+
+    <!-- 最下面的字 -->
+    <view class="downtext">{{beizhu}}</view>
+  </view>
+</view>

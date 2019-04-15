@@ -1,0 +1,145 @@
+.container {
+  
+}
+
+.jiexi_border {
+  width: 93%;
+  height: 50rpx;
+  clear: both;
+  display: block;
+  align-content: center;
+  margin:0 auto;
+}
+
+.line {
+  display: float;
+  float: left;
+  width: 278rpx;
+  height:30rpx;
+  margin-top: 20rpx;
+  border-top: 1rpx solid rgb(226, 226, 226);
+}
+
+.txt {
+  display: float;
+  float: left;
+  color: #000000;
+  margin: 0 20rpx;
+  font-size: 25rpx;
+}
+
+.jiexi {
+  margin: 0 auto;
+  margin-top: 25rpx;
+  margin-bottom:50rpx;
+  text-align: left;
+  clear: both;
+  width: 88%;
+  color: #666;
+  line-height: 40rpx;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+  box-shadow:1rpx 1rpx 14rpx 3rpx rgba(20, 20, 20,0.1);
+  background: white;
+  padding:30rpx 20rpx 0rpx 35rpx;
+}
+
+.jiexi-top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.jiexi-top-left{
+  font-weight: bold;
+}
+
+.jiexi-top-right{
+  width:120rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  border:1rpx solid #21c867;
+  color:#21c867;
+  font-size:25rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}
+
+.jiexi-text2{
+  margin-top:30rpx;
+}
+
+.suoding{
+  display: flex;
+  justify-content: space-around;
+  margin-top:40rpx;
+  margin-bottom:30rpx;
+}
+
+.suoding-icon{
+  width:130rpx;
+  height:130rpx;
+}
+
+.suoding-right{
+  width:300rpx;
+}
+
+.suoding-right-line1{
+  width:100%;
+  height:80rpx;
+  line-height:80rpx;
+  font-size:30rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.suoding-right-line2{
+  width:170rpx;
+  height:50rpx;
+  border-radius: 50rpx;
+  line-height: 50rpx;
+  font-size:25rpx;
+  color:white;
+  text-align: center;
+  margin:0 auto;
+  background: linear-gradient(to right,#4ae534,#12d8b6);
+}
+
+.difficulty,.difficulty-text{
+  display: flex;
+  height:80rpx;
+  font-size:23rpx;
+}
+
+.difficulty-text{
+  width:60rpx;
+  line-height: 80rpx;
+}
+
+.difficulty-icons{
+  display: flex;
+}
+
+.difficulty-icon{
+  width:24rpx;
+  height:24rpx;
+  margin-top:28rpx;
+  margin-left:12rpx;
+}
+
+.downline{
+  width:100%;
+  border-top:1rpx solid rgba(20, 20, 20,0.05);
+}
+
+.downtext{
+  font-size:25rpx;
+  color:#5cc167;
+  height:80rpx;
+  line-height: 80rpx;
+}
+
+.select1{
+  background: linear-gradient(to right,#8edb84,#66d8c5);
+}
+

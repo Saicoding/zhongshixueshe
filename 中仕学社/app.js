@@ -27,7 +27,6 @@ App({
       postData.signature = that.makeSign(postData);
       */
       //网络请求
-
       wx.request({
         url: url,
         data: postData,
@@ -60,7 +59,7 @@ App({
               message: message
             })
 
-          } else if (status == -2010) { //重复登录
+          } else if (status == -2010 || status == -5) { //重复登录
             wx.removeStorageSync('user');
             if (self) { //如果传了这个参数
               self.setData({
@@ -109,7 +108,8 @@ App({
           } else if (status == -2020) { //绑定的手机号已经存在
             resolve(res);
           } else {
-            console.log('异常',res);
+            console.log('异常', url + "?" + postData);
+            console.log(res)
             wx.showToast({
               icon: 'none',
               title: message,

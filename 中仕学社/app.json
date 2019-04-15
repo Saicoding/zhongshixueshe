@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-            "pages/login/login",
+    "pages/login/login",
     "pages/index/switch/switch",
     "pages/user/user",
     "pages/tiku/tiku",
@@ -9,7 +9,8 @@
     "pages/video/video",
     "pages/zixun/zixun",
     "pages/zixun/zixunDetail/zixunDetail",
-    "pages/video/play/play"
+    "pages/video/play/play",
+    "pages/tiku/zuoti/zuoti"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -17,7 +18,7 @@
     "navigationBarTitleText": "中仕学社",
     "navigationBarTextStyle": "black"
   },
-    "navigateToMiniProgramAppIdList": [
-      "wxfc4ecbaf91acfaf6"
-    ]
+  "navigateToMiniProgramAppIdList": [
+    "wxfc4ecbaf91acfaf6"
+  ]
 }
