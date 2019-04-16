@@ -472,8 +472,6 @@ function changeShitiChecked(done_daan, shiti) {
 function setModelRealMarkAnswerItems(jie_answer_array, nums, isModelReal, isSubmit, self) {
   let markAnswerItems = self.data.markAnswerItems; //得到答题板组件的已答
 
-  console.log(jie_answer_array)
-  console.log(isSubmit)
   for (let i = 0; i < jie_answer_array.length; i++) {
     let px = jie_answer_array[i].px;
     let select = jie_answer_array[i].select;
@@ -545,7 +543,7 @@ function setMarkAnswer(shiti, isModelReal, isSubmit, self) {
     style = "color:white;border:1rpx solid #fd7f2b;background: linear-gradient(to right, #fd781f, #f9ba91);"
   } else if (shiti.flag == 0) { //如果题是正确的
     if(shiti.TX==99){
-      console.log(shiti)
+     
     }
     style = "background:#90dd35;color:white;border:1rpx solid #90dd35; "
   } else if (shiti.flag == 1) { //如果题是错误的
@@ -590,7 +588,8 @@ function storeAnswerStatus(shiti, self) {
     doneAnswerArray: doneAnswerArray
   })
 
-
+  
+  console.log("shiti" + self.data.zhangjie_id + zcode)
   wx.setStorage({
     key: "shiti" + self.data.zhangjie_id + zcode,
     data: answer_nums_array,
@@ -676,7 +675,6 @@ function storeAnswerArray(shiti, self) {
 function changeSelectStatus(done_daan, shiti, ifSubmit) {
   let srcs = shiti.srcs; //选项前的图标对象
   let flag = 0; //初始化正确还是错误
-  console.log('ok')
 
   switch (shiti.tx) {
     case "单选题":
@@ -722,7 +720,6 @@ function changeSelectStatus(done_daan, shiti, ifSubmit) {
       shiti.flag = flag; //答案是否正确
       break;
     case "材料题":
-      console.log(shiti)
       shiti.isAnswer = true;
       if (done_daan.length <shiti.xiaoti.length){//没答完
         flag = 1;
@@ -759,9 +756,8 @@ function changeModelRealSelectStatus(done_daan, shiti, ifSubmit) {
       } else {
         flag = 0;
       }
-      console.log(ifSubmit)
+
       if (!ifSubmit) shiti.done_daan = done_daan; //已经做的选择
-      console.log(shiti.done_daan)
       break;
     case "多选题":
       //初始化多选的checked值
@@ -772,7 +768,7 @@ function changeModelRealSelectStatus(done_daan, shiti, ifSubmit) {
 
       let answers = shiti.answer.split(""); //将“ABD” 这种字符串转为字符数组
       if (!ifSubmit) shiti.done_daan = new_done_daan; //已经做的选择
-      console.log(shiti.done_daan)
+
       for (let i = 0; i < new_done_daan.length; i++) {
         shiti.srcs[new_done_daan[i]] = "/images/right_answer.png";
       }
@@ -906,7 +902,6 @@ function processDoneAnswer(done_daan, shiti, self) {
  */
 function processModelRealDoneAnswer(done_daan, shiti, self) {
   if (self.data.isSubmit) { //提交了
-    console.log(typeof done_daan)
     if (done_daan == "") { //提交而且答案是空
       changeModelRealSelectStatus(shiti.answer, shiti, true) //根据得到的已答数组更新试题状态   
     } else {
@@ -972,9 +967,8 @@ function changeMultiShiti(done_daan, shiti) {
  */
 function postAnswerToServer(token, zcode, typesid,beizhu, id, flag, done_daan, app, API_URL) {
   //向服务器提交做题结果
-  console.log("action=saveShitiResult&token=" + token + "&zcode=" + zcode + "&tid=" + id + "&flag=" + flag + "&answer=" + done_daan + "&beizhu=" + beizhu + "&typesid=" + typesid)
   app.post(API_URL, "action=saveShitiResult&token=" + token + "&zcode=" + zcode + "&tid=" + id + "&flag=" + flag + "&answer=" + done_daan + "&beizhu=" + beizhu + "&typesid=" + typesid, false).then((res) => {
-    console.log('haha')
+    
   })
 }
 

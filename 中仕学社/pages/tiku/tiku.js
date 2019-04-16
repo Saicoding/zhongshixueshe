@@ -232,7 +232,7 @@ Page({
       zhangjie.isFolder = true; //设置展开初始值
       for (let j = 0; j < zhangjie.zhangjie_child.length; j++) {
         let jie = zhangjie.zhangjie_child[j];
-        let doneArray = wx.getStorageSync('doneArray' + jie.id + '0' + zcode) ? wx.getStorageSync('doneArray' + jie.id + '0' + zcode) : [];
+        let doneArray = wx.getStorageSync('shiti' + jie.id + zcode) ? wx.getStorageSync('shiti' + jie.id + zcode) : [];
 
         if (doneArray.length != 0) { //如果有本地缓存,就计算已做数组的长度
           jie.donenum = doneArray.length;
@@ -259,6 +259,11 @@ Page({
           jie.rightrate = 0;
           jie.rateWidth = 0;
         }
+      }
+
+      let zj_doneArray = wx.getStorageSync('shiti' + zhangjie.id + zcode);
+      if (zj_doneArray){
+        zhangjie.donenum = zj_doneArray.length;
       }
 
       zhangjie.rateWidth = 470 * zhangjie.donenum / parseInt(zhangjie.nums); //绿条宽度

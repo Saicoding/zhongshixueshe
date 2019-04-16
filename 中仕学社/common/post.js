@@ -36,7 +36,6 @@ function zuotiOnload(options, px, circular, myFavorite, shitiArray, user, page, 
   wx.getStorage({
     key: "shiti" + options.zhangjie_id + username,
     success: function(res1) {
-      console.log(res1)
       //根据章是否有子节所有已经回答的题
       let doneAnswerArray = self.data.jieIdx != "undefined" ? res1.data[self.data.zhangIdx][self.data.jieIdx] : res1.data[self.data.zhangIdx]
       common.setMarkAnswerItems(doneAnswerArray, options.nums, self.data.isModelReal, self.data.isSubmit, self); //设置答题板数组     
@@ -108,9 +107,6 @@ function zuotiOnload(options, px, circular, myFavorite, shitiArray, user, page, 
     lastSliderIndex: lastSliderIndex, //默认滑动条一开始是0
     isLoaded: true, //是否已经载入完毕,用于控制过场动画
   });
-
-  console.log(shitiArray)
-  console.log(midShiti)
 
   //如果是材料题就有动画
   if (midShiti.TX == 99) {

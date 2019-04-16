@@ -36,7 +36,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({//先存储起来,触发权限问题时带过去区分页面
       options: options
     })
@@ -525,7 +524,7 @@ Page({
     })
 
     common.changeNum(shiti.flag, self); //更新答题的正确和错误数量
-    console.log(shiti.beizhu)
+
     common.postAnswerToServer(user.token,user.zcode,typesid,shiti.beizhu, shiti.id, shiti.flag, shiti.done_daan, app, API_URL); //向服务器提交答题结
     common.storeAnswerStatus(shiti, self); //存储答题状态
 
@@ -709,7 +708,7 @@ Page({
       shitiArray: shitiArray
     })
     app.post(API_URL, "action=FavoriteShiti&t_id=" + shiti.id + "&token=" + token + "&zcode=" + zcode + "&beizhu=" + shiti.beizhu, false).then((res) => {
-        console.log(res)
+      
     })
   },
 
@@ -858,5 +857,82 @@ Page({
         duration:3000
       })
     })
+  },
+
+  /**
+   * 当摧毁页面时
+   */
+  onUnload:function(){
+    let user = wx.getStorageSync('user');
+    let zcode = user.zcode ? user.zcode : '';
+    let pages = getCurrentPages();
+    let prePage = pages[pages.length - 2];
+    let options = this.data.options;
+    let currentIndex = options.currentIndex;
+    let currentMidIndex = options.currentMidIndex;
+    console.log(currentIndex)
+    console.log(currentMidIndex)
+    let zhangIdx = options.zhangIdx;
+    let jieIdx = options.jieIdx;
+    let zhangjieLoadedStr = '' + currentIndex + currentMidIndex;//当前题库标识
+    let lastDoneAnswerArray = this.data.lastDoneAnswerArray ? this.data.lastDoneAnswerArray : [];//刚进入页面时的已做数量
+    let doneAnswerArray = this.data.doneAnswerArray; //所有已答数组
+    let tiku = prePage.data.tiku; //上个页面的题库对象
+    
+    if (!tiku) {
+      wx.setStorage({//设置数据有改变的题库编号
+        key: 'change' + zcode,
+        data: {currentIndex: currentIndex, currentMidIndex: currentMidIndex, zhangIdx: zhangIdx, jieIdx: jieIdx}
+      })
+      return
+    }
+
+    let donenum = this.data.options.donenum;//进入页面时的已做题数
+
+    //找到对应的题库
+    let mytikuArray = tiku[zhangjieLoadedStr];
+    for (let i = 0; i < mytikuArray.length; i++) {
+      let mytiku = mytikuArray[i];
+      for (let j = 0; j < mytiku.list.length; j++) {
+        let jie = mytiku.list[j];
+        let doneArray = wx.getStorageSync("doneArray" + options.f_id + "0" + zcode);
+
+        if (jie.id == options.f_id) {//找到对应章节
+          jie.donenum = doneArray.length;
+          jie.rateWidth = 490 * jie.donenum / parseInt(jie.all_num);
+          jie.rightrate = this.tongji.data.rightRate;
+          if (currentIndex == 4) {
+            jie.rightrate = 0;
+          }
+
+          if (options.selected == 'true') {
+            let hash = [];
+            let newArray = lastDoneAnswerArray.concat(doneAnswerArray);//新已做数组和旧已做数组相连
+
+            for (let i = 0; i < newArray.length; i++) {
+              for (var j = i + 1; j < newArray.length; j++) {
+                if (newArray[i].id == newArray[j].id) {
+                  ++i;
+                }
+              }
+              hash.push(newArray[i]);
+            }
+
+            mytiku.donenum += hash.length - lastDoneAnswerArray.length;
+          } else {
+            mytiku.donenum += doneAnswerArray.length - donenum;
+          }
+
+          mytiku.rightrate = mytiku.donenum == 0 ? '0.00' : ((mytiku.rightNum / mytiku.donenum) * 100).toFixed(2);
+          mytiku.rate = (mytiku.donenum / parseInt(mytiku.all_num) * 100).toFixed(2);
+          mytiku.rateWidth = 490 * mytiku.donenum / parseInt(mytiku.all_num);
+          prePage.setData({
+            zhangjies: mytikuArray,
+            tiku: tiku
+          })
+          break;
+        }
+      }
+    }
   }
 })
