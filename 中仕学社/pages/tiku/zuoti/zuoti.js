@@ -870,12 +870,9 @@ Page({
     let options = this.data.options;
     let currentIndex = options.currentIndex;
     let currentMidIndex = options.currentMidIndex;
-    console.log(currentIndex)
-    console.log(currentMidIndex)
     let zhangIdx = options.zhangIdx;
     let jieIdx = options.jieIdx;
     let zhangjieLoadedStr = '' + currentIndex + currentMidIndex;//当前题库标识
-    let lastDoneAnswerArray = this.data.lastDoneAnswerArray ? this.data.lastDoneAnswerArray : [];//刚进入页面时的已做数量
     let doneAnswerArray = this.data.doneAnswerArray; //所有已答数组
     let tiku = prePage.data.tiku; //上个页面的题库对象
     
@@ -888,49 +885,52 @@ Page({
     }
 
     let donenum = this.data.options.donenum;//进入页面时的已做题数
+    if (donenum == doneAnswerArray.length){
+      console.log('没有做题')
+      return
+    }
 
     //找到对应的题库
     let mytikuArray = tiku[zhangjieLoadedStr];
     for (let i = 0; i < mytikuArray.length; i++) {
       let mytiku = mytikuArray[i];
-      for (let j = 0; j < mytiku.list.length; j++) {
-        let jie = mytiku.list[j];
-        let doneArray = wx.getStorageSync("doneArray" + options.f_id + "0" + zcode);
 
-        if (jie.id == options.f_id) {//找到对应章节
-          jie.donenum = doneArray.length;
-          jie.rateWidth = 490 * jie.donenum / parseInt(jie.all_num);
-          jie.rightrate = this.tongji.data.rightRate;
-          if (currentIndex == 4) {
-            jie.rightrate = 0;
-          }
-
-          if (options.selected == 'true') {
-            let hash = [];
-            let newArray = lastDoneAnswerArray.concat(doneAnswerArray);//新已做数组和旧已做数组相连
-
-            for (let i = 0; i < newArray.length; i++) {
-              for (var j = i + 1; j < newArray.length; j++) {
-                if (newArray[i].id == newArray[j].id) {
-                  ++i;
-                }
-              }
-              hash.push(newArray[i]);
-            }
-
-            mytiku.donenum += hash.length - lastDoneAnswerArray.length;
-          } else {
-            mytiku.donenum += doneAnswerArray.length - donenum;
-          }
-
+      if (mytiku.zhangjie_child.length == 0){
+        if (mytiku.id == options.f_id){
+          mytiku.donenum = doneAnswerArray.length;
           mytiku.rightrate = mytiku.donenum == 0 ? '0.00' : ((mytiku.rightNum / mytiku.donenum) * 100).toFixed(2);
-          mytiku.rate = (mytiku.donenum / parseInt(mytiku.all_num) * 100).toFixed(2);
-          mytiku.rateWidth = 490 * mytiku.donenum / parseInt(mytiku.all_num);
+          mytiku.rate = (mytiku.donenum / parseInt(mytiku.nums) * 100).toFixed(2);
+          mytiku.rateWidth = 490 * mytiku.donenum / parseInt(mytiku.nums);
           prePage.setData({
             zhangjies: mytikuArray,
             tiku: tiku
           })
           break;
+        }
+       
+      }else{
+        for (let j = 0; j < mytiku.zhangjie_child.length; j++) {
+          let jie = mytiku.zhangjie_child[j];
+          let doneArray = wx.getStorageSync("shiti" + options.f_id + zcode);
+
+          if (jie.id == options.f_id) {//找到对应章节
+            mytiku.donenum += doneAnswerArray.length - jie.donenum;//提前计算，避免jie.donenum更新
+            jie.donenum = doneArray.length;
+            jie.rateWidth = 490 * jie.donenum / parseInt(jie.nums);
+            jie.rightrate = jie.donenum == 0 ? '0.00' : ((jie.rightNum / jie.donenum) * 100).toFixed(2);
+            if (currentIndex == 4) {
+              jie.rightrate = 0;
+            }
+
+            mytiku.rightrate = mytiku.donenum == 0 ? '0.00' : ((mytiku.rightNum / mytiku.donenum) * 100).toFixed(2);
+            mytiku.rate = (mytiku.donenum / parseInt(mytiku.nums) * 100).toFixed(2);
+            mytiku.rateWidth = 490 * mytiku.donenum / parseInt(mytiku.nums);
+            prePage.setData({
+              zhangjies: mytikuArray,
+              tiku: tiku
+            })
+            break;
+          }
         }
       }
     }

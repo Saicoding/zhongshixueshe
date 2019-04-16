@@ -29,8 +29,9 @@ page {
 .bar {
   margin-top: 25rpx;
   display: inline-block;
-  width: 180rpx;
   text-align: center;
+  padding-left:10rpx;
+  padding-right:10rpx;
   height: 50rpx;
   line-height: 50rpx;
   color: #f60;

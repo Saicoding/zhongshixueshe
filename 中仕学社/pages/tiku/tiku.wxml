@@ -96,14 +96,14 @@
 
         <!-- 节 -->
         <view class="jie" animation="{{!zhangjie.isFolder?zhangjie.spreadData:zhangjie.folderData}}">
-          <view wx:for="{{zhangjie.list}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
+          <view wx:for="{{zhangjie.zhangjie_child}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
             <view data-videoid="{{jie.video_id}}" data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-f_id="{{jie.id}}" data-rightRate="{{jie.rightrate}}" data-doneNum="{{jie.donenum}}" data-num="{{jie.all_num}}" data-title="{{jie.title}}" class="ti-block"
               bindtap="GOzuoti" hover-class='select1' hover-stay-time='500'>
               <image class="jie-dot" src="/images/dot.png"></image>
               <view class="ti-block-line" style="margin-left:40rpx;">
                 <view class="ti-block-line1">
                   <view class="ti-block-line1-title wp" style="color:{{jie.selected?'rgb(233, 73, 10);':jie.donenum == jie.all_num?'rgb(165, 165, 165);':'black'}}">{{jie.title}}</view>
-                  <view class="ti-block-line1-num">{{jie.donenum}}/{{jie.all_num}}</view>
+                  <view class="ti-block-line1-num">{{jie.donenum}}/{{jie.nums}}</view>
                 </view>
                 <view class="ti-block-line2"></view>
                 <view class="ti-block-line3" style="width:{{jie.rateWidth}}rpx;"></view>
@@ -115,7 +115,7 @@
               </view>
             </view>
 
-            <view wx:if="{{jieIdx != zhangjie.list.length-1 }}" class="jie-border"></view>
+            <view wx:if="{{jieIdx != zhangjie.zhangjie_child.length-1 }}" class="jie-border"></view>
           </view>
         </view>
       </view>

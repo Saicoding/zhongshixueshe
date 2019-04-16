@@ -37,7 +37,7 @@ Page({
     let currentIndex = wx.getStorageSync('currentIndex') ? wx.getStorageSync('currentIndex') : 0; //如果有本地缓存就用本地缓存,没有就设置默认0
     let currentMidIndex = wx.getStorageSync('currentMidIndex') ? wx.getStorageSync('currentMidIndex') : 0; //当前试题种类(如果有本地缓存就用本地缓存,没有就设置默认0)
 
-    let xcx_id = wx.getStorageSync('kaoshi').tid
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid:1
 
     //获取试题栏目中科目分类
     app.post(API_URL, "action=getKemuList&xcx_id=" + xcx_id ,false,false,"").then(res=>{
@@ -331,7 +331,7 @@ Page({
       let current_xcx_id = self.data.xcx_id;
       let xcx_id = wx.getStorageSync('kaoshi').tid
 
-      if (xcx_id != current_xcx_id){//切换了考试
+      if (xcx_id != current_xcx_id && xcx_id) {//切换了考试，并且xcx_id被设置过
         // 获取试题栏目中科目分类
         console.log('切换')
         console.log("action=getKemuList&xcx_id="+xcx_id)

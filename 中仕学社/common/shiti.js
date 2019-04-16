@@ -588,7 +588,7 @@ function storeAnswerStatus(shiti, self) {
     doneAnswerArray: doneAnswerArray
   })
 
-  
+
   console.log("shiti" + self.data.zhangjie_id + zcode)
   wx.setStorage({
     key: "shiti" + self.data.zhangjie_id + zcode,
@@ -977,18 +977,11 @@ function postAnswerToServer(token, zcode, typesid,beizhu, id, flag, done_daan, a
  */
 function storeLastShiti(px, self) {
   //存储当前最后一题
-  let zhangIdx = self.data.zhangIdx;
-  let jieIdx = self.data.jieIdx;
-
   let user = self.data.user;
-  let username = user.username;
+  let zcode = user.zcode;
 
-  let last_view_key = ""; //存储上次访问的题目的key
-  if (jieIdx != "undefined") { //如果有子节
-    last_view_key = 'last_view' + self.data.zhangjie_id + zhangIdx + jieIdx + username;
-  } else { //如果没有子节
-    last_view_key = 'last_view' + self.data.zhangjie_id + zhangIdx + username;
-  }
+  let last_view_key = 'last_view' + self.data.zhangjie_id + zcode; //存储上次访问的题目的key
+
   //本地存储最后一次访问的题目
   wx.setStorage({
     key: last_view_key,

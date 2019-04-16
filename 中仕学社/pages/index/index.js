@@ -165,8 +165,6 @@ Page({
       tid = 1;
     }
 
-    console.log("action=getMainInfo&id=" + tid)
-
     app.post(API_URL, "action=getMainInfo&id=" +tid, false, false, "").then(res => {
       let info = res.data.data[0];
       let catlogList = self.data.catlogList;//页面的所有目录

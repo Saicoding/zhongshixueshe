@@ -7,7 +7,6 @@ let share = require('share.js')
  */
 function zuotiOnload(options, px, circular, myFavorite, shitiArray, user, page, colors, category, all_nums, pageall, self) {
   let username = user.username;
-  let LoginRandom = user.Login_random;
   let zcode = user.zcode;
 
   //得到swiper数组
@@ -34,10 +33,11 @@ function zuotiOnload(options, px, circular, myFavorite, shitiArray, user, page, 
 
   //对是否是已答试题做处理
   wx.getStorage({
-    key: "shiti" + options.zhangjie_id + username,
+    key: "shiti" + options.f_id + zcode,
     success: function(res1) {
       //根据章是否有子节所有已经回答的题
-      let doneAnswerArray = self.data.jieIdx != "undefined" ? res1.data[self.data.zhangIdx][self.data.jieIdx] : res1.data[self.data.zhangIdx]
+      let doneAnswerArray = res1.data;
+      console.log(doneAnswerArray)
       common.setMarkAnswerItems(doneAnswerArray, options.nums, self.data.isModelReal, self.data.isSubmit, self); //设置答题板数组     
       //映射已答题目的已作答的答案到shitiArray
       for (let i = 0; i < doneAnswerArray.length; i++) {
