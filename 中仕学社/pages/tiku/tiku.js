@@ -870,9 +870,9 @@ Page({
    */
   GOmark: function (e) {
     let index = e.currentTarget.dataset.index;
-    let types = this.data.bars[currentIndex].id; //科目id
+    let types = this.data.bars[index].id; //科目id
     wx.navigateTo({
-      url: '/pages/shuati/mark/mark?types=' + types,
+      url: '/pages/tiku/mark/mark?types=' + types,
     })
   },
 

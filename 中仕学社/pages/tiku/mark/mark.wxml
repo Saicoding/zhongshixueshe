@@ -72,6 +72,12 @@
 <markAnswer isLianxi="true" id="markAnswer" done_answers="{{jieDoneAnswerArray}}" windowHeight="{{windowHeight}}" markAnswerItems="{{markAnswerItems}}" bind:tapEvent="_tapEvent" bind:restart="_restart">
 </markAnswer>
 
+<view  wx:if="{{!isHasShiti}}">
+<image src="/images/hasNoshiti.png" style ="display:block;margin:0 auto;width:200rpx;height:200rpx;margin-top:80rpx;">
+</image>
+<view style = "font-size:22rpx;color:#bdbdbd;text-align:center;margin-top:20rpx;">暂时没有收藏试题</view>
+</view>
+
 <!-- 纠错板 -->
 <errorRecovery category="{{category}}" colors="{{colors}}" id="errorRecovery" windowWidth="{{windowWidth}}" windowHeight="{{windowHeight}}" bindsubmit="_submit"></errorRecovery>
 

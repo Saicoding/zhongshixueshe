@@ -10,7 +10,8 @@
     "pages/zixun/zixun",
     "pages/zixun/zixunDetail/zixunDetail",
     "pages/video/play/play",
-    "pages/tiku/zuoti/zuoti"
+    "pages/tiku/zuoti/zuoti",
+    "pages/tiku/mark/mark"
   ],
   "window": {
     "backgroundTextStyle": "light",
