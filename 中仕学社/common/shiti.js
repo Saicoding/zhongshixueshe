@@ -121,7 +121,7 @@ function processTapLianxiAnswer(midShiti, preShiti, nextShiti, px, current, circ
   let myCurrent = current;
 
   let sliderShitiArray = [];
-
+  console.log(midShiti)
   initShiti(midShiti, self); //初始化试题对象
   processDoneAnswer(midShiti.done_daan, midShiti, self);
 
@@ -589,8 +589,6 @@ function storeAnswerStatus(shiti, self) {
     doneAnswerArray: doneAnswerArray
   })
 
-
-  console.log("shiti" + self.data.zhangjie_id + zcode)
   wx.setStorage({
     key: "shiti" + self.data.zhangjie_id + zcode,
     data: answer_nums_array,
@@ -877,6 +875,7 @@ function processDoneAnswer(done_daan, shiti, self) {
     case "单选题":
     case "多选题":
     case "判断题":
+      console.log(done_daan)
       if (done_daan != "") {
         changeSelectStatus(done_daan, shiti) //根据得到的已答数组更新试题状态
         shiti.isAnswer = true;

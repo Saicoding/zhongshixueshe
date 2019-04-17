@@ -886,12 +886,11 @@ Page({
   /**
    * 导航到笔记页面
    */
-  GOnoteAndErrList: function(e) {
+  GOcuoti: function(e) {
     let currentIndex = this.data.currentIndex;
-    let type = e.currentTarget.dataset.type; //点击的类型('note'笔记 'err' 错题)
     let typesid = this.data.bars[currentIndex].id;
     wx.navigateTo({
-      url: '/pages/shuati/noteAndErrList/noteAndErrList?typesid=' + typesid + "&type=" + type,
+      url: '/pages/tiku/cuoti/cuotiList?typesid=' + typesid
     })
   },
 

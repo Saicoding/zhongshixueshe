@@ -19,7 +19,7 @@
     <!-- 上面部分 -->
     <view class='top'>
       <view class='t_left'>
-        <view data-type="note" class='ti_z1' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
+        <view class='ti_z1' bindtap="GOcuoti" hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-1.png" mode="aspectFit"></image>
           <view class='t_text'>我的错题</view>
         </view>

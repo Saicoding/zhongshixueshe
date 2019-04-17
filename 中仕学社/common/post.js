@@ -134,7 +134,6 @@ function zuotiOnload(options, px, circular, myFavorite, shitiArray, user, page, 
 /**
  * 收藏题
  */
-
 function markOnload(options, px, circular, myFavorite, shitiArray, user, page, colors, category, all_nums, pageall, self) {
   let username = user.username;
   let zcode = user.zcode;
@@ -206,63 +205,48 @@ function markOnload(options, px, circular, myFavorite, shitiArray, user, page, c
 /**
  * 错题
  */
-
-function wrongOnload(options, px, circular, myFavorite, res, user, requesttime, colors, category, self) {
-  let shitiArray = res.data.shiti;
-  let all_nums = res.data.all_nums;
-  let pageall = res.data.pageall;
-
+function wrongOnload(options, px, circular, myFavorite, shitiArray, user, page, colors, category, all_nums, pageall, self) {
   let username = user.username;
-  let LoginRandom = user.Login_random;
   let zcode = user.zcode;
-
-
-  common.initShitiArrayDoneAnswer(shitiArray); //将试题的所有done_daan置空
-
-  common.initMarkAnswer(all_nums, self); //初始化答题板数组
-
-  shitiArray = common.initShitiArray(shitiArray, all_nums, 1);
 
   //得到swiper数组
   let nextShiti = undefined; //后一题
-  let midShiti = shitiArray[0]; //中间题
+  let midShiti = shitiArray[px - 1]; //中间题
   let sliderShitiArray = [];
+  let lastSliderIndex = 0;
 
   common.initShiti(midShiti, self); //初始化试题对象
-
-  if (shitiArray.length != 1) {
-    nextShiti = shitiArray[1];
+  if (shitiArray.length > 1) {
+    nextShiti = shitiArray[px];
     common.initShiti(nextShiti, self); //初始化试题对象
   }
 
-  circular = false //如果滑动后编号是1,或者最后一个就禁止循环滑动
+
+  circular = false; //如果滑动后编号是1,或者最后一个就禁止循环滑动
   myFavorite = midShiti.favorite;
 
-  if (nextShiti != undefined) sliderShitiArray[1] = nextShiti;
   sliderShitiArray[0] = midShiti;
 
+  if (shitiArray.length > 1) {
+    sliderShitiArray[1] = nextShiti;
+  }
+  console.log(midShiti)
+
   self.setData({
-    //设置过场动画
-    winH: wx.getSystemInfoSync().windowHeight,
-    opacity: 1,
-    px: px,
-
+    z_id: options.types, //点击组件的id编号
+    px: 1,
+    user: user,
     colors: colors, //配色方案
-    category: category, //试题种类
+    circular: circular,
+    myFavorite: myFavorite, //是否收藏
 
-    kid: options.kid, //题库编号
     nums: all_nums, //题数
+    pageall: pageall, //总页数
+
     shitiArray: shitiArray, //整节的试题数组
     sliderShitiArray: sliderShitiArray, //滑动数组
-    circular: circular,
-    pageall: pageall, //总页数
-    pageArray: [1], //当前所有已经渲染的页面数组
-    myFavorite: myFavorite, //是否收藏
-    lastSliderIndex: 0, //默认滑动条一开始是0
+    lastSliderIndex: lastSliderIndex, //默认滑动条一开始是0
     isLoaded: true, //是否已经载入完毕,用于控制过场动画
-
-    user: user,
-    requesttime: requesttime, //第一次请求的时间
   });
 
   //如果是材料题就有动画

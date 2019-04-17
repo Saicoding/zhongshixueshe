@@ -1,1 +1,45 @@
-/* pages/tiku/cuoti/cuotiList.wxss */
+/* pages/shuati/myti/myti.wxss */
+page{
+  background: #f8f8f8;
+}
+
+.content{
+  width:690rpx;
+  background: white;
+  margin:10rpx auto;
+  font-size:28rpx;
+  box-shadow: 3rpx 3rpx 24rpx 3rpx rgba(24, 24, 24,0.1);
+  border-radius: 10rpx;
+}
+
+.up{
+  color:#c1c2c2;
+  font-size:25rpx;
+  letter-spacing: 8rpx;
+  padding-left:30rpx;
+  height:80rpx;
+  line-height: 80rpx;
+}
+
+.ti{
+  display: flex;
+  justify-content: space-between;
+  height:100rpx;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid rgba(32, 32, 32,0.05);
+  padding-left:30rpx;
+}
+
+.ti-text{
+  width:600rpx;
+}
+
+.ti-num{
+  color:#1fca6a;
+  width:80rpx;
+  text-align: center;
+}
+
+.select1{
+  background: rgba(0, 0, 0,0.1);
+}
