@@ -52,9 +52,10 @@ Page({
     let test_score = e.currentTarget.dataset.test_score;//历史最高分
     let id= e.currentTarget.dataset.id;//点击试卷的id号
     let totalscore = e.currentTarget.dataset.totalscore;//总分数
+    let times = e.currentTarget.dataset.times;
 
     wx.navigateTo({
-      url: '/pages/tiku/modelReal/modelRealDetail?title='+title+'&test_score='+test_score+'&id='+id+'&totalscore='+totalscore,
+      url: '/pages/tiku/modelReal/modelRealDetail?title='+title+'&test_score='+test_score+'&id='+id+'&totalscore='+totalscore+"&times="+times,
     })
   },
 

@@ -586,7 +586,7 @@ Page({
     share.setColor("qh", false, false); //设置tabbar颜色
 
     wx.setNavigationBarTitle({
-      title: "我的收藏"
+      title: options.title
     }) //设置标题
 
     let user = wx.getStorageSync('user');

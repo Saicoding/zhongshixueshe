@@ -46,6 +46,7 @@ Page({
     let self = this;
     let user = wx.getStorageSync('user'); //用户名
     let zcode = user.zcode; //用户唯一码
+    let token = user.token;
 
     let test_score = options.test_score; //试卷总分数
     let id = options.id; //试卷id
@@ -66,7 +67,8 @@ Page({
       })
     }
 
-    app.post(API_URL, "action=SelectTestShow&sjid=" + id + "&LoginRandom=" + LoginRandom + "&zcode=" + zcode, false, true, "", "model", false, self).then((res) => {
+    app.post(API_URL, "action=SelectTestShow&sjid=" + id + "&token=" + token + "&zcode=" + zcode, false, true, "", "model", false, self).then((res) => {
+      console.log(res)
       let shitiArray = res.data.list;
 
       common.setModelRealCLShitiPx(shitiArray)
@@ -182,7 +184,7 @@ Page({
           myCurrent: 1
         })
       }
-
+      console.log(options.times)
       self.setData({
         id: options.id, //真题编号
         times: options.times, //考试时间
@@ -206,7 +208,6 @@ Page({
         lastSliderIndex: lastSliderIndex, //默认滑动条一开始是0
 
         newShitiArray: newShitiArray, //新的试题数组
-        username: username, //用户账号名称
       });
 
       //如果是材料题就判断是否动画
@@ -774,8 +775,7 @@ Page({
     let gone_time = 0; //花费时间
 
     let user = self.data.user;
-    let username = user.username;
-    let LoginRandom = user.Login_random;
+    let token = user.token;
     let zcode = user.zcode;
 
 
@@ -828,21 +828,11 @@ Page({
 
     //提交结果
     app.post(API_URL, "action=SaveTestResult" +
-      "&LoginRandom=" + LoginRandom +
+      "&token=" + token +
       "&zcode=" + zcode +
       "&sjid=" + id +
-      "&userAnswer1=" + doneUserAnswer.userAnswer1 +
-      "&userAnswer2=" + doneUserAnswer.userAnswer2 +
-      "&userAnswer99=" + doneUserAnswer.userAnswer99 +
-      "&tid1=" + doneUserAnswer.tid1 +
-      "&tid2=" + doneUserAnswer.tid2 +
-      "&tid99=" + doneUserAnswer.tid99 +
-      "&rightAnswer1=" + doneUserAnswer.rightAnswer1 +
-      "&rightAnswer2=" + doneUserAnswer.rightAnswer2 +
-      "&rightAnswer99=" + doneUserAnswer.rightAnswer99 +
       "&testTime=" + gone_time +
-      "&testScore=" + score +
-      "&TrueTid=" + doneUserAnswer.TrueTid, true, true, "计算中").then((res) => {
+      "&testScore=" + score , true, true, "计算中").then((res) => {
 
       if (score > self.data.test_score) { //如果比历史分数高就更新
         let pages = getCurrentPages();

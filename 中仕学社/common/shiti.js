@@ -601,9 +601,9 @@ function storeAnswerStatus(shiti, self) {
 function storeModelRealAnswerStatus(shiti, self) {
   let id = self.data.id;
   let user = self.data.user;
-  let username = user.username;
+  let zcode = user.zcode;
   let doneAnswerArray = self.data.doneAnswerArray;
-  let answer_nums_array = wx.getStorageSync(self.data.tiTypeStr + "modelReal" + id + username);
+  let answer_nums_array = wx.getStorageSync("modelReal" + id + zcode);
 
   let flag = false;
 
@@ -640,7 +640,7 @@ function storeModelRealAnswerStatus(shiti, self) {
   })
 
   wx.setStorage({
-    key: self.data.tiTypeStr + "modelReal" + id + username,
+    key: "modelReal" + id + zcode,
     data: answer_nums_array,
   })
 }

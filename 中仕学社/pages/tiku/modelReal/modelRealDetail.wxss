@@ -2,13 +2,6 @@
 
 /******************** 提问 **********************/
 
-.loading-img {
-  display: block;
-  width: 120rpx;
-  height: 120rpx;
-  margin: 400rpx auto;
-}
-
 .question {
   line-height: 60rpx;
   margin-top: 15rpx;
@@ -29,6 +22,8 @@
   width:100%;
   margin-bottom: 20rpx;
 }
+
+
 
 .container{
   border-radius: 20rpx;
