@@ -15,9 +15,9 @@ Page({
   },
 
   /**
- * 切换考试
- */
-  switch: function () {
+   * 切换考试
+   */
+  switch: function() {
     wx.navigateTo({
       url: '/pages/index/switch/switch',
     })
@@ -26,10 +26,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let self = this;
     this.setData({
-      first:true
+      first: true
     })
     wx.setNavigationBarTitle({
       title: '题库',
@@ -37,14 +37,18 @@ Page({
     let currentIndex = wx.getStorageSync('currentIndex') ? wx.getStorageSync('currentIndex') : 0; //如果有本地缓存就用本地缓存,没有就设置默认0
     let currentMidIndex = wx.getStorageSync('currentMidIndex') ? wx.getStorageSync('currentMidIndex') : 0; //当前试题种类(如果有本地缓存就用本地缓存,没有就设置默认0)
 
-    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid:1
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+
+    this.setData({
+      midTitle: this.getMidTitle(xcx_id)
+    })
 
     //获取试题栏目中科目分类
-    app.post(API_URL, "action=getKemuList&xcx_id=" + xcx_id ,false,false,"").then(res=>{
+    app.post(API_URL, "action=getKemuList&xcx_id=" + xcx_id, false, false, "").then(res => {
       let bars = res.data.data;
 
       self.setData({
-        bars:bars
+        bars: bars
       })
 
       self.setData({
@@ -99,8 +103,6 @@ Page({
 
           self.initZhangjie(zhangjies); //初始化章节信息
 
-
-
           tiku[zhangjieLoadedStr] = zhangjies;
 
           self.setData({
@@ -118,7 +120,7 @@ Page({
 
             wx.pageScrollTo({
               scrollTop: scroll,
-              success: function (res) {
+              success: function(res) {
 
                 zhangjies[zhangIdx].list[jieIdx].selected = true;
                 self.setData({
@@ -158,7 +160,7 @@ Page({
 
             wx.pageScrollTo({
               scrollTop: scroll,
-              success: function (res) {
+              success: function(res) {
 
                 zhangjies[zhangIdx].list[jieIdx].selected = true;
                 self.setData({
@@ -186,14 +188,14 @@ Page({
 
       let str = "today" + myDate + zcode;
       wx.getStorageInfo({
-        success: function (res) {
+        success: function(res) {
           for (let i = 0; i < res.keys.length; i++) {
             let key = res.keys[i];
             if (key.indexOf('today') != -1) {
               if (str != key) {
                 wx.removeStorage({
                   key: key,
-                  success: function (res) {
+                  success: function(res) {
 
                   },
                 })
@@ -209,7 +211,7 @@ Page({
   /**
    * 获取做题进度
    */
-  getZuotiJindu: function (token, zcode, types, self) {
+  getZuotiJindu: function(token, zcode, types, self) {
     app.post(API_URL, "action=getTiJindu&token=" + token + "&zcode=" + zcode + "&typesid=" + types, false, false, "", "", false, self).then(res => {
       let jindu = res.data.data[0].jindu;
       self.setData({
@@ -221,7 +223,7 @@ Page({
   /**
    * 初始化章节信息
    */
-  initZhangjie: function (zhangjies) {
+  initZhangjie: function(zhangjies) {
     let user = wx.getStorageSync('user');
     let zcode = user.zcode == undefined ? '' : user.zcode; //本地缓存标识,如果登陆就是唯一，如果是游客就公用本地缓存
 
@@ -262,7 +264,7 @@ Page({
       }
 
       let zj_doneArray = wx.getStorageSync('shiti' + zhangjie.id + zcode);
-      if (zj_doneArray){
+      if (zj_doneArray) {
         zhangjie.donenum = zj_doneArray.length;
       }
 
@@ -276,7 +278,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let self = this;
 
     this.goAnswerModel = this.selectComponent("#goAnswerModel");
@@ -284,7 +286,7 @@ Page({
     this.ti = wx.createSelectorQuery(); //题组件dom对象
 
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
-      success: function (res) { //转换窗口高度
+      success: function(res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
         //最上面标题栏不同机型的高度不一样(单位PX)
@@ -301,9 +303,32 @@ Page({
   },
 
   /**
+   * 根据考生类别得到标题
+   */
+  getMidTitle: function(id) {
+    let title = "";
+    switch (id) {
+      case 1:
+        title = "本题库根据2019年最新健康管理师考试大纲命题";
+        break;
+      case 2:
+        title = "本题库根据2019年最新导游考试大纲命题";
+        break;
+      case 3:
+        title = "本题库根据2019年最新房地产经纪人考试大纲命题";
+        break;
+      case 4:
+        title = "本题库根据2019年最新房地产经纪人协理考试大纲命题";
+        break;
+    }
+
+    return title;
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let self = this;
     let currentIndex = this.data.currentIndex; //当前科目index
     let currentMidIndex = this.data.currentMidIndex; //当前题型index
@@ -331,11 +356,14 @@ Page({
       let current_xcx_id = self.data.xcx_id;
       let xcx_id = wx.getStorageSync('kaoshi').tid
 
-      if (xcx_id != current_xcx_id && xcx_id) {//切换了考试，并且xcx_id被设置过
-        // 获取试题栏目中科目分类
+      this.setData({
+        midTitle: this.getMidTitle(xcx_id)
+      })
+
+      if (xcx_id != current_xcx_id && xcx_id) { //切换了考试，并且xcx_id被设置过
         console.log('切换')
-        console.log("action=getKemuList&xcx_id="+xcx_id)
-        app.post(API_URL, "action=getKemuList&xcx_id="+xcx_id, false, false, "").then(res => {
+        // 获取试题栏目中科目分类
+        app.post(API_URL, "action=getKemuList&xcx_id=" + xcx_id, false, false, "").then(res => {
           console.log(res)
           let bars = res.data.data
           self.setData({
@@ -413,7 +441,7 @@ Page({
 
                 wx.pageScrollTo({
                   scrollTop: scroll,
-                  success: function (res) {
+                  success: function(res) {
 
                     zhangjies[zhangIdx].list[jieIdx].selected = true;
                     self.setData({
@@ -453,7 +481,7 @@ Page({
 
                 wx.pageScrollTo({
                   scrollTop: scroll,
-                  success: function (res) {
+                  success: function(res) {
 
                     zhangjies[zhangIdx].list[jieIdx].selected = true;
                     self.setData({
@@ -472,7 +500,7 @@ Page({
             })
           }
         })
-      }else{//没有切换考试
+      } else { //没有切换考试
         self.setData({
           user: user
         })
@@ -520,7 +548,7 @@ Page({
 
             wx.pageScrollTo({
               scrollTop: scroll,
-              success: function (res) {
+              success: function(res) {
 
                 zhangjies[zhangIdx].list[jieIdx].selected = true;
                 self.setData({
@@ -549,14 +577,14 @@ Page({
   /**
    * 改变科目
    */
-  changeBar: function (e) {
+  changeBar: function(e) {
     let self = this;
     let type = e.currentTarget.dataset.type; //切换类型(1.点击科目,2.点击题型)
     let barid = e.currentTarget.dataset.barid;
     let currentIndex = null;
     let currentMidIndex = null;
 
-    if (!self.data.zhangjieLoadedStrArray) {//还没有载入完毕
+    if (!self.data.zhangjieLoadedStrArray) { //还没有载入完毕
       wx.showToast({
         title: '等待载入...',
         icon: 'none',
@@ -582,7 +610,7 @@ Page({
       wx.setStorage({ //设置本地缓存
         key: 'currentIndex',
         data: currentIndex,
-        fail: function () {
+        fail: function() {
           wx.showToast({
             title: '设置currentIndex失败',
             icon: 'none',
@@ -607,7 +635,7 @@ Page({
       wx.setStorage({ //设置本地缓存
         key: 'currentMidIndex',
         data: currentMidIndex,
-        fail: function () {
+        fail: function() {
           wx.showToast({
             title: '设置currentMidIndex失败',
             icon: 'none',
@@ -657,8 +685,10 @@ Page({
           })
         })
       } else { //模拟 & 核心
+        console.log(currentMidIndex)
         let keys = currentMidIndex == 1 ? 0 : 1
 
+        console.log("action=SelectZjList&z_id=" + types + "&keys=" + keys)
         app.post(API_URL, "action=SelectZjList&z_id=" + types + "&keys=" + keys, false, false, "", "").then(res => {
           let zhangjies = res.data.data;
 
@@ -680,7 +710,7 @@ Page({
   /**
    * 切换试题折叠状态
    */
-  toogleFolder: function (e) {
+  toogleFolder: function(e) {
     let self = this;
     let index = e.currentTarget.dataset.zhangidx; //选择章节的index
     let zhangjie = self.data.zhangjies; //取得章节对象
@@ -688,11 +718,11 @@ Page({
     let windowWidth = self.data.windowWidth;
     let num = zhangjie[index].zhangjie_child.length //取得有多少个章节
 
-    
+
     if (num == 0) {
       this.GOzuoti(e);
       return
-    }else{
+    } else {
       //开始动画
       this.step(index, num, windowWidth, zhangjie);
 
@@ -705,7 +735,7 @@ Page({
   /**
    * 实现展开折叠效果
    */
-  step: function (index, num, windowWidth, zhangjie) {
+  step: function(index, num, windowWidth, zhangjie) {
     let self = this;
     let isFolder = zhangjie[index].isFolder; //取得现在是什么状态
     let jie_num = 0;
@@ -745,13 +775,13 @@ Page({
         timingFunction: "ease-out"
       })
 
-      foldAnimation.height(0, height + "rpx").opacity(0).step(function () { })
+      foldAnimation.height(0, height + "rpx").opacity(0).step(function() {})
 
       zhangjie[index].height = 0;
       zhangjie[index].isFolder = true;
       zhangjie[index].folderData = foldAnimation.export();
 
-      setTimeout(function () {
+      setTimeout(function() {
         zhangjie[index].display = false;
         self.setData({
           zhangjies: zhangjie,
@@ -767,7 +797,7 @@ Page({
   /**
    * 展示模拟真题答题弹窗
    */
-  showModelanswerModel: function (e) {
+  showModelanswerModel: function(e) {
     let user = wx.getStorageSync('user');
     let buy = e.currentTarget.dataset.buy;
     let title = e.currentTarget.dataset.title;
@@ -813,7 +843,7 @@ Page({
   /**
    * 导航到做题页面
    */
-  GOzuoti: function (e) {
+  GOzuoti: function(e) {
     console.log(e)
     let self = this;
     let currentIndex = this.data.currentIndex; //当前科目index
@@ -823,24 +853,24 @@ Page({
     let types = self.data.bars[currentIndex].id; //科目ID
     let f_id = e.currentTarget.dataset.f_id; //章节id
     let all_nums = e.currentTarget.dataset.num; //点击章节的题数
-    
+
     let zhangIdx = e.currentTarget.dataset.zhangidx; //点击的章index
-    let jieIdx = e.currentTarget.dataset.jieIdx ? e.currentTarget.dataset.jieIdx:'hasno'; //点击的节index
+    let jieIdx = e.currentTarget.dataset.jieIdx ? e.currentTarget.dataset.jieIdx : 'hasno'; //点击的节index
     let lastZhangeIdx = this.data.lastZhangeIdx ? this.data.lastZhangeIdx : 0;
-    let lastJieIdx = this.data.lastJieIdx ? this.data.lastJieIdx:'hasno';
+    let lastJieIdx = this.data.lastJieIdx ? this.data.lastJieIdx : 'hasno';
     let zhangjies = this.data.zhangjies; //当前科目所有章节
 
-    if (!(zhangIdx == lastZhangeIdx && jieIdx == lastJieIdx )) { //点击了不同章节
-      
-      if (lastJieIdx !='hasno'){
+    if (!(zhangIdx == lastZhangeIdx && jieIdx == lastJieIdx)) { //点击了不同章节
+
+      if (lastJieIdx != 'hasno') {
         zhangjies[lastZhangeIdx].zhangjie_child[lastJieIdx].selected = false;
       }
 
-      if (jieIdx != 'hasno'){
+      if (jieIdx != 'hasno') {
         zhangjies[zhangIdx].zhangjie_child[jieIdx].selected = true;
       }
-     
-     
+
+
       this.setData({
         lastZhangeIdx: zhangIdx,
         lastJieIdx: jieIdx,
@@ -849,14 +879,14 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/pages/tiku/zuoti/zuoti?title=' + title + "&f_id=" + f_id + "&types=" + types + "&all_nums=" + all_nums + "&donenum=" + donenum +  "&currentIndex=" + currentIndex + "&currentMidIndex=" + currentMidIndex + "&zhangIdx=" + zhangIdx + "&jieIdx=" + jieIdx,
+      url: '/pages/tiku/zuoti/zuoti?title=' + title + "&f_id=" + f_id + "&types=" + types + "&all_nums=" + all_nums + "&donenum=" + donenum + "&currentIndex=" + currentIndex + "&currentMidIndex=" + currentMidIndex + "&zhangIdx=" + zhangIdx + "&jieIdx=" + jieIdx,
     })
   },
 
   /**
    * 导航到笔记页面
    */
-  GOnoteAndErrList: function (e) {
+  GOnoteAndErrList: function(e) {
     let currentIndex = this.data.currentIndex;
     let type = e.currentTarget.dataset.type; //点击的类型('note'笔记 'err' 错题)
     let typesid = this.data.bars[currentIndex].id;
@@ -868,7 +898,7 @@ Page({
   /**
    * 导航到收藏
    */
-  GOmark: function (e) {
+  GOmark: function(e) {
     let index = e.currentTarget.dataset.index;
     let types = this.data.bars[index].id; //科目id
     wx.navigateTo({
@@ -879,7 +909,7 @@ Page({
   /**
    * 导航到随机练习
    */
-  GORandom: function (e) {
+  GORandom: function(e) {
     let index = e.currentTarget.dataset.index;
     let types = this.data.bars[currentIndex].id; //科目id
     wx.navigateTo({
@@ -890,7 +920,7 @@ Page({
   /**
    * 导航到模拟
    */
-  _GOmoni: function (e) {
+  _GOmoni: function(e) {
     let title = e.detail.title; //标题
     let id = e.detail.id; //id
     let times = e.detail.times; //时间
@@ -906,7 +936,7 @@ Page({
   /**
    * 导航到学习计划
    */
-  GOxuexijihua: function () {
+  GOxuexijihua: function() {
     wx.navigateTo({
       url: '/pages/index/xuexijihua/xuexijihua',
     })
@@ -915,7 +945,7 @@ Page({
   /**
    * 监测滚动条滚动
    */
-  onPageScroll: function (e) {
+  onPageScroll: function(e) {
     let self = this;
 
     let windowWidth = this.data.windowWidth;
@@ -948,7 +978,7 @@ Page({
   /**
    * 购买解析包
    */
-  _buy: function (e) {
+  _buy: function(e) {
 
     this.jiesuoti.hideDialog();
     let product = e.detail.product;
@@ -961,7 +991,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

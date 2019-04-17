@@ -21,11 +21,11 @@
       <view class='t_left'>
         <view data-type="note" class='ti_z1' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-1.png" mode="aspectFit"></image>
-          <view class='t_text'>我的笔记</view>
+          <view class='t_text'>我的错题</view>
         </view>
         <view data-type="err" class='ti_z2' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-2.png" mode="aspectFit"></image>
-          <view class='t_text'>我的错题</view>
+          <view class='t_text'>全真模拟</view>
         </view>
       </view>
       <view class='t_center' bindtap="test1">
@@ -46,23 +46,20 @@
         </view>
         <view data-index="{{currentIndex}}" bindtap="GORandom" class='ti_z4' hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-4.png" mode="aspectFit"></image>
-          <view class='t_text'>随机练习</view>
+          <view class='t_text'>核心密卷</view>
         </view>
       </view>
     </view>
-
-    <!-- 章节练习,全真模拟，核心密卷 -->
-    <view class="mid">
-      <view data-type="0" data-index="0" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==0?'#fd904d':'white'}};color:{{currentMidIndex ==0?'white':'#9f9f9f'}}">章节练习</view>
-      <view data-type="0" data-index="1" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==1?'#fd904d':'white'}};color:{{currentMidIndex ==1?'white':'#9f9f9f'}}">全真模拟</view>
-      <view data-type="0" data-index="2" bindtap="changeBar" class="mid-item" style="background:{{currentMidIndex ==2?'#fd904d':'white'}};color:{{currentMidIndex ==2?'white':'#9f9f9f'}}">核心密卷</view>
-    </view>
+  </view>
+  <!-- 章节练习,全真模拟，核心密卷 -->
+  <view class="mid">
+    章节目录
   </view>
 
   <!-- 中间条 -->
   <view class="midline {{fixed}}">
     <view class="midline-dot"></view>
-    <view class="midline-text">本题库根据2019年最新导游考试大纲命题</view>
+    <view class="midline-text">{{midTitle}}</view>
   </view>
 
   <!-- 占位块 -->
@@ -72,7 +69,8 @@
     <!-- 章节练习-->
     <view wx:if="{{currentMidIndex == 0&&isLoaded}}">
       <view style="margin-bottom:50rpx;" wx:for="{{zhangjies}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
-        <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}"  data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block" bindtap="toogleFolder">
+        <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}" data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block"
+          bindtap="toogleFolder">
           <image wx:if="{{zhangjie.zhangjie_child.length !=0}}" class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
           <view class="ti-block-line" style="margin-left:30rpx;">
             <view class="ti-block-line1">
@@ -141,7 +139,7 @@
       </view>
 
       <view wx:if="{{zhangjies.length ==0}}">
-        <image class="hasNopage" src="/images/hasNopage/nosearch2.png" style="margin-top:10rpx;width:180rpx;height:180rpx;"></image>
+        <image class="hasNopage" src="/images/hasNoshiti.png" style="margin-top:10rpx;width:180rpx;height:180rpx;"></image>
         <view style="text-align:center;color: rgb(146, 146, 146);font-size:22rpx;margin-top:15rpx;">该科目下没有{{currentMidIndex == 1?'模拟试卷':'核心密卷'}}...</view>
       </view>
     </view>
