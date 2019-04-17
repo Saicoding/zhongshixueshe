@@ -1,0 +1,76 @@
+<!--pages/tiku/zuoti/index.wxml-->
+<swiper wx:if="{{isLoaded}}" duration="200" current="{{myCurrent}}" circular="{{circular}}" skip-hidden-item-layout="true" class="swiper" bindchange="sliderChange">
+  <block wx:for="{{sliderShitiArray}}" wx:for-item="shiti" wx:key="ti">
+    <swiper-item>
+      <scroll-view scroll-y style="height:{{windowHeight-85}}rpx;" catchlongtap='_toogleMarkAnswer'>
+        <view style="border:1rpx solid white;padding-bottom:50rpx;">
+          <view class="container">
+            <!--问题-->
+            <question colors="{{colors}}" bindtoogleAnimation="_toogleAnimation" isModelReal="true" id="q{{shiti.px}}" num_color="{{shiti.num_color}}" px="{{shiti.px}}" tx="{{shiti.tx}}" question="{{shiti.question}}"></question>
+
+            <!--单选题-->
+            <view style="margin-botoom:50rpx;" wx:if="{{shiti.TX == 1 || shiti.TX == 3}}">
+              <singleSelect colors="{{colors}}" shiti="{{shiti}}" checked="{{checked}}" bindanswerSelect="_answerSelect"> </singleSelect>
+              <!-- 解析 -->
+              <jiexi isAnswer="{{isSubmit}}" jiexi="{{shiti.jiexi}}"></jiexi>
+            </view>
+
+            <!--多选题-->
+            <view style="margin-botoom:50rpx;" wx:if="{{shiti.TX ==2}}">
+
+              <multiSelect colors="{{colors}}" shiti="{{shiti}}" checked="{{checked}}" bindcheckVal="_answerSelect"></multiSelect>
+              <!-- 解析 -->
+              <jiexi isAnswer="{{isSubmit}}" jiexi="{{shiti.jiexi}}"></jiexi>
+            </view>
+
+            <!--材料题-->
+            <view style="margin-botoom:50rpx;" wx:if="{{shiti.TX == 99}}">
+              <view wx:if="{{!shiti.confirm&&!shiti.isAnswer}}" class="cailiaoZuoti">
+                <button class="cailiaoZuoti-btn" bindtap='CLZuoti'>答题</button>
+              </view>
+              <!-- 材料题小题的滑动框 -->
+              <view wx:if="{{shiti.confirm||shiti.isAnswer}}">
+                <swiper current="{{xiaotiCurrent}}" indicator-dots vertical="true" skip-hidden-item-layout="true" class="swiper-xiaoti" style="height:{{windowHeight-230}}rpx;" indicator-active-color="#1d9bf7" bindchange="xtSliderChange">
+                  <block wx:for="{{shiti.xiaoti}}" wx:for-item="xiaoti" wx:key="ti">
+                    <swiper-item>
+                      <view id="h{{xiaoti.id}}">
+                        <!--问题-->
+                        <question colors="{{colors}}" class="question" px="{{index+1}}" tx="{{xiaoti.tx}}" question="{{xiaoti.question}}"></question>
+
+                        <!--单选题-->
+                        <view wx:if="{{xiaoti.TX == 1 || xiaoti.TX == 3}}">
+                          <singleSelect data-px="{{index+1}}" shiti="{{xiaoti}}" checked="{{checked}}" bindanswerSelect="_CLAnswerSelect"> </singleSelect>
+                          <view data-answer="{{xiaoti.answer}}" data-jiexi="{{xiaoti.jiexi}}" wx:if="{{isSubmit}}" class="viewJiexi" bindtap="viewJiexi" hover-class='select1' hover-stay-time='500'>查看解析</view>
+                        </view>
+                        <!--多选题-->
+                        <view wx:if="{{xiaoti.TX ==2}}">
+                          <multiSelect data-px="{{index+1}}" shiti="{{xiaoti}}" checked="{{checked}}" bindcheckVal="_CLAnswerSelect"></multiSelect>
+                          <view data-answer="{{xiaoti.answer}}" data-jiexi="{{xiaoti.jiexi}}" wx:if="{{isSubmit}}" class="viewJiexi" bindtap="viewJiexi" hover-class='select1' hover-stay-time='500'>查看解析</view>
+                        </view>
+                      </view>
+                    </swiper-item>
+                  </block>
+                </swiper>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<!-- 载入动画 -->
+<view wx:if="{{!isLoaded}}">
+  <image class="loading-img" src="/imgs/timg.gif" mode="aspectFit"></image>
+</view>
+
+<!-- 底部正确错误个数统计条 -->
+<modelCount colors="{{colors}}" hidden="{{!isLoaded}}" text="{{text}}" id="modelCount" nums="{{nums}}" px="{{px}}" class="bottom" bindrestart="_restart" bindsubmit="_submit" bindtoogleMarkAnswer="_toogleMarkAnswer">
+</modelCount>
+<!-- 答题板 -->
+<markAnswer id="markAnswer" done_answers="{{jieDoneAnswerArray}}" windowHeight="{{windowHeight}}" markAnswerItems="{{markAnswerItems}}" bind:tapEvent="_tapEvent">
+</markAnswer>
+
+<!-- 材料题解析面板 -->
+<clJiexi id="clJiexi" cl_jiexi="{{cl_jiexi}}" cl_answer="{{cl_answer}}"></clJiexi>

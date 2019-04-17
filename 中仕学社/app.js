@@ -52,12 +52,10 @@ App({
               duration: 3000
             })
           } else if (status == -101) { //没有试题
-            wx.showToast({
-              title: message,
-              duration:3000
-            })
+            console.log('没有试题')
+            console.log(self)
             self.setData({
-              isHasShiti: false,
+              hasNoShiti: true,
               isLoaded: true,
               message: message
             })

@@ -23,7 +23,7 @@
           <image class="ti_img" src="/images/shua-1.png" mode="aspectFit"></image>
           <view class='t_text'>我的错题</view>
         </view>
-        <view data-type="err" class='ti_z2' bindtap="GOnoteAndErrList" hover-class='select1' hover-stay-time='500'>
+        <view data-keys="1" class='ti_z2' bindtap="GOmonilist" hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-2.png" mode="aspectFit"></image>
           <view class='t_text'>全真模拟</view>
         </view>
@@ -44,7 +44,7 @@
           <image class="ti_img" src="/images/shua-3.png" mode="aspectFit"></image>
           <view class='t_text'>收藏试题</view>
         </view>
-        <view data-index="{{currentIndex}}" bindtap="GORandom" class='ti_z4' hover-class='select1' hover-stay-time='500'>
+        <view data-keys = "2" bindtap="GOmonilist" class='ti_z4' hover-class='select1' hover-stay-time='500'>
           <image class="ti_img" src="/images/shua-4.png" mode="aspectFit"></image>
           <view class='t_text'>核心密卷</view>
         </view>
@@ -69,8 +69,8 @@
     <!-- 章节练习-->
     <view wx:if="{{currentMidIndex == 0&&isLoaded}}">
       <view style="margin-bottom:50rpx;" wx:for="{{zhangjies}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
-        <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}" data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block"
-          bindtap="toogleFolder">
+        <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}" data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block" bindtap="toogleFolder">
+          <view wx:if="{{zhangjie.zhangjie_child.length ==0}}" class="ti-title-icon"></view>
           <image wx:if="{{zhangjie.zhangjie_child.length !=0}}" class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
           <view class="ti-block-line" style="margin-left:30rpx;">
             <view class="ti-block-line1">
@@ -117,32 +117,7 @@
           </view>
         </view>
       </view>
-    </view>
-
-    <!-- 全真模拟和核心密卷 -->
-    <view wx:if="{{currentMidIndex !=0 &&isLoaded}}">
-      <view wx:for="{{zhangjies}}" wx:for-item="moni" wx:key="m">
-        <view data-maxScore="{{moni.MaxScore}}" data-highScore="{{moni.HighScroe}}" data-nums="{{moni.nums}}" data-time="{{moni.time}}" data-id="{{moni.ID}}" data-title="{{moni.title}}" data-buy="{{jiesuoall || user.TKflag == 1?'1':moni.buy}}" class="item" bindtap="showModelanswerModel"
-          hover-class='select1' hover-stay-time='500'>
-          <view class="item-line1">
-            <image class="item-line1-icon" src="{{moni.buy=='1'|| jiesuoall || user.TKflag == 1?'/images/suo1.png':'/images/suo2.png'}}"></image>
-            <view class="item-line1-text">{{moni.title}}</view>
-          </view>
-
-          <view class="item-line2" style="border-left:{{index == zhangjies.length-1?'none':'1rpx solid #eaeaea;'}}">
-            <image class="item-line2-icon" src="/images/tishu.png"></image>
-            <view class="item-line2-text">{{moni.nums}}题</view>
-            <image class="item-line2-icon" src="/images/time.png" style="margin-left:20rpx;"></image>
-            <view class="item-line2-text">{{moni.time}}分</view>
-          </view>
-        </view>
-      </view>
-
-      <view wx:if="{{zhangjies.length ==0}}">
-        <image class="hasNopage" src="/images/hasNoshiti.png" style="margin-top:10rpx;width:180rpx;height:180rpx;"></image>
-        <view style="text-align:center;color: rgb(146, 146, 146);font-size:22rpx;margin-top:15rpx;">该科目下没有{{currentMidIndex == 1?'模拟试卷':'核心密卷'}}...</view>
-      </view>
-    </view>
+    </view> 
 
     <!-- 载入动画 -->
     <image wx:if="{{!isLoaded}}" class="loading-img" src="/images/imgLoading.gif" style="margin-top:100rpx;"></image>

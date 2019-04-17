@@ -907,6 +907,20 @@ Page({
   },
 
   /**
+   * 导航到模拟真题列表
+   */
+  GOmonilist:function(e){
+    let keys = e.currentTarget.dataset.keys;//押题还是真题
+    let currentIndex = this.data.currentIndex;
+    let typesid = this.data.bars[currentIndex].id;
+
+    wx.navigateTo({
+      url: '/pages/tiku/modelReal/modelRealList?typesid='+typesid+"&keys="+keys
+    })
+
+  },
+
+  /**
    * 导航到随机练习
    */
   GORandom: function(e) {

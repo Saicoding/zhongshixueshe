@@ -1,0 +1,16 @@
+<view hidden='{{hidden}}' class = "container">
+  <view class="bottom-block1" style = "background: linear-gradient(to right, {{colors[1]}}, {{colors[2]}});" bindtap="_submit">
+    {{text}}
+  </view>
+
+  <view class="bottom-block2" style = "  border:1px solid {{colors[1]}};color:{{colors[1]}};">
+    {{timeStr}}
+  </view>
+
+  <view class="bottom-block3" bindtap="_toggleMarkAnswer" style="float:right">
+    <image src="/imgs/list.png" mod="aspectFit" class="bottom-img"></image>
+    <view class="bottom-text" style="width:80rpx; text-align:right;">{{px}}</view>
+    <view class="bottom-text">/</view>
+    <view class="bottom-text" style="width:80rpx;color:#a0a0a0;">{{nums}}</view>
+  </view>
+</view>

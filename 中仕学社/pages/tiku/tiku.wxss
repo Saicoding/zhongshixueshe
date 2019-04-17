@@ -75,7 +75,6 @@ page {
 
 .content {
   box-shadow: 1rpx 1rpx 14rpx 7rpx rgba(8, 8, 8, 0.1);
-  padding-bottom: 30rpx;
   background: white;
 }
 
@@ -112,13 +111,14 @@ page {
   padding-right: 20rpx;
   background: white;
   justify-content: space-around;
+
 }
 
 .t_left {
   display: float;
   float: left;
   width: 27%;
-  height: 420rpx;
+  height: 360rpx;
   text-align: center;
 }
 
@@ -127,14 +127,14 @@ page {
   float: right;
   text-align: center;
   width: 29%;
-  height: 420rpx;
+  height: 360rpx;
 }
 
 .t_center {
   display: float;
   float: right;
   width: 300rpx;
-  height: 420rpx;
+  height: 360rpx;
   text-align: center;
 }
 

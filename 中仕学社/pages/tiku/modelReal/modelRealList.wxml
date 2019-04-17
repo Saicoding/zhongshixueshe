@@ -1,0 +1,33 @@
+<!-- 全真模拟和核心密卷 -->
+<view wx:if="{{isLoaded}}" class ="container">
+  <view wx:for="{{zhangjies}}" wx:for-item="moni" wx:key="m">
+    <view  data-test_score="{{moni.test_score}}"  data-times="{{moni.times}}" data-id="{{moni.id}}" data-totalscore = "{{moni.totalscore}}" data-title="{{moni.title}}" data-buy="{{1}}" class="item" bindtap="GOmodelReal"
+      hover-class='select1' hover-stay-time='500'>
+      <view class="item-line1">
+        <image class="item-line1-icon" src="{{moni.buy=='1'|| jiesuoall || user.TKflag == 1?'/images/suo1.png':'/images/suo2.png'}}"></image>
+        <view class="item-line1-text">{{moni.title}}</view>
+      </view>
+
+      <view class="item-line2" style="border-left:{{index == zhangjies.length-1?'none':'1rpx solid #eaeaea;'}}">
+        <image class="item-line2-icon" src="/images/tishu.png"></image>
+        <view class="item-line2-text">{{moni.totalnums}}题</view>
+        <image class="item-line2-icon" src="/images/time.png" style="margin-left:20rpx;"></image>
+        <view class="item-line2-text">{{moni.times}}分</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{zhangjies.length ==0}}">
+    <image class="hasNopage" src="/images/hasNoshiti.png" style="margin-top:10rpx;width:180rpx;height:180rpx;"></image>
+    <view style="text-align:center;color: rgb(146, 146, 146);font-size:22rpx;margin-top:15rpx;">该科目下没有{{currentMidIndex == 1?'模拟试卷':'核心密卷'}}...</view>
+  </view>
+</view>
+
+<!-- 载入动画 -->
+<image wx:if="{{!isLoaded}}" class="loading-img" src="/images/imgLoading.gif" style="margin-top:100rpx;"></image>
+
+<!-- 没有试题的情况 -->
+<view wx:if  ="{{hasNoShiti}}">
+  <image style = "width:280rpx;height:280rpx;display:block;margin:0 auto;margin-top:100rpx;" src="/images/hasNopage.png"></image>
+  <view style = "text-align:center;font-size:23rpx;color:#767676;margin-top:40rpx;">当前没有试题...</view>
+</view>
