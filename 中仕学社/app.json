@@ -16,7 +16,9 @@
     "pages/tiku/modelReal/modelRealDetail",
     "pages/tiku/modelReal/modelRealScore",
     "pages/tiku/cuoti/cuotiList",
-    "pages/tiku/cuoti/cuotiDetail"
+    "pages/tiku/cuoti/cuotiDetail",
+    "pages/tiku/kaodian/kaodianList",
+    "pages/tiku/kaodian/kaodianDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

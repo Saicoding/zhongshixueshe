@@ -1,0 +1,47 @@
+<!--pages/kaodianDetail/kaodianDetail.wxml-->
+<scroll-view wx:if="{{isLoaded && !hasNoContent}}" enable-back-to-top scroll-with-animation bindscrolltolower="scrollToBottom" scroll-y scroll-top ="{{scroll}}" class="mycontent" style = "font-size:{{fontSize}}rpx;background:{{day?'#ffffff':'#323232'}};color:{{day?'black':'#9b9b9b'}};  line-height:{{fontSize*1.8}}rpx;height:{{windowHeight-125}}rpx;">
+  <rich-text nodes="{{content}}"></rich-text>
+</scroll-view>
+
+<!-- 载入动画 -->
+<view wx:if="{{!isLoaded}}">
+  <image class="loading-img" src="/images/imgLoading.gif" mode="aspectFit" ></image>
+</view>
+
+<view class="bottom" style = "background:{{day?'#ffffff':'#323232'}};  border-top:2rpx solid {{day?'#e4e4e4':'#1f1f1f'}};">
+  <view class="select" data-preNext="0" bindtap='select'>
+    <view class="select-img-container">
+      <image class="select-img" src="{{day?'/images/next.png':'/images/next-night.png'}}" style="width:48rpx;height:48rpx;transform:rotateY(180deg)" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <view class="slider">
+    <view class="body-view">
+      <view class="slider-img-container">
+        <image style="width:40rpx;height:40rpx;margin-top:20rpx;" src="{{day?'/images/smaller.png':'/images/smaller-night.png'}}" mode="aspectFit"></image>
+      </view>
+      <slider class = "slider-body" bindchange="sliderChange" step="1" min="25" max="40" value="30" activeColor="#57c257" block-size="12" />
+      <view class="slider-img-container" style = "margin-left:-25rpx;">
+        <image style="width:45rpx;height:45rpx;margin-top:18rpx;" src="{{day?'/images/biger.png':'/images/biger-night.png'}}" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="day-night" bindtap='toogleDay'>
+      <view class="day-img-container">
+        <image style="width:50rpx;height:50rpx;transform:rotateY(180deg);" src="{{day?'/images/moon.png':'/images/sun.png'}}" mode="aspectFit"></image>
+      </view>
+      <view class="day-night-text" style = "color:#848484;">{{!day?'白天':'夜间'}}</view>
+    </view>
+  </view>
+
+  <view class="select" style = "margin-left:50rpx;" data-preNext="1" bindtap='select'>
+    <view class="select-img-container">
+      <image style="width:48rpx;height:48rpx;" src="{{day?'/images/next.png':'/images/next-night.png'}}" mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+
+<view wx:if = "{{hasNoContent}}">
+  <image src="/images/hasNoshiti.png" style = "width:200rpx;height:200rpx;display:block;margin:0 auto;margin-top:80rpx;"></image>
+  <view style = "color:#a7a5a5;font-size:25rpx;text-align:center;margin-top:30rpx;">当前没有考点信息</view>
+</view>

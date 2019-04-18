@@ -844,7 +844,6 @@ Page({
    * 导航到做题页面
    */
   GOzuoti: function(e) {
-    console.log(e)
     let self = this;
     let currentIndex = this.data.currentIndex; //当前科目index
     let title = e.currentTarget.dataset.title;
@@ -917,6 +916,18 @@ Page({
       url: '/pages/tiku/modelReal/modelRealList?typesid='+typesid+"&keys="+keys
     })
 
+  },
+
+  /**
+   * 导航到考点页面
+   */
+  GOkaodian:function(){
+    let currentIndex = this.data.currentIndex;
+    let typesid = this.data.bars[currentIndex].id;
+    let title = this.data.bars[currentIndex].title;
+    wx.navigateTo({
+      url: '/pages/tiku/kaodian/kaodianList?typesid='+typesid+"&title="+title
+    })
   },
 
   /**

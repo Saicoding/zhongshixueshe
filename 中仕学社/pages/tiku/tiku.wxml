@@ -28,7 +28,7 @@
           <view class='t_text'>全真模拟</view>
         </view>
       </view>
-      <view class='t_center' bindtap="test1">
+      <view class='t_center' bindtap="GOkaodian">
         <view class="t_center_text">{{bars[currentIndex].title3}}</view>
         <view class="t_center_pic">
           <view class="t_center_pic_text1" style="font-size:{{jindu.length>=5?60:80}}rpx">{{jindu == "0.00"?"0":jindu}}</view>
