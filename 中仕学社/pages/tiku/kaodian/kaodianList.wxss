@@ -6,13 +6,6 @@
   background-color: #fff;
 }
 
-.loading-img{
-    display: block;
-  width: 120rpx;
-  height: 120rpx;
-  margin:400rpx auto;
-}
-
 .changeType {
   height: 90rpx;
   line-height: 90rpx;
@@ -58,19 +51,10 @@
   line-height: 79rpx;
 }
 
-.text{
-  display: float;
-  float:left;
-  width:88%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .text-jie{
   display: float;
   float:left;
-  font-size:28rpx;
+  font-size:25rpx;
   width:85%;
   overflow: hidden;
   white-space: nowrap;
@@ -162,9 +146,15 @@
 }
 
 .text{
-  font-size:32rpx;
+  font-size:28rpx;
   padding-left:40rpx;
   color:black;
+  display: float;
+  float:left;
+  width:88%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .jie{

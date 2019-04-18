@@ -114,6 +114,24 @@ page {
 
 }
 
+.center-block {
+  position: relative;
+  z-index:20;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 220rpx;
+  background: linear-gradient(to right, #fc9c60, #fdbd95);
+  margin: 0rpx auto;
+  color: white;
+}
+
+.center-text {
+  display: float;
+  float: left;
+  width: 100%;
+}
+
+
 .t_left {
   display: float;
   float: left;
@@ -131,6 +149,7 @@ page {
 }
 
 .t_center {
+  position: relative;
   display: float;
   float: right;
   width: 300rpx;
@@ -141,13 +160,11 @@ page {
 .t_center_pic {
   display: flex;
   position: relative;
-  top: 10rpx;
+  top: 0rpx;
   margin: 0 auto;
   width: 220rpx;
   height: 220rpx;
   border-radius: 220rpx;
-  background: linear-gradient(to right, #fd904c, #fca56f);
-  margin-top: 30rpx;
   line-height: 220rpx;
   text-align: center;
   color: white;
@@ -166,40 +183,41 @@ page {
 }
 
 .t_center_text {
+  height:90rpx;
+  line-height: 90rpx;
   font-size: 28rpx;
   color: rgb(77, 77, 77);
   width: 100%;
   text-align: center;
-  margin-top: 40rpx;
 }
 
-.wave1 {
-  position: relative;
-  left: 40rpx;
-  top: -208rpx;
+.wave1{
+  position: absolute;
+  top:90rpx;
+  left:40rpx;
   width: 220rpx;
   height: 220rpx;
   border-radius: 220rpx;
-  background: linear-gradient(to right, #fd904c, #fca56f);
+  background: linear-gradient(to right, #fc9c60, #fdbd95);
   color: white;
-  text-align: center;
+  z-index: 19;
+  text-align:center;
   animation: scaleout1 2s infinite ease-in-out;
-  z-index: 18;
 }
 
-.wave2 {
-  position: relative;
-  top: -428rpx;
-  left: 40rpx;
+.wave2{
+  position: absolute;
+  top:90rpx;
+  left:40rpx;
   width: 220rpx;
   height: 220rpx;
   border-radius: 220rpx;
-  background: linear-gradient(to right, #fd904c, #fca56f);
+  background: linear-gradient(to right, #fc9c60, #fdbd95);
   color: white;
-  text-align: center;
+  z-index: 19;
+  text-align:center;
   animation: scaleout2 2s infinite ease-in-out;
   animation-delay: 1s;
-  z-index: 17;
 }
 
 @keyframes scaleout1 {
