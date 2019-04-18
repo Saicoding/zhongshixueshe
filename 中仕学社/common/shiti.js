@@ -121,7 +121,6 @@ function processTapLianxiAnswer(midShiti, preShiti, nextShiti, px, current, circ
   let myCurrent = current;
 
   let sliderShitiArray = [];
-  console.log(midShiti)
   initShiti(midShiti, self); //初始化试题对象
   processDoneAnswer(midShiti.done_daan, midShiti, self);
 
@@ -875,7 +874,6 @@ function processDoneAnswer(done_daan, shiti, self) {
     case "单选题":
     case "多选题":
     case "判断题":
-      console.log(done_daan)
       if (done_daan != "") {
         changeSelectStatus(done_daan, shiti) //根据得到的已答数组更新试题状态
         shiti.isAnswer = true;
@@ -981,7 +979,6 @@ function storeLastShiti(px, self) {
   let zcode = user.zcode;
 
   let last_view_key = 'last_view' + self.data.zhangjie_id + zcode; //存储上次访问的题目的key
-  console.log(last_view_key)
   //本地存储最后一次访问的题目
   wx.setStorage({
     key: last_view_key,
@@ -995,9 +992,9 @@ function storeLastShiti(px, self) {
  */
 function storeModelRealLastShiti(px, self) {
   let user = self.data.user;
-  let username = user.username;
+  let zcode= user.zcode;
   //存储当前最后一题
-  let last_view_key = self.data.tiTypeStr + 'lastModelReal' + self.data.id + username; //存储上次访问的题目的key
+  let last_view_key ='lastModelReal' + self.data.id + zcode; //存储上次访问的题目的key
   //本地存储最后一次访问的题目
   wx.setStorage({
     key: last_view_key,
@@ -1091,14 +1088,12 @@ function lianxiRestart(self) {
   wx.removeStorageSync("shiti" + self.data.zhangjie_id + zcode, ); //重置已答数组
 
   storeLastShiti(1, self)
-  console.log(shitiArray)
   if (shitiArray[0].id == undefined) { //该题还没有载入
     self.setData({
       isLoaded: false
     })
 
     app.post(API_URL, "action=getKeMuTestshow&zcode=" + zcode + "&z_id=" + z_id + "&token=" + token + "&page=1", false, false, "", "", false, self).then((res) => {
-      console.log(res)
       pageArray.push(1);
 
       let newWrongShitiArray = res.data.shiti;
@@ -1203,7 +1198,7 @@ function initShitiArrayDoneAnswer(shitiArray) {
 function restartModelReal(self) {
   let shitiArray = self.data.shitiArray;
   let user = self.data.user;
-  let username = user.username;
+  let zcode = user.zcode;
 
   initShitiArrayDoneAnswer(shitiArray); //将所有问题已答置空
 
@@ -1233,15 +1228,16 @@ function restartModelReal(self) {
 
   initModelRealMarkAnswer(self.data.newShitiArray, self); //初始化答题板数组
 
-  let answer_nums_array = wx.getStorageSync(self.data.tiTypeStr + "modelReal" + self.data.id + username); //将已答答案置空
   wx.setStorage({
-    key: self.data.tiTypeStr + "modelReal" + self.data.id + username,
+    key:  "modelReal" + self.data.id + zcode,
     data: [],
   })
+
   wx.setStorage({
-    key: self.data.tiTypeStr + "modelRealIsSubmit" + self.data.id + username,
+    key: "modelRealIsSubmit" + self.data.id + zcode,
     data: false,
   })
+
   self.setData({
     shiti: self.data.shitiArray[0],
     doneAnswerArray: [], //已做答案数组

@@ -3,7 +3,7 @@
   <view class="upper" style = "background:{{colors[4]}}; border:1rpx solid {{colors[4]}};">
     <view class="upper-in">
       <view class="time">
-        <image src="/imgs/time.png" mode="aspectFit" class="time-img"></image>
+        <image src="/images/time2.png" mode="aspectFit" class="time-img"></image>
         <text class="time-text" style = "color:#fd7e65">用时 {{timeStr}}</text>
       </view>
       <view class="score" style = "color:#fd6131">

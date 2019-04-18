@@ -68,7 +68,6 @@ Page({
     }
 
     app.post(API_URL, "action=SelectTestShow&sjid=" + id + "&token=" + token + "&zcode=" + zcode, false, true, "", "model", false, self).then((res) => {
-      console.log(res)
       let shitiArray = res.data.list;
 
       common.setModelRealCLShitiPx(shitiArray)
@@ -184,7 +183,6 @@ Page({
           myCurrent: 1
         })
       }
-      console.log(options.times)
       self.setData({
         id: options.id, //真题编号
         times: options.times, //考试时间
@@ -613,7 +611,7 @@ Page({
       clearInterval(self.data.interval); //停止计时器
 
       wx.setStorage({
-        key: self.data.tiTypeStr + 'last_time' + self.data.id + user.username,
+        key: 'last_time' + self.data.id + user.zcode,
         data: second,
       })
     }
@@ -810,7 +808,6 @@ Page({
             }
           } else {
             wrongNums += 1;
-            console.log(doneAnswer.done_daan)
             for (let k = 0; k < doneAnswer.done_daan.length; k++) {
               let da = doneAnswer.done_daan[k];
               if (da.isRight == 0) {
@@ -837,13 +834,13 @@ Page({
       if (score > self.data.test_score) { //如果比历史分数高就更新
         let pages = getCurrentPages();
         let prevPage = pages[pages.length - 2]; //上一个页面
-        let modelList = prevPage.data.modelList;
+        let modelList = prevPage.data.zhangjies;
         for (let i = 0; i < modelList.length; i++) {
           let model = modelList[i];
           if (id == model.id) {
             model.test_score = score;
             prevPage.setData({
-              modelList: modelList
+              zhangjies: modelList
             })
           }
         }
@@ -855,23 +852,22 @@ Page({
         text: "重新评测",
       })
       wx.setStorage({
-        key: self.data.tiTypeStr + 'modelRealIsSubmit' + self.data.id + username,
+        key: 'modelRealIsSubmit' + self.data.id + zcode,
         data: true,
       })
 
       //设置用时
       wx.setStorage({
-        key: self.data.tiTypeStr + "last_gone_time" + self.data.id + username,
+        key: "last_gone_time" + self.data.id + zcode,
         data: "用时" + time1.getGoneTimeStr(gone_time)
       })
       //设置答题板的显示文字
       self.modelCount.setData({ //设置时间显示为花费时间
         timeStr: "用时" + time1.getGoneTimeStr(gone_time)
       })
-
-      let jibai = res.data.jibai;
+      let jibai = res.data.data[0].jibai;
       wx.navigateTo({
-        url: '/pages/prompt/modelRealScore/modelRealScore?score=' + score + "&rightNums=" + rightNums + "&wrongNums=" + wrongNums + "&undone=" + undone + "&totalscore=" + totalscore + "&id=" + id + "&gone_time=" + gone_time + "&jibai=" + jibai + "&category=" + category
+        url: '/pages/tiku/modelReal/modelRealScore?score=' + score + "&rightNums=" + rightNums + "&wrongNums=" + wrongNums + "&undone=" + undone + "&totalscore=" + totalscore + "&id=" + id + "&gone_time=" + gone_time + "&jibai=" + jibai + "&category=" + category
       })
     })
 

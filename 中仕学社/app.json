@@ -13,6 +13,8 @@
     "pages/tiku/zuoti/zuoti",
     "pages/tiku/mark/mark",
     "pages/tiku/modelReal/modelRealList",
+    "pages/tiku/modelReal/modelRealDetail",
+    "pages/tiku/modelReal/modelRealScore",
     "pages/tiku/cuoti/cuotiList",
     "pages/tiku/cuoti/cuotiDetail"
   ],

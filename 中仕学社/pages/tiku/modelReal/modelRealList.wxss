@@ -23,8 +23,18 @@
 }
 
 .item-line1-text {
+  width:550rpx;
   font-size: 25rpx;
   margin-left: 20rpx;
+}
+
+.score {
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 47rpx;
+  margin-top:5rpx;
+  font-size: 25rpx;
+  text-align: center;
 }
 
 .item-line2 {

@@ -1,11 +1,13 @@
 <!-- 全真模拟和核心密卷 -->
-<view wx:if="{{isLoaded}}" class ="container">
+<view wx:if="{{isLoaded}}" class="container">
   <view wx:for="{{zhangjies}}" wx:for-item="moni" wx:key="m">
-    <view  data-test_score="{{moni.test_score}}"  data-times="{{moni.times}}" data-id="{{moni.id}}" data-totalscore = "{{moni.totalscore}}" data-title="{{moni.title}}" data-buy="{{1}}" class="item" bindtap="GOmodelReal"
-      hover-class='select1' hover-stay-time='500'>
+    <view data-test_score="{{moni.test_score}}" data-times="{{moni.times}}" data-id="{{moni.id}}" data-totalscore="{{moni.totalscore}}" data-title="{{moni.title}}" data-buy="{{1}}" class="item" bindtap="GOmodelReal" hover-class='select1' hover-stay-time='500'>
       <view class="item-line1">
         <image class="item-line1-icon" src="{{moni.buy=='1'|| jiesuoall || user.TKflag == 1?'/images/suo1.png':'/images/suo2.png'}}"></image>
-        <view class="item-line1-text">{{moni.title}}</view>
+        <view class="item-line1-text wp">{{moni.title}}</view>
+        <view class="score" style="background: url({{moni.base64}});  background-repeat:no-repeat; background-size:100% 100%;color:{{moni.scoreColor}}">
+          {{moni.test_score == 0?"":moni.test_score}}
+        </view>
       </view>
 
       <view class="item-line2" style="border-left:{{index == zhangjies.length-1?'none':'1rpx solid #eaeaea;'}}">
@@ -27,7 +29,7 @@
 <image wx:if="{{!isLoaded}}" class="loading-img" src="/images/imgLoading.gif" style="margin-top:100rpx;"></image>
 
 <!-- 没有试题的情况 -->
-<view wx:if  ="{{hasNoShiti}}">
-  <image style = "width:280rpx;height:280rpx;display:block;margin:0 auto;margin-top:100rpx;" src="/images/hasNopage.png"></image>
-  <view style = "text-align:center;font-size:23rpx;color:#767676;margin-top:40rpx;">当前没有试题...</view>
+<view wx:if="{{hasNoShiti}}">
+  <image style="width:280rpx;height:280rpx;display:block;margin:0 auto;margin-top:100rpx;" src="/images/hasNopage.png"></image>
+  <view style="text-align:center;font-size:23rpx;color:#767676;margin-top:40rpx;">当前没有试题...</view>
 </view>
