@@ -28,16 +28,21 @@ Page({
    */
   onLoad: function(options) {
     let self = this;
+    let user = wx.getStorageSync('user')
+    let zcode = user.zcode;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+
     this.setData({
-      first: true
+      first: true,
+      options: options
     })
     wx.setNavigationBarTitle({
       title: '题库',
     })
-    let currentIndex = wx.getStorageSync('currentIndex') ? wx.getStorageSync('currentIndex') : 0; //如果有本地缓存就用本地缓存,没有就设置默认0
-    let currentMidIndex = wx.getStorageSync('currentMidIndex') ? wx.getStorageSync('currentMidIndex') : 0; //当前试题种类(如果有本地缓存就用本地缓存,没有就设置默认0)
 
-    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+    let currentIndex = wx.getStorageSync('currentIndex' + xcx_id) ? wx.getStorageSync('currentIndex' + xcx_id) : 0; //如果有本地缓存就用本地缓存,没有就设置默认0
+    let currentMidIndex = wx.getStorageSync('currentMidIndex' + xcx_id) ? wx.getStorageSync('currentMidIndex' + xcx_id) : 0; //当前试题种类(如果有本地缓存就用本地缓存,没有就设置默认0)
+
 
     this.setData({
       midTitle: this.getMidTitle(xcx_id)
@@ -57,7 +62,6 @@ Page({
         xcx_id: xcx_id
       })
 
-      console.log(res)
 
       let types = self.data.bars[currentIndex].id; //科目id
 
@@ -73,17 +77,18 @@ Page({
       let user = wx.getStorageSync('user');
       let zcode = user.zcode ? user.zcode : "";
       let token = user.token ? user.token : "";
-      let change = wx.getStorageSync('change' + zcode);
 
-      if (change) { //如果数据有改变就设置
-        types = self.getkemuIDByindex(parseInt(change.currentIndex)); //科目id
+      let change = wx.getStorageSync('change' + zcode + xcx_id);
+      console.log(change)
+
+
+      if (options.from) { //如果数据有改变就设置
         self.setData({
           currentIndex: parseInt(change.currentIndex),
           currentMidIndex: parseInt(change.currentMidIndex)
         })
 
         zhangjieLoadedStr = '' + change.currentIndex + change.currentMidIndex;
-        wx.removeStorageSync('change' + zcode);
 
         //****获取做题进度百分比,因为onshow事件可能改变currentIndex值,所以要在最新获取currentIndex值的地方使用接口//
         self.getZuotiJindu(token, zcode, types, self);
@@ -98,7 +103,6 @@ Page({
       // 获取章节列表
       if (currentMidIndex == 0) { //默认目录是章节列表时才去请求
         app.post(API_URL, "action=SelectZjList&z_id=" + types, false, false, "", "").then(res => {
-          console.log(res)
           let zhangjies = res.data.data;
 
           self.initZhangjie(zhangjies); //初始化章节信息
@@ -112,23 +116,38 @@ Page({
             isLoaded: true
           })
 
-          if (change) { //自动定位
+          if (options.from) { //自动定位
+            console.log(change)
             let zhangIdx = change.zhangIdx; //当前章index
             let jieIdx = change.jieIdx; //当前节index
             let windowWidth = self.data.windowWidth;
             let scroll = (zhangIdx * 130 + 600) * (windowWidth / 750); //滚动条的位置
-
+            console.log(zhangjies)
             wx.pageScrollTo({
               scrollTop: scroll,
               success: function(res) {
-
-                zhangjies[zhangIdx].list[jieIdx].selected = true;
+                console.log(zhangIdx)
+                zhangjies[zhangIdx*1].zhangjie_child[jieIdx*1].selected = true;
                 self.setData({
                   zhangjies: zhangjies
                 })
 
-                let num = zhangjies[zhangIdx].list.length //取得有多少个章节
+                let num = zhangjies[zhangIdx*1].zhangjie_child.length //取得有多少个章节
                 self.step(zhangIdx, num, windowWidth, zhangjies);
+
+
+                let lastShuati = wx.getStorageSync('lastShuati' + zcode + xcx_id);
+                if (lastShuati) {
+                  options.from = false;
+                  self.setData({
+                    options: options
+                  })
+                  wx.navigateTo({
+                    url: '/pages/tiku/zuoti/zuoti?title=' + lastShuati.title + "&f_id=" + lastShuati.f_id + "&types=" + lastShuati.types + "&donenum=" + lastShuati.donenum + "&currentIndex=" + lastShuati.currentIndex + "&currentMidIndex=" + lastShuati.currentMidIndex + "&from=shouye" + "&zhangIdx=" + lastShuati.zhangIdx + "&jieIdx=" + lastShuati.jieIdx
+                  })
+                  return
+                }
+
               }
             })
           }
@@ -333,11 +352,12 @@ Page({
     let currentIndex = this.data.currentIndex; //当前科目index
     let currentMidIndex = this.data.currentMidIndex; //当前题型index
     let zhangjieLoadedStr = '' + currentIndex + currentMidIndex; //当前题库标识
-
     //用户信息
     let user = wx.getStorageSync('user');
     let zcode = user.zcode ? user.zcode : "";
     let token = user.token ? user.token : '';
+    let options = self.data.options;
+
 
     let first = this.data.first; //是否是第一次载入
     let windowWidth = this.data.windowWidth; //窗口宽度(px)
@@ -352,27 +372,25 @@ Page({
         user: user
       })
     } else { //如果已被污染
-      let change = wx.getStorageSync('change' + zcode);
+      let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+      let change = wx.getStorageSync('change' + zcode + xcx_id);
       let current_xcx_id = self.data.xcx_id;
-      let xcx_id = wx.getStorageSync('kaoshi').tid
 
       this.setData({
         midTitle: this.getMidTitle(xcx_id)
       })
 
       if (xcx_id != current_xcx_id && xcx_id) { //切换了考试，并且xcx_id被设置过
-        console.log('切换')
         // 获取试题栏目中科目分类
         app.post(API_URL, "action=getKemuList&xcx_id=" + xcx_id, false, false, "").then(res => {
-          console.log(res)
           let bars = res.data.data
           self.setData({
             bars: bars
           })
 
           //初始化index值
-          wx.setStorageSync('currentIndex', 0);
-          wx.setStorageSync('currentMidIndex', 0);
+          wx.setStorageSync('currentIndex' + xcx_id, 0);
+          wx.setStorageSync('currentMidIndex' + xcx_id, 0);
 
           self.setData({
             currentIndex: 0,
@@ -391,7 +409,7 @@ Page({
           let zhangjieLoadedStrArray = []; //已载入的科目id和题型标识数组，用于控制如果已经载入一次就不再重新载入
 
           let zhangjieLoadedStr = '' + currentIndex + currentMidIndex;
-          let change = wx.getStorageSync('change' + zcode);
+          let change = wx.getStorageSync('change' + zcode + xcx_id);
 
           if (change) { //如果数据有改变就设置
             types = self.getkemuIDByindex(parseInt(change.currentIndex)); //科目id
@@ -401,7 +419,7 @@ Page({
             })
 
             zhangjieLoadedStr = '' + change.currentIndex + change.currentMidIndex;
-            wx.removeStorageSync('change' + zcode);
+            wx.removeStorageSync('change' + zcode + xcx_id);
 
             //****获取做题进度百分比,因为onshow事件可能改变currentIndex值,所以要在最新获取currentIndex值的地方使用接口//
             self.getZuotiJindu(token, zcode, types, self);
@@ -417,7 +435,6 @@ Page({
           // 获取章节列表
           if (currentMidIndex == 0) { //默认目录是章节列表时才去请求
             app.post(API_URL, "action=SelectZjList&z_id=" + types, false, false, "", "").then(res => {
-              console.log(res)
               let zhangjies = res.data.data;
 
               self.initZhangjie(zhangjies); //初始化章节信息
@@ -431,46 +448,6 @@ Page({
                 tiku: tiku,
                 zhangjieLoadedStrArray: zhangjieLoadedStrArray,
                 isLoaded: true
-              })
-
-              if (change) { //自动定位
-                let zhangIdx = change.zhangIdx; //当前章index
-                let jieIdx = change.jieIdx; //当前节index
-                let windowWidth = self.data.windowWidth;
-                let scroll = (zhangIdx * 130 + 600) * (windowWidth / 750); //滚动条的位置
-
-                wx.pageScrollTo({
-                  scrollTop: scroll,
-                  success: function(res) {
-
-                    zhangjies[zhangIdx].list[jieIdx].selected = true;
-                    self.setData({
-                      zhangjies: zhangjies
-                    })
-
-                    let num = zhangjies[zhangIdx].list.length //取得有多少个章节
-                    self.step(zhangIdx, num, windowWidth, zhangjies);
-                  }
-                })
-              }
-
-              self.setData({
-                first: false
-              })
-            })
-
-          } else { //模拟 & 核心
-            let keys = currentMidIndex == 1 ? 0 : 1
-            app.post(API_URL, "action=getShijuanList&types=" + types + "&keys=" + keys + "&token=" + token + "&zcode=" + zcode, false, false, "", "").then(res => {
-              let zhangjies = res.data.data;
-
-              tiku[zhangjieLoadedStr] = zhangjies;
-
-              self.setData({
-                tiku: tiku,
-                zhangjieLoadedStrArray: zhangjieLoadedStrArray,
-                isLoaded: true,
-                zhangjies: zhangjies
               })
 
               if (change) { //自动定位
@@ -525,7 +502,7 @@ Page({
             zhangjieLoadedStrArray.push(zhangjieLoadedStr);
           }
 
-          app.post(API_URL, "action=getKeMuTestType&types=" + types, false, false, "", "").then(res => {
+          app.post(API_URL, "action=SelectZjList&z_id=" + types, false, false, "", "").then(res => {
             let zhangjies = res.data.data;
             let zhangIdx = change.zhangIdx; //当前章index
             let jieIdx = change.jieIdx; //当前节index
@@ -593,6 +570,8 @@ Page({
       return
     }
 
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+
     if (type == 1) { //点击科目
       currentIndex = e.currentTarget.dataset.index; //点击的科目id
       currentMidIndex = self.data.currentMidIndex; //当前题型index
@@ -606,9 +585,8 @@ Page({
       self.setData({
         currentIndex: currentIndex
       })
-
       wx.setStorage({ //设置本地缓存
-        key: 'currentIndex',
+        key: 'currentIndex' + xcx_id,
         data: currentIndex,
         fail: function() {
           wx.showToast({
@@ -633,7 +611,7 @@ Page({
       })
 
       wx.setStorage({ //设置本地缓存
-        key: 'currentMidIndex',
+        key: 'currentMidIndex' + xcx_id,
         data: currentMidIndex,
         fail: function() {
           wx.showToast({
@@ -685,10 +663,7 @@ Page({
           })
         })
       } else { //模拟 & 核心
-        console.log(currentMidIndex)
         let keys = currentMidIndex == 1 ? 0 : 1
-
-        console.log("action=SelectZjList&z_id=" + types + "&keys=" + keys)
         app.post(API_URL, "action=SelectZjList&z_id=" + types + "&keys=" + keys, false, false, "", "").then(res => {
           let zhangjies = res.data.data;
 
@@ -854,7 +829,8 @@ Page({
     let all_nums = e.currentTarget.dataset.num; //点击章节的题数
 
     let zhangIdx = e.currentTarget.dataset.zhangidx; //点击的章index
-    let jieIdx = e.currentTarget.dataset.jieIdx ? e.currentTarget.dataset.jieIdx : 'hasno'; //点击的节index
+    let jieIdx = e.currentTarget.dataset.jieidx ? e.currentTarget.dataset.jieidx : 'hasno'; //点击的节index
+
     let lastZhangeIdx = this.data.lastZhangeIdx ? this.data.lastZhangeIdx : 0;
     let lastJieIdx = this.data.lastJieIdx ? this.data.lastJieIdx : 'hasno';
     let zhangjies = this.data.zhangjies; //当前科目所有章节
@@ -907,13 +883,13 @@ Page({
   /**
    * 导航到模拟真题列表
    */
-  GOmonilist:function(e){
-    let keys = e.currentTarget.dataset.keys;//押题还是真题
+  GOmonilist: function(e) {
+    let keys = e.currentTarget.dataset.keys; //押题还是真题
     let currentIndex = this.data.currentIndex;
     let typesid = this.data.bars[currentIndex].id;
 
     wx.navigateTo({
-      url: '/pages/tiku/modelReal/modelRealList?typesid='+typesid+"&keys="+keys
+      url: '/pages/tiku/modelReal/modelRealList?typesid=' + typesid + "&keys=" + keys
     })
 
   },
@@ -921,12 +897,12 @@ Page({
   /**
    * 导航到考点页面
    */
-  GOkaodian:function(){
+  GOkaodian: function() {
     let currentIndex = this.data.currentIndex;
     let typesid = this.data.bars[currentIndex].id;
     let title = this.data.bars[currentIndex].title;
     wx.navigateTo({
-      url: '/pages/tiku/kaodian/kaodianList?typesid='+typesid+"&title="+title
+      url: '/pages/tiku/kaodian/kaodianList?typesid=' + typesid + "&title=" + title
     })
   },
 

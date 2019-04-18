@@ -10,7 +10,7 @@
     </view>
   </scroll-view>
   <view animation= "{{showAnimate}}" wx:if = "{{isLianxi}}"  class="bottom" style = "top:{{windowHeight-80-550+answerHeight}}rpx;">
-    <view class="restart" hover-class='select2' bindtap='_restart'>重新做题{{isLianxi}}</view>
+    <view class="restart" hover-class='select2' bindtap='_restart'>重新做题</view>
   </view>
 </view>
 

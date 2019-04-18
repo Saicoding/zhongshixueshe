@@ -84,7 +84,7 @@ Page({
   setPreReaded: function () {
     let self = this;
     let user = self.data.user;
-    let LoginRandom = user.Login_random;
+    let token = user.token;
     let zcode = user.zcode;
 
     let second = mytime.second;
@@ -105,7 +105,7 @@ Page({
         kdList: kdList
       })
 
-      app.post(API_URL, "action=ChangeKaodianFlag&LoginRandom=" + LoginRandom + "&zcode=" + zcode + "&id=" + kdid, false, true, "").then((res) => {
+      app.post(API_URL, "action=ChangeKaodianFlag&token=" + token + "&zcode=" + zcode + "&id=" + kdid, false, true, "").then((res) => {
       })
     }
   },
@@ -142,8 +142,8 @@ Page({
     let self = this;
 
     let user = self.data.user;
-    let username = user.username;
-    let acode = user.acode;
+    let token = user.token;
+    let zcode = user.zcode;
     let preNext = e.currentTarget.dataset.prenext;
     let nextId = self.data.nextId;
     let proId = self.data.proId;
@@ -183,8 +183,8 @@ Page({
     }
     time.restart(myinterval, mytime); //重新开始计时
 
-
-    app.post(API_URL, "action=GetKaodianShow&username=" + username + "&acode=" + acode + "&kdid=" + kdid, true, true, "载入中").then((res) => {
+                      
+    app.post(API_URL, "action=GetKaodianShow&token=" + token + "&zcode=" + zcode + "&kdid=" + kdid, true, true, "载入中").then((res) => {
 
       let data = res.data.data[0];
       let content = data.content;

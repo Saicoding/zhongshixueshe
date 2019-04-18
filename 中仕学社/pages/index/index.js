@@ -32,10 +32,10 @@ Page({
       },
     ],
 
-    midtext: '开始刷题',
-    midtitle: '测试用',
-    ketext: '开始看课',
-    ketitle: '看视频得红包',
+    midtext: "开始刷题",
+    midtitle: "暂无刷题记录",
+    ketext: "开始看课",
+    ketitle: "暂无看课记录",
     zixun: {
       title: '2019年最新考试大纲发布',
       content: '报考条件更加苛刻,大纲对比去年变化不大,重点在于法律法规的,,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的,重点在于法律法规的'.substring(1, 40) + '...',
@@ -73,6 +73,24 @@ Page({
    */
   onLoad: function() {
    
+  },
+
+  /**
+  * 继续刷题
+  */
+  continiueShuati: function () {
+    let lastShuati = this.data.lastShuati;
+    console.log(lastShuati)
+    if (lastShuati) { //如果有最后一次刷题
+      wx.navigateTo({
+        url:'/pages/tiku/tiku?from=shouye',
+      })
+    } else {
+      wx.showToast({
+        title: '当前没有刷题记录',
+        duration:3000
+      })
+    }
   },
 
   /**
@@ -232,6 +250,24 @@ Page({
         user: user
       })
     }
+
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1//考试类别
+    console.log('lastShuati' + zcode + xcx_id,)
+    wx.getStorage({
+      key: 'lastShuati' + zcode + xcx_id,
+      success: function (res) {
+        console.log(res)
+        let lastShuati = res.data;
+        self.setData({
+          midtext: "继续刷题",
+          midtitle: lastShuati.title,
+          lastShuati: lastShuati
+        })
+      },
+      fail:function(res){
+        console.log(res)
+      }
+    })
   },
 
   /**

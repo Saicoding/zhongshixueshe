@@ -37,7 +37,7 @@
         <view class="t_center_text" >{{bars[currentIndex].title}}</view>
         <swiper class="center-block" autoplay interval="3000" duration="1000" circular bindtap='GOkaodian'>
           <swiper-item>
-            <view class="center-text" style="margin-top:50rpx;font-size:40rpx;letter-spacing:2rpx;">考前秘笈</view>
+            <view class="center-text" style="margin-top:60rpx;font-size:40rpx;letter-spacing:2rpx;">考前秘笈</view>
             <view class="center-text" style="margin-top:20rpx;font-size:25rpx;">敲黑板/划重点</view>
           </swiper-item>
           <swiper-item>
@@ -109,7 +109,7 @@
         <!-- 节 -->
         <view class="jie" animation="{{!zhangjie.isFolder?zhangjie.spreadData:zhangjie.folderData}}">
           <view wx:for="{{zhangjie.zhangjie_child}}" wx:for-item="jie" wx:key="j" wx:for-index="jieIdx">
-            <view data-videoid="{{jie.video_id}}" data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-f_id="{{jie.id}}" data-rightRate="{{jie.rightrate}}" data-doneNum="{{jie.donenum}}" data-num="{{jie.all_num}}" data-title="{{jie.title}}" class="ti-block"
+            <view data-videoid="{{jie.video_id}}" data-zhangidx="{{zhangIdx}}" data-jieidx="{{jieIdx}}" data-f_id="{{jie.id}}" data-rightRate="{{jie.rightrate}}" data-doneNum="{{jie.donenum}}" data-num="{{jie.nums}}" data-title="{{jie.title}}" class="ti-block"
               bindtap="GOzuoti" hover-class='select1' hover-stay-time='500'>
               <image class="jie-dot" src="/images/dot.png"></image>
               <view class="ti-block-line" style="margin-left:40rpx;">

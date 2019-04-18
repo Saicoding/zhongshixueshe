@@ -569,7 +569,21 @@ Page({
     let self = this;
     let options = self.data.options;
     let colors = share.getColors("qh"); //配色方案
-    let category  = "qh"
+    let category  = "qh";
+
+    let user = wx.getStorageSync('user');
+    let zcode = user.zcode?user.zcode:"";
+    let token = user.token == undefined ? "" : user.token;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+
+    console.log(options)
+    console.log(wx.getStorageSync('kaoshi'))
+    console.log('lastShuati' + zcode + xcx_id)
+
+    wx.setStorage({
+      key: 'lastShuati' + zcode + xcx_id,
+      data: options
+    })
 
     share.setColor("qh", false, false); //设置tabbar颜色
 
@@ -577,22 +591,16 @@ Page({
       title: options.title
     }) //设置标题
 
-    let user = wx.getStorageSync('user');
-
     let page = 1; //默认是第一页
     let pageArray = []; //页面缓存数组
-    let token = user.token == undefined ? "" : user.token;
-    let zcode = user.zcode == undefined ? "" : user.zcode;
 
     let circular = false;
     let myFavorite = 0;
 
     //根据章是否有字节来定制最后一次访问的key
-    console.log('last_view' + options.f_id + user.zcode)
     let last_view_key = 'last_view' + options.f_id + user.zcode;
 
     let last_view = wx.getStorageSync(last_view_key); //得到最后一次的题目
-    console.log(last_view)
     let px = last_view.px; //最后一次浏览的题的编号
 
     if (px == undefined) {
@@ -866,11 +874,11 @@ Page({
    * 当摧毁页面时
    */
   onUnload:function(){
+    let options = this.data.options;
     let user = wx.getStorageSync('user');
     let zcode = user.zcode ? user.zcode : '';
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
-    let options = this.data.options;
     let currentIndex = options.currentIndex;
     let currentMidIndex = options.currentMidIndex;
     let zhangIdx = options.zhangIdx;
@@ -878,10 +886,11 @@ Page({
     let zhangjieLoadedStr = '' + currentIndex + currentMidIndex;//当前题库标识
     let doneAnswerArray = this.data.doneAnswerArray; //所有已答数组
     let tiku = prePage.data.tiku; //上个页面的题库对象
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
     
     if (!tiku) {
       wx.setStorage({//设置数据有改变的题库编号
-        key: 'change' + zcode,
+        key: 'change' + zcode + xcx_id,
         data: {currentIndex: currentIndex, currentMidIndex: currentMidIndex, zhangIdx: zhangIdx, jieIdx: jieIdx}
       })
       return
