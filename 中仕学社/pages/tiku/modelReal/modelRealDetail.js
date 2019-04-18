@@ -263,6 +263,43 @@ Page({
   },
 
   /**
+  * 切换问题的动画
+  */
+  _toogleAnimation: function () {
+    let self = this;
+
+    let px = self.data.px; //当前px
+    let str = "#q" + px; //当前问题组件id
+    let question = self.selectComponent(str); //当前问题组件
+    let height = self.data.height;
+    let isSubmit = self.data.isSubmit;
+
+    let lastSliderIndex = self.data.lastSliderIndex; //当前滑块index
+    let shitiArray = self.data.shitiArray; //当前试题数组
+    let sliderShitiArray = self.data.sliderShitiArray; //当前滑块试题数组
+    let shiti = shitiArray[px - 1]; //当前试题
+    let sliderShiti = sliderShitiArray[lastSliderIndex]; //当前滑块试题
+
+    if (!shiti.confirm && !isSubmit) return;
+
+    if (isFold) {
+      question.setData({
+        style2: "positon: fixed; left: 20rpx;height:" + height + "rpx"
+      })
+      // animate.questionSpreadAnimation(90, height, question);
+      animate.blockSpreadAnimation(90, height, question);
+      isFold = false;
+    } else {
+      question.setData({
+        style2: "positon: fixed; left: 20rpx;height:90rpx"
+      })
+      // animate.questionFoldAnimation(height, 90, question);
+      animate.blockFoldAnimation(height, 90, question);
+      isFold = true;
+    }
+  },
+
+  /**
    * slider改变事件
    */
   sliderChange: function(e) {
@@ -509,7 +546,7 @@ Page({
         common.storeModelRealAnswerStatus(shiti, self); //存储答题状态
         if (shiti.doneAnswer.length == xiaoti.length) { //说明材料题已经全部作答
           common.changeNum(shiti.flag, self); //更新答题的正确和错误数量
-          common.postAnswerToServer(user.Login_random, user.zcode, shiti.id, shiti.flag, "ABCD", app, API_URL); //向服务器提交答题结
+          // common.postAnswerToServer(user.Login_random, user.zcode, shiti.id, shiti.flag, "ABCD", app, API_URL); //向服务器提交答题结
           common.ifDoneAll(shitiArray, self.data.doneAnswerArray); //判断是不是所有题已经做完
         }
       }

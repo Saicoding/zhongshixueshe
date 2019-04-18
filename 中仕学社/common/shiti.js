@@ -692,7 +692,8 @@ function changeSelectStatus(done_daan, shiti, ifSubmit) {
       shiti.flag = flag; //答案是否正确
       break;
     case "多选题":
-      let answers = shiti.answer.split(""); //将“ABD” 这种字符串转为字符数组
+      let answers = shiti.answer.replace(/,|\s+/g, "");
+      answers = answers.split(""); //将“ABD” 这种字符串转为字符数组
       if (!ifSubmit) shiti.done_daan = done_daan; //已经做的选择
 
       for (let i = 0; i < answers.length; i++) {
@@ -763,8 +764,8 @@ function changeModelRealSelectStatus(done_daan, shiti, ifSubmit) {
       //遍历这个答案，根据答案设置shiti的checked属性
       let new_done_daan = changeShitiChecked(done_daan, shiti);
       changeMultiShiti(new_done_daan, shiti);
-
-      let answers = shiti.answer.split(""); //将“ABD” 这种字符串转为字符数组
+      let answers = shiti.answer.replace(/,|\s+/g, "");
+      answers = answers.split(""); //将“ABD” 这种字符串转为字符数组
       if (!ifSubmit) shiti.done_daan = new_done_daan; //已经做的选择
 
       for (let i = 0; i < new_done_daan.length; i++) {
