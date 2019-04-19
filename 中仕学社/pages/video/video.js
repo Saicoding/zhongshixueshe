@@ -1,68 +1,57 @@
 // pages/video/video.js
+const app = getApp();
+const API_URL = 'https://xcx2.chinaplat.com/main/'; //接口地址
 let animate = require('../../common/newAnimate.js');
 let easeOutAnimation = animate.easeOutAnimation();
 let easeInAnimation = animate.easeInAnimation();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    banners:[
+    banners: [
       '/images/test/video.png',
       '/images/test/video.png'
     ],
-    list:[
-      {
-        title:'初级会计职称',
-        nums:857,
-        jieNums:34,
-        img:'/images/test/ke.png'
+    loadedList: [{
+        loaded: false,
+        list: null
       },
       {
-        title: '经济法律法规',
-        nums: 857,
-        jieNums: 34,
-        img: '/images/test/ke.png'
+        loaded: false,
+        list: null
       },
       {
-        title: '贼哇',
-        nums: 857,
-        jieNums: 34, 
-        img: '/images/test/ke.png'
-      },
-      {
-        title: '卡士大夫',
-        nums: 857,
-        jieNums: 34,
-        img: '/images/test/ke.png'
-      },
-      {
-        title: '中仕学社',
-        nums: 857,
-        jieNums: 34,
-        img: '/images/test/ke.png'
-      },
-    ],
-    currentIndex:0
+        loaded: false,
+        list: null
+      }
+    ], //已载入数组
+    currentIndex: 0,
+    catlogCurrent:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
       title: '某一类考试标题',
+    })
+
+    this.setData({
+      first:true
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let self = this;
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
-      success: function (res) { //转换窗口高度
+      success: function(res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
 
@@ -79,51 +68,126 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
+    let self = this;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
 
+    //此页面有可能是从首页导航过来的，在首页可能没有登录，在此判断是否登录
+    let user = wx.getStorageSync('user');
+
+    if(user){//如果已经登录
+      let zcode = user.zcode;
+      let token = user.token;
+
+      if (self.data.first || self.data.isReLoad) {//如果首次载入,或者重复登录
+        //获取课程列表分类
+        console.log("action=getCourseType&xcx_id=" + xcx_id)
+        app.post(API_URL, "action=getCourseType&xcx_id=" + xcx_id, false, false, "").then(res => {
+          console.log(res)
+          let loadedList = res.data.data[0].list;//已载入视频列表
+
+          let lastke = wx.getStorageSync('lastkesub' + zcode + xcx_id);
+          let currentIndex = lastke ? lastke.currentIndex:0;//根据是否有浏览记录获取当前的index值
+
+          self.setData({
+            loadedList: loadedList,
+            currentIndex:currentIndex
+          })
+
+          self.getCourse(currentIndex);//获取对应课程列表
+
+        })
+      }
+    }else{//如果没有登录
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   /**
-  * 切换考试
-  */
-  switch: function () {
+   * 切换考试
+   */
+  switch: function() {
     wx.navigateTo({
       url: '/pages/index/switch/switch',
     })
   },
 
-  /**
-   * 切换目录
-   */
-  changeCatalog:function(e){
-    let index = e.currentTarget.dataset.index;
-    
-    if(index*1 == this.data.currentIndex) return //如果点击的是同一个目录就不执行
-    let moveData = undefined;
-    let windowWidth = this.data.windowWidth;
-
-    switch(index){
-      case "0":
-        moveData = animate.moveX(easeOutAnimation, 0);
-        break;
-      case "1":
-        moveData = animate.moveX(easeOutAnimation, 250*windowWidth/750);
-      break;
-      case "2":
-        moveData = animate.moveX(easeOutAnimation, 500 * windowWidth / 750);
-      break;
-    }
-
-    this.setData({
-      currentIndex:index*1,
-      moveData: moveData
-    })
+  test:function(e){
+    console.log(e.detail.current)
   },
 
   /**
- * 关闭提示框(课程适合零基础的小伙伴)
- */
-  close: function () {
+   * 滑动页面
+   */
+  changeSwiper: function(e) {
+    let index = e.detail.current;
+    let source = e.detail.source;
+    let loadedList = this.data.loadedList;
+    let currentIndex = this.data.currentIndex;
+    let catlogCurrent = this.data.catlogCurrent;
+    let direction = index > currentIndex?'左':'右'
+
+    if(source == 'touch'){//如果是手动滑动
+      console.log(index)
+      console.log(catlogCurrent)
+      if (direction == '左' && loadedList.length - 5 >= catlogCurrent ){
+        catlogCurrent++;
+      } 
+
+      if (direction == '右' && catlogCurrent >0){
+        catlogCurrent--;
+      }
+
+      this.setData({
+        currentIndex:index,
+        catlogCurrent: catlogCurrent
+      })
+      this.getCourse(index)
+    }
+  },
+
+  //点击目录
+  getList: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let currentIndex = this.data.currentIndex ? this.data.currentIndex:0;
+
+    if(index != currentIndex){//点击不同目录
+      this.setData({
+        currentIndex:index,
+        keCurrent:index
+      })
+      this.getCourse(index);
+    }
+  },
+
+  //获取课程列表
+  getCourse: function (index) {
+    let self = this;
+    let loadedList = self.data.loadedList; //已载入列表数组
+    let user = wx.getStorageSync('user');
+    let zcode = user.zcode?user.zcode:"";
+    let token = user.token?user.token:"";
+
+    if (!loadedList[index].list) { //说明已经载入过
+      app.post(API_URL, "action=getCourseList&typesid=" + loadedList[index].id+"&zcode="+zcode+"&token="+token, false, false, "", "", "", self).then(res => {
+        console.log(res)
+        let newcourse = res.data.data;
+        loadedList[index].list = newcourse;
+        loadedList[index].loaded = true;//该章节载入结束
+        console.log(loadedList)
+        self.setData({
+          loadedList: loadedList
+        });
+      });
+    } 
+  },
+
+  /**
+   * 关闭提示框(课程适合零基础的小伙伴)
+   */
+  close: function() {
     this.setData({
       hidePrompt: true
     })
@@ -132,7 +196,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

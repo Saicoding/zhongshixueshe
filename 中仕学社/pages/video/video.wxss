@@ -1,7 +1,6 @@
 /* pages/video/video.wxss */
 page{
   background: #f1f4f9;
-  padding-bottom:50rpx;
 }
 .swiper,.banner{
   position: relative;
@@ -30,27 +29,29 @@ page{
   height:30rpx;
   margin:10rpx 20rpx 10rpx 40rpx;
 }
-
 /* 中间的目录 */
-.catalog{
-  background: white;
+.mid-swiper{
   height:80rpx;
   line-height: 80rpx;
   font-size:25rpx;
-  border-bottom:1rpx solid #e1e5e8;
+  width:800rpx;
+  box-shadow: 0 8rpx 10rpx #eee;
+  padding-left:20rpx;
 }
 
-.catalog-item{
-  width:250rpx;
+.catalog{
+  width:160rpx;
   text-align: center;
+  border-radius: 10rpx;
+  height:60rpx;
+  line-height: 60rpx;
+  margin-top:10rpx;
 }
 
-.line{
-  position: relative;
-  width:50rpx;
-  border-top:1rpx solid #ff5b57;
-  top:-1rpx;
-  left:100rpx;
+.on{
+  background: linear-gradient(to right, #1fce73, #33e98b);
+  box-shadow: 2rpx 2rpx 8rpx 4rpx #cbf4dd;
+  color: white;
 }
 
 /* 提示条 */
@@ -88,6 +89,7 @@ page{
   width:350rpx;
   background: white;
   margin-top:60rpx;
+  padding-bottom:20rpx;
 }
 
 .ke-img{
@@ -103,6 +105,8 @@ page{
   top:148rpx;
   padding-left:20rpx;
   font-size:25rpx;
+  width:320rpx;
+  height:80rpx;
 }
 
 .ke-bottom{
@@ -111,6 +115,7 @@ page{
   line-height: 60rpx;
   color:#bfbfbf;
   padding-left:20rpx;
+  top:22rpx;
 }
 
 .ke-bottom-icon{

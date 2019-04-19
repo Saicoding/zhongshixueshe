@@ -15,34 +15,38 @@
   </swiper>
 
   <!-- 中间目录选择 -->
-  <view class="catalog flex">
-    <view data-index="0" class="catalog-item" style="color:{{currentIndex==0?'black':'#6c6d6f'}};font-weight:{{currentIndex==0?'bold':'normal'}}" bindtap="changeCatalog">基础</view>
-    <view data-index="1" class="catalog-item" style="color:{{currentIndex==1?'black':'#6c6d6f'}};font-weight:{{currentIndex==1?'bold':'normal'}}" bindtap="changeCatalog">提升</view>
-    <view data-index="2" class="catalog-item" style="color:{{currentIndex==2?'black':'#6c6d6f'}};font-weight:{{currentIndex==2?'bold':'normal'}}" bindtap="changeCatalog">讲座</view>
-  </view>
-  <view animation="{{moveData}}" class="line"></view>
+  <swiper indicator-dots="{{false}}" autoplay="{{false}}" duration="300" current="{{catlogCurrent}}"  display-multiple-items="{{loadedList.length>=4?5:loadedList.length}}" class="mid-swiper" bindchange="test">
+    <swiper-item data-index="{{index}}" wx:for="{{loadedList}}" wx:for-item="catalog" wx:key="c" bindtap="getList">
+      <view class="catalog {{currentIndex ==index?'on':''}}">{{catalog.title}}</view>
+    </swiper-item>
 
-
-  <!-- 提示条 -->
-  <view wx:if="{{!hidePrompt}}" class="prompt flex" bindtap="close">
-    <view class="prompt-text">这里的课程适合零基础的小伙伴学习哦</view>
-    <image class="prompt-icon" src="/images/close.png"></image>
-  </view>
+    <!-- 占位框 -->
+    <swiper-item style="width:120rpx;">
+      <view class="catalog"></view>
+    </swiper-item>
+  </swiper>
 
   <!-- 课程列表 -->
-  <view class="list">
-    <view wx:for="{{list}}" wx:for-item="ke" wx:key="l">
-      <view class="ke" style ="margin-left:{{index%2 == 1?30:0}}rpx">
-        <image class="ke-img" src="{{ke.img}}"></image>
-        <view class="ke-title wp">{{ke.title}}</view>
-        <view class="ke-bottom flex">
-          <image class="ke-bottom-icon" src="/images/index/people.png"></image>
-          <view class="ke-bottom-text">{{ke.nums}}人</view>
-          <image class="ke-bottom-icon" src="/images/index/play.png"></image>
-          <view class="ke-bottom-text">{{ke.jieNums}}节</view>
-        </view>
+  <swiper indicator-dots="{{false}}" autoplay="{{false}}" interval="3000" duration="300" current="{{keCurrent}}" bindchange="changeSwiper" style="height:{{windowHeight-420}}rpx;">
+    <swiper-item wx:for="{{loadedList}}" wx:for-item="list" wx:key="l">
+      <view style ="border:1rpx solid #f1f4f9">
+        <scroll-view wx:if="{{list.loaded}}" scroll-y style="height:{{windowHeight-420}}rpx;" bindscrolltolower="scrolltolower">
+          <view wx:for="{{list.list}}" wx:for-item="ke" wx:key="k" class="list">
+            <view class="ke" style="margin-left:{{index%2 == 1?30:0}}rpx" bindtap="">
+              <image class="ke-img" src="{{ke.pic}}"></image>
+              <view class="ke-title">{{ke.cname}}</view>
+              <view class="ke-bottom flex">
+                <image class="ke-bottom-icon" src="/images/index/people.png"></image>
+                <view class="ke-bottom-text">{{ke.hot}}人</view>
+                <image class="ke-bottom-icon" src="/images/index/play.png"></image>
+                <view class="ke-bottom-text">{{ke.course_nums}}节</view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
       </view>
-    </view>
-  </view>
-  <view class ="clear"></view>
+      <image wx:if="{{!list.loaded}}" class="loading-img" src="/images/imgLoading.gif" mode="aspectFit"></image>
+    </swiper-item>
+  </swiper>
+  <view class="clear"></view>
 </view>
