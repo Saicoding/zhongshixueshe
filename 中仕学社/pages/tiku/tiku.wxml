@@ -29,11 +29,6 @@
         </view>
       </view>
       <view class='t_center' bindtap="GOkaodian">
-        <!-- <view class="t_center_text">{{bars[currentIndex].title3}}</view>
-        <view class="t_center_pic">
-          <view class="t_center_pic_text1" style="font-size:{{jindu.length>=5?60:80}}rpx">{{jindu == "0.00"?"0":jindu}}</view>
-          <view class="t_center_pic_text2">%</view>
-        </view> -->
         <view class="t_center_text" >{{bars[currentIndex].title}}</view>
         <swiper class="center-block" autoplay interval="3000" duration="1000" circular bindtap='GOkaodian'>
           <swiper-item>
@@ -80,11 +75,13 @@
 
   <view class="ti">
     <!-- 章节练习-->
-    <view wx:if="{{currentMidIndex == 0&&isLoaded}}">
+    <view wx:if="{{isLoaded}}">
       <view style="margin-bottom:50rpx;" wx:for="{{zhangjies}}" wx:for-item="zhangjie" wx:for-index="zhangIdx" wx:key="z">
         <view data-videoid="{{zhangjie.video_id}}" data-zhangidx="{{zhangIdx}}" data-f_id="{{zhangjie.id}}" data-rightRate="{{zhangjie.rightrate}}" data-doneNum="{{zhangjie.donenum}}" data-num="{{zhangjie.nums}}" data-title="{{zhangjie.title}}" class="ti-block"
           bindtap="toogleFolder">
-          <view wx:if="{{zhangjie.zhangjie_child.length ==0}}" class="ti-title-icon"></view>
+          <view wx:if="{{zhangjie.zhangjie_child.length ==0}}" class="ti-title-icon">
+            <view class ="circle" style = "background:{{zhangjie.selected?'rgb(255, 94, 0);':'rgb(18, 207, 18);'}}"></view>
+          </view>
           <image wx:if="{{zhangjie.zhangjie_child.length !=0}}" class="ti-title-icon" src="{{zhangjie.isFolder && !zhangjie.display?'/images/fold.png':'/images/unfold.png'}}"></image>
           <view class="ti-block-line" style="margin-left:30rpx;">
             <view class="ti-block-line1">
@@ -101,7 +98,6 @@
             <view class="ti-block-right-rate" style="color:{{zhangjie.rate >=60 ?'#32d584':'#f98b01'}}">{{zhangjie.rate}}</view>
             <image class="ti-block-right-icon" src="{{zhangjie.rate >=60 ? '/images/rate.png':'/images/rate1.png'}}"></image>
           </view>
-
         </view>
 
         <view wx:if="{{!zhangjie.isFolder}}" class="jie-border"></view>
@@ -114,7 +110,7 @@
               <image class="jie-dot" src="/images/dot.png"></image>
               <view class="ti-block-line" style="margin-left:40rpx;">
                 <view class="ti-block-line1">
-                  <view class="ti-block-line1-title wp" style="color:{{jie.selected?'rgb(233, 73, 10);':jie.donenum == jie.all_num?'rgb(165, 165, 165);':'black'}}">{{jie.title}}</view>
+                  <view class="ti-block-line1-title wp" style="color:{{jie.selected?'rgb(233, 73, 10);':jie.donenum == jie.all_num?'rgb(165, 165, 165);':'black'}}">{{jie.title}}{{jieIdx}}</view>
                   <view class="ti-block-line1-num">{{jie.donenum}}/{{jie.nums}}</view>
                 </view>
                 <view class="ti-block-line2"></view>

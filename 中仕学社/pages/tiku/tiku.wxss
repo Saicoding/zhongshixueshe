@@ -304,6 +304,15 @@ page {
   margin-left: 20rpx;
 }
 
+.circle{
+  width:20rpx;
+  height:20rpx;
+  margin-top:15rpx;
+  margin-left:15rpx;
+  border-radius: 30rpx;
+  background: rgb(18, 207, 18);
+}
+
 .jie-border {
   position: relative;
   border-left: 1rpx solid #eaeaea;
@@ -417,6 +426,7 @@ page {
   height: 60rpx;
   line-height: 60rpx;
 }
+
 
 /* 全真模拟和核心密卷 */
 

@@ -880,21 +880,12 @@ Page({
     let pages = getCurrentPages();
     let prePage = pages[pages.length - 2];
     let currentIndex = options.currentIndex;
-    let currentMidIndex = options.currentMidIndex;
     let zhangIdx = options.zhangIdx;
     let jieIdx = options.jieIdx;
-    let zhangjieLoadedStr = '' + currentIndex + currentMidIndex;//当前题库标识
+    let zhangjieLoadedStr = '' + currentIndex;//当前题库标识
     let doneAnswerArray = this.data.doneAnswerArray; //所有已答数组
     let tiku = prePage.data.tiku; //上个页面的题库对象
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
-    
-    if (!tiku) {
-      wx.setStorage({//设置数据有改变的题库编号
-        key: 'change' + zcode + xcx_id,
-        data: {currentIndex: currentIndex, currentMidIndex: currentMidIndex, zhangIdx: zhangIdx, jieIdx: jieIdx}
-      })
-      return
-    }
 
     let donenum = this.data.options.donenum;//进入页面时的已做题数
     if (donenum == doneAnswerArray.length){

@@ -86,9 +86,8 @@ Page({
         url:'/pages/tiku/tiku?from=shouye',
       })
     } else {
-      wx.showToast({
-        title: '当前没有刷题记录',
-        duration:3000
+      wx.navigateTo({
+        url: '/pages/tiku/tiku',
       })
     }
   },
@@ -252,11 +251,11 @@ Page({
     }
 
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1//考试类别
-    console.log('lastShuati' + zcode + xcx_id,)
+    console.log(xcx_id)
+
     wx.getStorage({
       key: 'lastShuati' + zcode + xcx_id,
       success: function (res) {
-        console.log(res)
         let lastShuati = res.data;
         self.setData({
           midtext: "继续刷题",
@@ -265,7 +264,11 @@ Page({
         })
       },
       fail:function(res){
-        console.log(res)
+        self.setData({
+          midtext: "开始刷题",
+          midtitle: "暂无刷题记录",
+          lastShuati:false
+        })
       }
     })
   },
