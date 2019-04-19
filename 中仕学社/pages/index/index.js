@@ -260,7 +260,6 @@ Page({
     }
 
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
-    console.log(xcx_id)
 
     wx.getStorage({
       key: 'lastShuati' + zcode + xcx_id,
@@ -279,6 +278,15 @@ Page({
           lastShuati: false
         })
       }
+    })
+
+    wx.getStorage({ //今日刷题数
+      key: "today" + myDate + zcode + xcx_id,
+      success: function (res) {
+        self.setData({
+          todayNum: res.data.length
+        })
+      },
     })
   },
 

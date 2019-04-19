@@ -572,6 +572,22 @@ function storeAnswerStatus(shiti, self) {
 
   let answer_nums_array = wx.getStorageSync("shiti" + self.data.zhangjie_id + zcode) ? wx.getStorageSync("shiti" + self.data.zhangjie_id + zcode) : [];
 
+  let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+
+  let myDate = new Date(); //获取系统当前时间
+  let year = myDate.getFullYear();
+  let month = myDate.getMonth() + 1;
+  let day = myDate.getDate();
+  myDate = "" + year + month + day; //得到当前答题字符串
+
+  let todayDone = wx.getStorageSync("today" + myDate + zcode + xcx_id) ? wx.getStorageSync("today" + myDate + zcode + xcx_id) : [];
+  todayDone.push(1);//今日做题数量
+
+  wx.setStorage({
+    key: "today" + myDate + zcode + xcx_id,
+    data: todayDone
+  })
+
   let obj = {
     "id": shiti.id,
     "done_daan": shiti.done_daan,
@@ -603,6 +619,22 @@ function storeModelRealAnswerStatus(shiti, self) {
   let zcode = user.zcode;
   let doneAnswerArray = self.data.doneAnswerArray;
   let answer_nums_array = wx.getStorageSync("modelReal" + id + zcode);
+
+  let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+
+  let myDate = new Date(); //获取系统当前时间
+  let year = myDate.getFullYear();
+  let month = myDate.getMonth() + 1;
+  let day = myDate.getDate();
+  myDate = "" + year + month + day; //得到当前答题字符串
+
+  let todayDone = wx.getStorageSync("today" + myDate + zcode + xcx_id) ? wx.getStorageSync("today" + myDate + zcode + xcx_id) : [];
+  todayDone.push(1);//今日做题数量
+
+  wx.setStorage({
+    key: "today" + myDate + zcode + xcx_id,
+    data: todayDone
+  })
 
   let flag = false;
 
