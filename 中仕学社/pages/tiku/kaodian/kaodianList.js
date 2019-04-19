@@ -197,10 +197,9 @@ Page({
     let kaodian_id = self.data.array[e.detail.value].id;
     let user = self.data.user;
     let options = self.data.options;
-
-    let username = user.username;
     let token = user.token;
     let zcode = user.zcode;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
 
     self.setData({
       index: index, //设置是第几个题库
@@ -214,7 +213,8 @@ Page({
       self.initKdList(kdList); //初始化考点列表信息
       //存储本次浏览的题库
 
-      wx.setStorageSync("kaodian_id" + username, {
+      wx.setStorageSync("kaodian_id" + zcode + xcx_id, 
+      {
         "id": kaodian_id,
         "index": index
       });
@@ -267,8 +267,9 @@ Page({
     let index = 0;
     let user = wx.getStorageSync('user');
     let username = user.username;
-    let kaodian = wx.getStorageSync("kaodian_id" + username);
-    console.log(kaodian)
+    let zcode = user.zcode?user.zcode:"";
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+    let kaodian = wx.getStorageSync("kaodian_id" + zcode + xcx_id);
     if (kaodian == "") {
       kaodian_id = res[0].id;
       index = 0;

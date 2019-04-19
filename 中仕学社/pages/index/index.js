@@ -72,18 +72,18 @@ Page({
    * 生命周期事件
    */
   onLoad: function() {
-   
+
   },
 
   /**
-  * 继续刷题
-  */
-  continiueShuati: function () {
+   * 继续刷题
+   */
+  continiueShuati: function() {
     let lastShuati = this.data.lastShuati;
     console.log(lastShuati)
     if (lastShuati) { //如果有最后一次刷题
       wx.navigateTo({
-        url:'/pages/tiku/tiku?from=shouye',
+        url: '/pages/tiku/tiku?from=shouye',
       })
     } else {
       wx.navigateTo({
@@ -181,6 +181,15 @@ Page({
       tid = 1;
     }
 
+    //获取试题栏目中科目分类，并设置当前typesid
+    app.post(API_URL, "action=getKemuList&xcx_id=" + type.tid, false, false, "").then(res => {
+      let bars = res.data.data;
+
+      self.setData({
+        bars: bars 
+      })
+    })
+
     app.post(API_URL, "action=getMainInfo&id=" + tid, false, false, "").then(res => {
       let info = res.data.data[0];
       let catlogList = self.data.catlogList; //页面的所有目录
@@ -250,12 +259,12 @@ Page({
       })
     }
 
-    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1//考试类别
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
     console.log(xcx_id)
 
     wx.getStorage({
       key: 'lastShuati' + zcode + xcx_id,
-      success: function (res) {
+      success: function(res) {
         let lastShuati = res.data;
         self.setData({
           midtext: "继续刷题",
@@ -263,11 +272,11 @@ Page({
           lastShuati: lastShuati
         })
       },
-      fail:function(res){
+      fail: function(res) {
         self.setData({
           midtext: "开始刷题",
           midtitle: "暂无刷题记录",
-          lastShuati:false
+          lastShuati: false
         })
       }
     })
@@ -419,8 +428,12 @@ Page({
         })
         break;
       case 3: //考点
+        let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
+        let currentIndex = wx.getStorageSync('currentIndex' + xcx_id);
+        let typesid = this.data.bars[currentIndex].id;
+        let title = this.data.bars[currentIndex].title;
         wx.navigateTo({
-          url: '/pages/kaodian/kaodian',
+          url: '/pages/tiku/kaodian/kaodianList?typesid='+typesid+"&title="+title,
         })
         break;
     }
@@ -467,6 +480,18 @@ Page({
   GOplay: function() {
     wx.navigateTo({
       url: '/pages/video/play/play',
+    })
+  },
+
+  /**
+   * 导航到考点页面
+   */
+  GOkaodian: function() {
+    let currentIndex = this.data.currentIndex;
+    let typesid = this.data.bars[currentIndex].id;
+    let title = this.data.bars[currentIndex].title;
+    wx.navigateTo({
+      url: '/pages/tiku/kaodian/kaodianList?typesid=' + typesid + "&title=" + title
     })
   },
 
