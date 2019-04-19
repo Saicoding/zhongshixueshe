@@ -81,9 +81,7 @@ Page({
 
       if (self.data.first || self.data.isReLoad) {//如果首次载入,或者重复登录
         //获取课程列表分类
-        console.log("action=getCourseType&xcx_id=" + xcx_id)
         app.post(API_URL, "action=getCourseType&xcx_id=" + xcx_id, false, false, "").then(res => {
-          console.log(res)
           let loadedList = res.data.data[0].list;//已载入视频列表
 
           let lastke = wx.getStorageSync('lastkesub' + zcode + xcx_id);
@@ -91,7 +89,9 @@ Page({
 
           self.setData({
             loadedList: loadedList,
-            currentIndex:currentIndex
+            currentIndex:currentIndex,
+            first:false,//设置已经载入一次
+            isReLoad:false//设置当前状态不是重新登录状态
           })
 
           self.getCourse(currentIndex);//获取对应课程列表
@@ -114,8 +114,18 @@ Page({
     })
   },
 
-  test:function(e){
-    console.log(e.detail.current)
+  /**
+   * 观看视频
+   */
+  watch: function (e) {
+    var kc_id = e.currentTarget.dataset.kc_id;
+    var renshu = e.currentTarget.dataset.renshu;
+    let index = e.currentTarget.dataset.index;
+    let title = e.currentTarget.dataset.title;
+
+    wx.navigateTo({
+      url: '/pages/video/play/play?kc_id=' + kc_id + '&renshu=' + renshu  + "&index=" + index + '&title=' + title,
+    })
   },
 
   /**

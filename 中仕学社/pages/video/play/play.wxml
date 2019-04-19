@@ -79,7 +79,7 @@
       <!-- 简介信息 -->
       <view hidden="{{product != 'introduction'}}" class="info" style="padding:20rpx 15rpx 100rpx 15rpx;">
         <view wx:if="{{!info}}">
-          <image src="/images/hasNopage/hasNopage.png" class="hasNopage" style="width:180rpx;height:180rpx;margin-top:20rpx;"></image>
+          <image src="/images/hasNopage.png" class="hasNopage" style="width:180rpx;height:180rpx;margin-top:20rpx;"></image>
           <view class="hasNopage-text">没有找到简介信息...</view>
         </view>
 

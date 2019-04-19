@@ -1,5 +1,5 @@
 // pages/video/videoDetail/videoDetail.js
-const API_URL = 'https://xcx2.chinaplat.com/daoyou/'; //接口地址
+const API_URL = 'https://xcx2.chinaplat.com/main/'; //接口地址
 const app = getApp();
 let md5 = require('../../../common/MD5.js');
 let animate = require('../../../common/animate.js');
@@ -143,7 +143,7 @@ Page({
 
     if (user) {
       app.post(API_URL, "action=getCourseShow&cid=" + kcid + "&token=" + token + "&zcode=" + zcode, false, false, "", "", false, self).then((res) => {
-
+        console.log(res)
         //最后播放视频索引
         let lastpx = wx.getStorageSync('lastVideo' + kcid + user.zcode);
         let scroll = lastpx * 100 * windowWidth / 750;
@@ -167,13 +167,15 @@ Page({
         let day = myDate.getDate();
         myDate = "" + year + month + day; //得到当前答题字符串
 
-        let todayDoneKe = wx.getStorageSync("todayKe" + myDate + user.zcode) ? wx.getStorageSync("todayKe" + myDate + user.zcode) : [];
+        let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+
+        let todayDoneKe = wx.getStorageSync("todayKe" + myDate + user.zcode + xcx_id) ? wx.getStorageSync("todayKe" + myDate + user.zcode + xcx_id) : [];
         if (todayDoneKe.indexOf(currentVideo.id) == -1) {//如果不包含当前id
           todayDoneKe.push(currentVideo.id);
         }
 
         wx.setStorage({
-          key: "todayKe" + myDate + user.zcode,
+          key: "todayKe" + myDate + user.zcode + xcx_id,
           data: todayDoneKe,
         })
 

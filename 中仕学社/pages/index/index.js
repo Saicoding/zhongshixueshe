@@ -288,6 +288,15 @@ Page({
         })
       },
     })
+
+    wx.getStorage({ //今日看课数
+      key: "todayKe" + myDate + zcode + xcx_id,
+      success: function (res) {
+        self.setData({
+          todayKeNum: res.data.length
+        })
+      },
+    })
   },
 
   /**

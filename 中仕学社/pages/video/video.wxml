@@ -15,7 +15,7 @@
   </swiper>
 
   <!-- 中间目录选择 -->
-  <swiper indicator-dots="{{false}}" autoplay="{{false}}" duration="300" current="{{catlogCurrent}}"  display-multiple-items="{{loadedList.length>=4?5:loadedList.length}}" class="mid-swiper" bindchange="test">
+  <swiper indicator-dots="{{false}}" autoplay="{{false}}" duration="300" current="{{catlogCurrent}}"  display-multiple-items="{{loadedList.length>=4?5:loadedList.length}}" class="mid-swiper" >
     <swiper-item data-index="{{index}}" wx:for="{{loadedList}}" wx:for-item="catalog" wx:key="c" bindtap="getList">
       <view class="catalog {{currentIndex ==index?'on':''}}">{{catalog.title}}</view>
     </swiper-item>
@@ -31,8 +31,8 @@
     <swiper-item wx:for="{{loadedList}}" wx:for-item="list" wx:key="l">
       <view style ="border:1rpx solid #f1f4f9">
         <scroll-view wx:if="{{list.loaded}}" scroll-y style="height:{{windowHeight-420}}rpx;" bindscrolltolower="scrolltolower">
-          <view wx:for="{{list.list}}" wx:for-item="ke" wx:key="k" class="list">
-            <view class="ke" style="margin-left:{{index%2 == 1?30:0}}rpx" bindtap="">
+          <view wx:for="{{list.list}}" wx:for-item="ke" wx:for-index="keIndex" wx:key="k" class="list">
+            <view data-title="{{ke.cname}}" data-index="{{keIndex}}"  data-renshu='{{ke.hot}}' data-kc_id="{{ke.kc_id}}" class="ke" style="margin-left:{{index%2 == 1?30:0}}rpx" bindtap="watch" hover-class='select2' hover-stay-time='300'>
               <image class="ke-img" src="{{ke.pic}}"></image>
               <view class="ke-title">{{ke.cname}}</view>
               <view class="ke-bottom flex">

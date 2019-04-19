@@ -135,3 +135,7 @@ page{
   text-align: right;
   padding-right:20rpx;
 }
+
+.select2{
+  opacity: 0.7
+}
