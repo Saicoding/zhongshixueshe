@@ -226,9 +226,9 @@ Page({
       loadingMore: true
     })
 
-
-    app.post(API_URL, "action=getCoursePL&cid=" + kcid + "&page=" + page_now + 1, false, false, "", "").then((res) => {
-
+    console.log("action=GetCoursePL&cid=" + kcid + "&page=" + page_now + 1)
+    app.post(API_URL, "action=GetCoursePL&cid=" + kcid + "&page=" + page_now + 1, false, false, "", "").then((res) => {
+      console.log(res)
       var page_all = res.data.data[0].page_all;
       var page_now = res.data.data[0].page_now;
       let newpl = res.data.data[0].pllist;
@@ -333,7 +333,7 @@ Page({
       let token = user.token;
       let kcid = self.data.kcid;
 
-      app.post(API_URL, "action=saveCoursePL&token=" + token + "&zcode=" + zcode + "&cid=" + kcid + "&plcontent=" + content + "&page=1", false, false, "", "", "", self).then(res => {
+      app.post(API_URL, "action=SaveCoursePL&token=" + token + "&zcode=" + zcode + "&cid=" + kcid + "&plcontent=" + content + "&page=1", false, false, "", "", "", self).then(res => {
 
       })
     } else {

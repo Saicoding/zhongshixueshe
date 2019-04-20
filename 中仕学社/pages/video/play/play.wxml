@@ -88,7 +88,7 @@
       <!-- 评价-->
       <view hidden="{{product != 'pingjia'}}" class="pingjia">
         <view wx:if="{{page_all==0 }}">
-          <image src="/images/hasNopage/hasNopage.png" class="hasNopage" style="width:180rpx;height:180rpx;margin-top:20rpx;"></image>
+          <image src="/images/hasNopage.png" class="hasNopage" style="width:180rpx;height:180rpx;margin-top:20rpx;"></image>
           <view class="hasNopage-text">暂时还没有评论...</view>
         </view>
         <view wx:if="{{plfirst}}">
