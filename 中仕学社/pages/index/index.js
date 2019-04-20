@@ -188,7 +188,6 @@ Page({
     let title = "房地产经纪人"; //默认标题
     let type = wx.getStorageSync('kaoshi'); //本地考试类别
     let tid;
-
     if (type) {
       title = type.title;
       tid = type.tid;
@@ -196,8 +195,9 @@ Page({
       tid = 1;
     }
 
+
     //获取试题栏目中科目分类，并设置当前typesid
-    app.post(API_URL, "action=getKemuList&xcx_id=" + type.tid, false, false, "").then(res => {
+    app.post(API_URL, "action=getKemuList&xcx_id=" + tid, false, false, "").then(res => {
       let bars = res.data.data;
 
       self.setData({

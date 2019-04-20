@@ -6,6 +6,28 @@
   z-index: 10;
 }
 
+/* 音频 */
+.myAudio {
+  position: absolute;
+  width: 750rpx;
+  height: 422rpx;
+  z-index: 10;
+  top:0rpx;
+}
+
+.audio-content{
+  position: relative;
+  width: 750rpx;
+  height: 422rpx;
+  top:0rpx;
+}
+
+.audio-content-img{
+  width: 750rpx;
+  height: 422rpx;
+
+}
+
 .wifi {
   position: absolute;
   top: 0rpx;
@@ -226,15 +248,15 @@
 
 .beisu-container {
   display: flex;
-  right:0;
+  right: 0;
   position: absolute;
-  z-index:100;
+  z-index: 100;
 }
 
 .beisu {
   width: 4em;
   text-align: center;
-  border: 1px rgba(238, 238, 238,0.3) solid;
+  border: 1px rgba(238, 238, 238, 0.3) solid;
   background: rgba(255, 255, 255, 0.3);
   font-size: 22rpx;
   border-radius: 4px;
@@ -248,14 +270,14 @@
 .beisu.on {
   background: rgba(255, 153, 0, 0.2);
   color: #fff;
-  border: 1px rgba(252, 177, 65,0.2) solid;
+  border: 1px rgba(252, 177, 65, 0.2) solid;
 }
 
-.hasNopage-text{
-  color:rgb(153, 153, 153);
+.hasNopage-text {
+  color: rgb(153, 153, 153);
   text-align: center;
-  font-size:25rpx;
-  margin-top:20rpx;
+  font-size: 25rpx;
+  margin-top: 20rpx;
 }
 
 .title1 {
@@ -436,6 +458,7 @@
 }
 
 /* 评论载入框 */
+
 .loading-block {
   width: 100%;
   height: 50rpx;
@@ -459,7 +482,6 @@
   vertical-align: middle;
 }
 
-
 /* 最下面部分 */
 
 .bottom {
@@ -481,7 +503,7 @@
 .bottom-input {
   background: white;
   border: 1px #eee solid;
-  width:520rpx;
+  width: 520rpx;
   border-radius: 10rpx;
   margin-left: 20rpx;
   height: 70rpx;
@@ -505,10 +527,10 @@
   float: right;
 }
 
-.select1{
-  background: rgba(163, 163, 163,0.1);
+.select1 {
+  background: rgba(163, 163, 163, 0.1);
 }
 
-.select2{
-  background:#00c40d;
+.select2 {
+  background: #00c40d;
 }

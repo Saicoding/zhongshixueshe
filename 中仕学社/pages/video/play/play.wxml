@@ -1,7 +1,7 @@
 <!--pages/video/videoDetail/videoDetail.wxml-->
 <scroll-view scroll-y style="height:{{windowHeight-120}}rpx;" lower-threshold="100rpx" bindscroll="scroll" bindscrolltolower="scrolltolower" scroll-top="{{scrollTop}}">
-  <video bindtap="toogleShow" id="myVideo" class='myVideo' style="{{fixed}}" controls initial-time="{{files[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{files[px-1].files == undefined?'':files[px-1].files}}" bindended="end" bindfullscreenchange="quan"
-    bindtimeupdate="timeupdate" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture show-center-play-btn="{{true}}" autoplay="{{autoplay}}">
+  <video hidden="{{type != 'mp4'}}" bindtap="toogleShow" id="myVideo" class='myVideo' style="{{fixed}}" controls initial-time="{{files[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{files[px-1].files == undefined ||type != 'mp4' ?'':files[px-1].files}}" bindended="end"
+    bindfullscreenchange="quan" bindtimeupdate="timeupdate" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture show-center-play-btn="{{true}}" autoplay="{{autoplay}}">
 
     <!-- <view class="unBuy" wx:if="{{buy==0}}">
     <image class="video-icon" src="/images/course/ypad_btn_answers_play@2x.png" />
@@ -22,12 +22,15 @@
     </view>
   </video>
 
+  <view wx:if="{{type == 'mp3'}}" class="audio-content" bindtap = "tooglePlayaudio">
+    <image class="audio-content-img" src="{{showPic}}" mode="aspectFit"></image>
+  </view>
+
   <!-- 浮动视频窗口的占位框 -->
   <view wx:if="{{showBlank}}" style="width:750rpx;height:422rpx;"></view>
 
   <image wx:if="{{!loaded}}" class="loading-img" src="/images/imgLoading.gif" mode="aspectFit"></image>
   <view hidden="{{!loaded}}">
-
     <!-- 视频 -->
     <view class="up-block" wx:if="{{product != 'pingjia'}}">
       <view class='kc_money'>

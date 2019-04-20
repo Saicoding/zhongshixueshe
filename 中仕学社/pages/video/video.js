@@ -38,7 +38,7 @@ Page({
   onLoad: function(options) {
     let kaoshi = wx.getStorageSync('kaoshi');
     wx.setNavigationBarTitle({
-      title: kaoshi.title,
+      title: kaoshi.title ? kaoshi.title:'中仕学社',
     })
 
     this.setData({
