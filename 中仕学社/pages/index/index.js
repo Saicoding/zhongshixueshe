@@ -93,6 +93,36 @@ Page({
   },
 
   /**
+ * 继续看课
+ */
+  continiueKanke: function () {
+    let lastKe = this.data.lastKe
+    if (lastKe) { //如果有最后一次看课
+      wx.navigateTo({
+        url: '/pages/video/video?from=shouye'
+      })
+    }else{
+      console.log('hh')
+      wx.navigateTo({
+        url: '/pages/video/video',
+      })
+    }
+
+
+    // let lastKe = this.data.lastKe
+    // if (lastKe) { //如果有最后一次看课
+    //   lastKe = lastKe.options;
+    //   wx.navigateTo({
+    //     url: '/pages/video/play?title=' + lastKe.title + "&renshu=" + lastKe.renshu + "&types=" + lastKe.types + "&index=" + lastKe.index + "&kc_id=" + lastKe.kc_id + "&fromIndex=true"
+    //   })
+    // } else {
+    //   wx.navigateTo({
+    //     url: '/pages/learn/play?title=2018导游考试「政策与法律法规」基础精讲&renshu=6267&types=0&index=0&kc_id=141920&fromIndex=true'
+    //   })
+    // }
+  },
+
+  /**
    * 生命周期事件
    */
   onReady: function() {
@@ -276,6 +306,26 @@ Page({
           midtext: "开始刷题",
           midtitle: "暂无刷题记录",
           lastShuati: false
+        })
+      }
+    })
+
+    wx.getStorage({
+      key: 'lastkesub' + zcode + xcx_id,
+      success: function (res) {
+        let lastKe = res.data;
+
+        self.setData({
+          ketext: "继续看课",
+          ketitle: lastKe.options.title,
+          lastKe: lastKe
+        })
+      },
+      fail: function (res) {
+        self.setData({
+          ketext: "开始看课",
+          ketitle: "暂无看课记录",
+          lastKe: false
         })
       }
     })

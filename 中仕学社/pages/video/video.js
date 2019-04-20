@@ -29,7 +29,7 @@ Page({
       }
     ], //已载入数组
     currentIndex: 0,
-    catlogCurrent:0
+    catlogCurrent: 0
   },
 
   /**
@@ -41,7 +41,8 @@ Page({
     })
 
     this.setData({
-      first:true
+      first: true,
+      options: options
     })
   },
 
@@ -75,30 +76,31 @@ Page({
     //此页面有可能是从首页导航过来的，在首页可能没有登录，在此判断是否登录
     let user = wx.getStorageSync('user');
 
-    if(user){//如果已经登录
+    if (user) { //如果已经登录
       let zcode = user.zcode;
       let token = user.token;
 
-      if (self.data.first || self.data.isReLoad) {//如果首次载入,或者重复登录
+      if (self.data.first || self.data.isReLoad) { //如果首次载入,或者重复登录
         //获取课程列表分类
         app.post(API_URL, "action=getCourseType&xcx_id=" + xcx_id, false, false, "").then(res => {
-          let loadedList = res.data.data[0].list;//已载入视频列表
+          let loadedList = res.data.data[0].list; //已载入视频列表
 
           let lastke = wx.getStorageSync('lastkesub' + zcode + xcx_id);
-          let currentIndex = lastke ? lastke.currentIndex:0;//根据是否有浏览记录获取当前的index值
+
+          let currentIndex = lastke.options ? lastke.options.index * 1 : 0; //根据是否有浏览记录获取当前的index值
 
           self.setData({
             loadedList: loadedList,
-            currentIndex:currentIndex,
-            first:false,//设置已经载入一次
-            isReLoad:false//设置当前状态不是重新登录状态
+            currentIndex: currentIndex,
+            keCurrent: currentIndex,
+            first: false, //设置已经载入一次
+            isReLoad: false //设置当前状态不是重新登录状态
           })
 
-          self.getCourse(currentIndex);//获取对应课程列表
-
+          self.getCourse(currentIndex, lastke.options); //获取对应课程列表
         })
       }
-    }else{//如果没有登录
+    } else { //如果没有登录
       wx.navigateTo({
         url: '/pages/login/login',
       })
@@ -117,14 +119,13 @@ Page({
   /**
    * 观看视频
    */
-  watch: function (e) {
+  watch: function(e) {
     var kc_id = e.currentTarget.dataset.kc_id;
     var renshu = e.currentTarget.dataset.renshu;
-    let index = e.currentTarget.dataset.index;
+    let index = this.data.currentIndex;
     let title = e.currentTarget.dataset.title;
-
     wx.navigateTo({
-      url: '/pages/video/play/play?kc_id=' + kc_id + '&renshu=' + renshu  + "&index=" + index + '&title=' + title,
+      url: '/pages/video/play/play?kc_id=' + kc_id + '&renshu=' + renshu + "&index=" + index + '&title=' + title,
     })
   },
 
@@ -137,21 +138,22 @@ Page({
     let loadedList = this.data.loadedList;
     let currentIndex = this.data.currentIndex;
     let catlogCurrent = this.data.catlogCurrent;
-    let direction = index > currentIndex?'左':'右'
+    let direction = index > currentIndex ? '左' : '右'
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
 
-    if(source == 'touch'){//如果是手动滑动
+    if (source == 'touch') { //如果是手动滑动
       console.log(index)
       console.log(catlogCurrent)
-      if (direction == '左' && loadedList.length - 5 >= catlogCurrent ){
+      if (direction == '左' && loadedList.length - 5 >= catlogCurrent) {
         catlogCurrent++;
-      } 
+      }
 
-      if (direction == '右' && catlogCurrent >0){
+      if (direction == '右' && catlogCurrent > 0) {
         catlogCurrent--;
       }
 
       this.setData({
-        currentIndex:index,
+        currentIndex: index,
         catlogCurrent: catlogCurrent
       })
       this.getCourse(index)
@@ -159,39 +161,47 @@ Page({
   },
 
   //点击目录
-  getList: function (e) {
+  getList: function(e) {
     let index = e.currentTarget.dataset.index;
-    let currentIndex = this.data.currentIndex ? this.data.currentIndex:0;
+    let currentIndex = this.data.currentIndex ? this.data.currentIndex : 0;
 
-    if(index != currentIndex){//点击不同目录
+    if (index != currentIndex) { //点击不同目录
       this.setData({
-        currentIndex:index,
-        keCurrent:index
+        currentIndex: index,
+        keCurrent: index
       })
       this.getCourse(index);
     }
   },
 
   //获取课程列表
-  getCourse: function (index) {
+  getCourse: function (index, lastKe) {
     let self = this;
     let loadedList = self.data.loadedList; //已载入列表数组
     let user = wx.getStorageSync('user');
-    let zcode = user.zcode?user.zcode:"";
-    let token = user.token?user.token:"";
+    let zcode = user.zcode ? user.zcode : "";
+    let token = user.token ? user.token : "";
+    let options = self.data.options;
 
     if (!loadedList[index].list) { //说明已经载入过
-      app.post(API_URL, "action=getCourseList&typesid=" + loadedList[index].id+"&zcode="+zcode+"&token="+token, false, false, "", "", "", self).then(res => {
-        console.log(res)
+      app.post(API_URL, "action=getCourseList&typesid=" + loadedList[index].id + "&zcode=" + zcode + "&token=" + token, false, false, "", "", "", self).then(res => {
         let newcourse = res.data.data;
         loadedList[index].list = newcourse;
-        loadedList[index].loaded = true;//该章节载入结束
-        console.log(loadedList)
+        loadedList[index].loaded = true; //该章节载入结束
         self.setData({
           loadedList: loadedList
         });
+
+        if (options.from) {
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/video/play/play?kc_id=' + lastKe.kc_id + '&renshu=' + lastKe.renshu + "&index=" + lastKe.index + '&title=' + lastKe.title
+            })
+          },1000)
+        }
+
       });
-    } 
+    }
   },
 
   /**

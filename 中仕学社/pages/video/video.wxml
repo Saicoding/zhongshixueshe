@@ -30,7 +30,7 @@
   <swiper indicator-dots="{{false}}" autoplay="{{false}}" interval="3000" duration="300" current="{{keCurrent}}" bindchange="changeSwiper" style="height:{{windowHeight-420}}rpx;">
     <swiper-item wx:for="{{loadedList}}" wx:for-item="list" wx:key="l">
       <view style ="border:1rpx solid #f1f4f9">
-        <scroll-view wx:if="{{list.loaded}}" scroll-y style="height:{{windowHeight-420}}rpx;" bindscrolltolower="scrolltolower">
+        <scroll-view wx:if="{{list.loaded}}" scroll-y style="height:{{windowHeight-420}}rpx;" >
           <view wx:for="{{list.list}}" wx:for-item="ke" wx:for-index="keIndex" wx:key="k" class="list">
             <view data-title="{{ke.cname}}" data-index="{{keIndex}}"  data-renshu='{{ke.hot}}' data-kc_id="{{ke.kc_id}}" class="ke" style="margin-left:{{index%2 == 1?30:0}}rpx" bindtap="watch" hover-class='select2' hover-stay-time='300'>
               <image class="ke-img" src="{{ke.pic}}"></image>
@@ -45,6 +45,7 @@
           </view>
         </scroll-view>
       </view>
+
       <image wx:if="{{!list.loaded}}" class="loading-img" src="/images/imgLoading.gif" mode="aspectFit"></image>
     </swiper-item>
   </swiper>

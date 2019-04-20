@@ -46,7 +46,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     var kcid = options.kc_id;
 
     this.setData({
@@ -81,6 +80,7 @@ Page({
     this.videoContext = wx.createVideoContext('myVideo')
 
   },
+
   //改变视频速率
   beisu: function (e) {
     let self = this;
@@ -143,7 +143,7 @@ Page({
 
     if (user) {
       app.post(API_URL, "action=getCourseShow&cid=" + kcid + "&token=" + token + "&zcode=" + zcode, false, false, "", "", false, self).then((res) => {
-        console.log(res)
+        let files = res.data.data[0].files; //视频列表
         //最后播放视频索引
         let lastpx = wx.getStorageSync('lastVideo' + kcid + user.zcode);
         let scroll = lastpx * 100 * windowWidth / 750;
@@ -153,11 +153,11 @@ Page({
           //initialTime 最后播放视频时间
           let lasttime = wx.getStorageSync('kesub' + kcid + "_" + lastpx.videoID + "_" + user.zcode);
           if (lasttime) {
-            this.videoContext.seek(lasttime / 1000)
+            console.log(files[px - 1])
+            this.videoContext.seek(files[px - 1].lastViewLength*1);
           }
         }
 
-        let files = res.data.data[0].files; //视频列表
         let currentVideo = files[px - 1];
 
         //获取当前看课节数
@@ -201,7 +201,6 @@ Page({
         wx.setNavigationBarTitle({ //设置标题
           title: res.data.data[0].kc_name
         });
-
 
       })
 
@@ -367,7 +366,7 @@ Page({
     let self = this;
     let windowWidth = self.data.windowWidth;
 
-
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
     let kcid = self.data.kcid;
     let options = self.data.options;
 
@@ -462,12 +461,13 @@ Page({
       })
 
       wx.setStorage({
-        key: 'lastkesub' + zcode,
+        key: 'lastkesub' + zcode + xcx_id,
         data: {
           options: options
         },
       })
 
+      console.log('播放了',playTime)
       app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {
 
       })
@@ -476,8 +476,8 @@ Page({
     //initialTime 缓存的视频时间
     let hctime = wx.getStorageSync('kesub' + kcid + "_" + files[index].videoID + "_" + user.zcode);
     if (hctime) {
-      this.videoContext.seek(hctime / 1000)
-      if (hctime / 1000 >= currentVideo.time_length * 1 - 3) {
+      this.videoContext.seek(hctime)
+      if (hctime >= currentVideo.time_length * 1 - 3) {
         changeVideo = true;
         self.videoContext.stop();
         isPlaying = false;
@@ -555,6 +555,7 @@ Page({
   end: function (e) {
     let self = this;
     let windowWidth = self.data.windowWidth;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
 
     if (changeVideo) { //如果点击的视频时结尾状态就暂停
       self.videoContext.stop();
@@ -655,13 +656,13 @@ Page({
       })
 
       wx.setStorage({
-        key: 'lastkesub' + zcode,
+        key: 'lastkesub' + zcode + xcx_id,
         data: {
           options: options
         },
       })
 
-
+      console.log('播放了', playTime)
       app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {
 
       })
@@ -742,6 +743,7 @@ Page({
    */
   onHide: function () {
     this.videoContext.pause();
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
     let self = this;
     let user = self.data.user;
 
@@ -768,7 +770,7 @@ Page({
       })
 
       wx.setStorage({
-        key: 'lastkesub' + zcode,
+        key: 'lastkesub' + zcode + xcx_id,
         data: {
           options: options
         },
@@ -781,6 +783,7 @@ Page({
    */
   onUnload: function () {
     let self = this;
+    let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
 
     if (self.data.loaded) { //载入完毕才执行
       let kcid = self.data.kcid;
@@ -795,6 +798,7 @@ Page({
       let playTime = 0;
       let currentTime = self.data.currentTime;
       if (currentTime > 10 && currentTime < lastVideo.time_length - 10) { //播放时间)
+        console.log('dd')
         playTime = currentTime - 10;
       } else if (currentTime > lastVideo.time_length - 10) {
         playTime = currentTime;
@@ -834,14 +838,14 @@ Page({
 
 
         wx.setStorage({
-          key: 'lastkesub' + zcode,
+          key: 'lastkesub' + zcode + xcx_id,
           data: {
             options: options
           },
         })
-
+        console.log('播放了', playTime)
         app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {
-
+              console.log(res)
         })
 
         if (self.data.options.fromIndex == 'true') {

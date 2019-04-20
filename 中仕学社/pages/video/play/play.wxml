@@ -48,24 +48,6 @@
         {{kc_name}}
       </view>
       <view class='clear' style='height:20rpx;'></view>
-      <view class='f14'>
-        <text class='hui mr10'>状态</text>{{files.length}}课时
-        <text class='hui mr10' style='margin-left:50rpx;'>讲师</text>{{teacher}}
-        <view class='clear' style='height:20rpx;'></view>
-
-        <view style="display:flex;height:35rpx;">
-          <view style="font-size:20rpx;line-height:35rpx;color:#aaa;margin-right:30rpx;">类型</view>
-          <view class='xk {{zi=="精讲"?"on":""}}'>基础精讲</view>
-          <view class='xk {{zi=="提升"?"on":""}}'>习题提升</view>
-          <view class='xk {{zi=="冲刺"?"on":""}}'>考前冲刺</view>
-        </view>
-
-
-        <view class='clear' style='height:20rpx;'></view>
-        <text class='hui mr10'>优惠</text>
-        <navigator url='../index/xuexijihua/xuexijihua' class='text hong'>购买导游考试【全陪学习套餐】劲省2000元</navigator>
-        <view class='clear' style='height:20rpx;'></view>
-      </view>
     </view>
     <view class="mybar">
       <view data-product="introduction" bindtap='changeOption' class="title1" style="color:{{product == 'introduction'?'#63d291':'black'}}">课程介绍</view>
