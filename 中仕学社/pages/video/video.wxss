@@ -86,7 +86,7 @@ page{
 .ke{
   position: relative;
   float: left;
-  width:345rpx;
+  width:342rpx;
   background: white;
   margin-top:60rpx;
   padding-bottom:20rpx;
@@ -96,7 +96,7 @@ page{
   position: relative;
   width:310rpx;
   height:174rpx;
-  left:20rpx;
+  left:16rpx;
   top:-40rpx;
 }
 

@@ -32,7 +32,7 @@
       <view style ="border:1rpx solid #f1f4f9">
         <scroll-view wx:if="{{list.loaded}}" scroll-y style="height:{{windowHeight-420}}rpx;" >
           <view wx:for="{{list.list}}" wx:for-item="ke" wx:for-index="keIndex" wx:key="k" class="list">
-            <view data-title="{{ke.cname}}" data-index="{{keIndex}}"  data-renshu='{{ke.hot}}' data-kc_id="{{ke.kc_id}}" class="ke" style="margin-left:{{index%2 == 1?30:0}}rpx" bindtap="watch" hover-class='select2' hover-stay-time='300'>
+            <view data-title="{{ke.cname}}" data-index="{{keIndex}}"  data-renshu='{{ke.hot}}' data-kc_id="{{ke.kc_id}}" class="ke" style="margin-left:15rpx" bindtap="watch" hover-class='select2' hover-stay-time='300'>
               <image class="ke-img" src="{{ke.pic}}"></image>
               <view class="ke-title">{{ke.cname}}</view>
               <view class="ke-bottom flex">

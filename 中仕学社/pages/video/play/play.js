@@ -153,7 +153,7 @@ Page({
           //initialTime 最后播放视频时间
           let lasttime = wx.getStorageSync('kesub' + kcid + "_" + lastpx.videoID + "_" + user.zcode);
           if (lasttime) {
-            console.log(files[px - 1])
+            console.log(files[px - 1].lastViewLength * 1)
             this.videoContext.seek(files[px - 1].lastViewLength*1);
           }
         }

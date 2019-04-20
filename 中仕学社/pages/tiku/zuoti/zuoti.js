@@ -577,11 +577,9 @@ Page({
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1
 
     console.log(options)
-    console.log(wx.getStorageSync('kaoshi'))
-    console.log('lastShuati' + zcode + xcx_id)
 
     wx.setStorage({
-      key: 'lastShuati' + zcode + xcx_id,
+      key: 'lastShuati' + zcode + options.currentIndex+ xcx_id,
       data: options
     })
 

@@ -80,7 +80,6 @@ Page({
    */
   continiueShuati: function() {
     let lastShuati = this.data.lastShuati;
-    console.log(lastShuati)
     if (lastShuati) { //如果有最后一次刷题
       wx.navigateTo({
         url: '/pages/tiku/tiku?from=shouye',
@@ -102,24 +101,10 @@ Page({
         url: '/pages/video/video?from=shouye'
       })
     }else{
-      console.log('hh')
       wx.navigateTo({
         url: '/pages/video/video',
       })
     }
-
-
-    // let lastKe = this.data.lastKe
-    // if (lastKe) { //如果有最后一次看课
-    //   lastKe = lastKe.options;
-    //   wx.navigateTo({
-    //     url: '/pages/video/play?title=' + lastKe.title + "&renshu=" + lastKe.renshu + "&types=" + lastKe.types + "&index=" + lastKe.index + "&kc_id=" + lastKe.kc_id + "&fromIndex=true"
-    //   })
-    // } else {
-    //   wx.navigateTo({
-    //     url: '/pages/learn/play?title=2018导游考试「政策与法律法规」基础精讲&renshu=6267&types=0&index=0&kc_id=141920&fromIndex=true'
-    //   })
-    // }
   },
 
   /**
@@ -290,9 +275,10 @@ Page({
     }
 
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+    let currentIndex = wx.getStorageSync('currentIndex' + xcx_id );
 
     wx.getStorage({
-      key: 'lastShuati' + zcode + xcx_id,
+      key: 'lastShuati' + zcode + currentIndex+xcx_id,
       success: function(res) {
         let lastShuati = res.data;
         self.setData({

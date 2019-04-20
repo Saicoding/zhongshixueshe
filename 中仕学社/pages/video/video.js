@@ -36,8 +36,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let kaoshi = wx.getStorageSync('kaoshi');
     wx.setNavigationBarTitle({
-      title: '某一类考试标题',
+      title: kaoshi.title,
     })
 
     this.setData({
@@ -142,8 +143,6 @@ Page({
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
 
     if (source == 'touch') { //如果是手动滑动
-      console.log(index)
-      console.log(catlogCurrent)
       if (direction == '左' && loadedList.length - 5 >= catlogCurrent) {
         catlogCurrent++;
       }
