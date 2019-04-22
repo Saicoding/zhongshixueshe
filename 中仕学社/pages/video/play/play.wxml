@@ -1,7 +1,7 @@
 <!--pages/video/videoDetail/videoDetail.wxml-->
 <scroll-view scroll-y style="height:{{windowHeight-120}}rpx;" lower-threshold="100rpx" bindscroll="scroll" bindscrolltolower="scrolltolower" scroll-top="{{scrollTop}}">
-  <video hidden="{{type != 'mp4'}}" bindtap="toogleShow" id="myVideo" class='myVideo' style="{{fixed}}" controls initial-time="{{files[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{files[px-1].files == undefined ||type != 'mp4' ?'':files[px-1].files}}" bindended="end"
-    bindfullscreenchange="quan" bindtimeupdate="timeupdate" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture show-center-play-btn="{{true}}" autoplay="{{autoplay}}">
+  <video bindtap="toogleShow" id="myVideo" class='myVideo' style="{{fixed}}" controls="{{files[px-1].leibie!='1'}}" initial-time="{{files[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{files[px-1].files}}" bindended="end" bindfullscreenchange="quan"
+    bindtimeupdate="timeupdate" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture show-center-play-btn="{{true}}" autoplay="{{autoplay}}">
 
     <!-- <view class="unBuy" wx:if="{{buy==0}}">
     <image class="video-icon" src="/images/course/ypad_btn_answers_play@2x.png" />
@@ -14,18 +14,32 @@
 
     <!--倍速-->
     <view wx:if="{{showBeisu && !showBlank}}" class="beisu-container">
-      <text class='beisu ' style='border:0'>速率：</text>
+      <text class='beisu ' style='border:0'>速率：{{file.pics.length}}</text>
       <view class='beisu {{playbackRate=="0.8"?"on":""}}' catchtap='beisu' data-su='0.8'>x0.8</view>
       <view class='beisu {{playbackRate=="1.0"?"on":""}}' catchtap='beisu' data-su='1.0'>x1.0</view>
       <view class='beisu {{playbackRate=="1.25"?"on":""}}' catchtap='beisu' data-su='1.25'>x1.25</view>
       <view class='beisu {{playbackRate=="1.5"?"on":""}}' catchtap='beisu' data-su='1.5'>x1.5</view>
     </view>
+    <!-- 音频滑块 -->
+    <swiper wx:if="{{files[px-1].leixing=='1'}}" duration="200" current="{{showPicIndex}}" skip-hidden-item-layout="true" class="myAudio" bindchange="sliderChange">
+      <block wx:for="{{files[px-1].pics}}" wx:for-item="pic" wx:key="p">
+        <swiper-item>
+          <image class="audio-content-img" src="{{pic}}" mode="aspectFit"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <!-- 音频控件 -->
+    <view class="control">
+      <image class="control-play" src="/images/video/pause.png"></image>
+      <view class="control-text" style="text-align:right">{{currentTimeStr?currentTimeStr:'00:00'}}</view>
+
+      <slider bindtap="slderTap" bindchange="sliderChange" max="100" min="0" selected-color="#f9fef7" color="rgb(145, 145, 145);" value="{{currentSliderPosition}}" block-size="13" block-color="#fefcfe" style="width:390rpx;height:80rpx;margin-top:29rpx;margin-left:30rpx;"></slider>
+      <view class="control-text" style="margin-left:10rpx;">{{files[px-1].allTimeStr?files[px-1].allTimeStr:'00:00'}}</view>
+      <image class="control-play" style="margin-left:5rpx;" src="/images/video/fullScreen.png"></image>
+    </view>
   </video>
-
-  <view wx:if="{{type == 'mp3'}}" class="audio-content" bindtap = "tooglePlayaudio">
-    <image class="audio-content-img" src="{{showPic}}" mode="aspectFit"></image>
-  </view>
-
+  <view>{{Math.ceil(currentTime)}}</view>
   <!-- 浮动视频窗口的占位框 -->
   <view wx:if="{{showBlank}}" style="width:750rpx;height:422rpx;"></view>
 

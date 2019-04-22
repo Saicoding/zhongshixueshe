@@ -85,6 +85,21 @@ function formatTimeBySecond(t) {
  * 根据秒数得到时间字符串
  */
 
+function formatTimeBySecond2(t) {
+  let h = parseInt(t / 3600);
+  let m = parseInt((t - h * 3600) / 60);
+  let s = t % 60;
+
+  m = m < 10 ? "0" + m : m;
+  s = s < 10 ? "0" + s : s;
+  let str = h == 0 ? m + ":" + s : h + ":" + m + ":" + s;
+  return str
+}
+
+/**
+ * 根据秒数得到时间字符串
+ */
+
 function formatTimeBySecond1(t) {
   let h = parseInt(t / 3600);
   let m = parseInt((t - h * 3600) / 60);
@@ -160,5 +175,6 @@ module.exports = {
   leftTime2: leftTime2,
   getTimeObj: getTimeObj,
   formatTimeBySecond1: formatTimeBySecond1,
-  getDateToday: getDateToday
+  getDateToday: getDateToday,
+  formatTimeBySecond2: formatTimeBySecond2
 }

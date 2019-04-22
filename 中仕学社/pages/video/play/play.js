@@ -10,6 +10,7 @@ let buttonClicked = false;
 let changeVideo = false; //是否是通过点击更换的video
 let changeType = false; //网络类型是否更改
 let first = true; //是不是第一次控制自动播放
+let time = require('../../../common/time.js');
 
 let icon = { //图标高度宽度
   'width': 38,
@@ -40,66 +41,20 @@ Page({
     loadingMore: false, //是否在加载更多
     loadingText: "", //上拉载入更多的文字
     showLoadingGif: false, //是否显示刷新gif图
-    file: {
-      type: 'mp3',
-      files: "http://121.22.11.84:8008/34160/A/20190123/2019012313474365023.mp3",
-      filesname: "我的测试音频",
-      id: 205433,
-      lastViewLength: "0",
-      time: "3分10秒",
-      time_length: "311.191224",
-      pics: [{
-          length: 3000,
-          pic: '/images/test/banner.png'
-        },
-        {
-          length: 6000,
-          pic: '/images/test/ke.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/video.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/zixun.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/banner.png'
-        },
-        {
-          length: 6000,
-          pic: '/images/test/ke.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/video.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/zixun.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/banner.png'
-        },
-        {
-          length: 6000,
-          pic: '/images/test/ke.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/video.png'
-        },
-        {
-          length: 3000,
-          pic: '/images/test/zixun.png'
-        }
-      ]
-    }
+  },
+
+  test: function() {
+
+    var filePath = '/images/test.pptx'   ;
+    wx.openDocument({
+      filePath: filePath,
+      success: function(res) {
+        console.log('打开文档成功')
+      }
+    })
 
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -136,17 +91,7 @@ Page({
     });
 
     this.videoContext = wx.createVideoContext('myVideo')
-    this.audioContext = wx.createInnerAudioContext();
-    this.audioContext.src = "http://121.22.11.84:8008/34160/A/20190123/2019012313474365023.mp3";
-    this.audioContext.onTimeUpdate(res => {
-      let px = self.data.px;
-      let files = self.data.files;
-      let audio = files[px - 1];
-      let currentTime = self.audioContext.currentTime //当前播放时间
-      this.setPic(audio, currentTime) //根据播放时间设置图片
-    })
   },
-
 
   /**
    * 根据播放时间设置音频图片
@@ -155,17 +100,16 @@ Page({
     let pics = audio.pics;
 
     let time = 0;
-    let showPic = pics[0].pic; //默认第一张图片
+    let showPicIndex = 0; //默认第一张图片
     for (let i = 0; i < pics.length; i++) {
       let pic = pics[i] //图片对象
 
       let time1 = pic.length / 1000
       if (currentTime - time > 0 && currentTime - time <= time1) {
-        showPic = pic.pic;
-        if (showPic != this.data.showPic) {
-          console.log(showPic)
+        if (i != this.data.showPicIndex) {
+          console.log(i)
           this.setData({
-            showPic: showPic
+            showPicIndex: i
           })
         }
         break;
@@ -241,7 +185,6 @@ Page({
     if (user) {
       app.post(API_URL, "action=getCourseShow&cid=" + kcid + "&token=" + token + "&zcode=" + zcode, false, false, "", "", false, self).then((res) => {
         let files = res.data.data[0].files; //视频列表
-        files.unshift(self.data.file)
         //最后播放视频索引
         let lastpx = wx.getStorageSync('lastVideo' + kcid + user.zcode);
         let scroll = lastpx * 100 * windowWidth / 750;
@@ -256,7 +199,7 @@ Page({
         }
 
         let currentVideo = files[px - 1];
-        self.setType(currentVideo);
+        console.log(currentVideo)
 
         //获取当前看课节数
         let myDate = new Date(); //获取系统当前时间
@@ -306,27 +249,11 @@ Page({
         url: '/pages/login/login?showToast=true&title=您还没有登录',
       })
     }
-
   },
 
-  setType: function(currentVideo) {
-    let self = this;
-    if (currentVideo.type == "mp3") { //如果当前媒体文件是MP3  
-      self.audioContext.play();
-      self.videoContext.stop();
-      self.setData({
-        type: 'mp3'
-      })
-    } else {
-      console.log('视频播放了')
-      self.videoContext.play();
-      self.audioContext.destroy();
-      self.setData({
-        type: 'mp4'
-      })
-    }
-  },
-
+  /**
+   * 得到评论
+   */
   getPL: function() {
     let self = this;
     let kcid = this.data.kcid;
@@ -396,11 +323,9 @@ Page({
    * 输入文字
    */
   typing: function(e) {
-
     let text = e.detail.value;
     this.setData({
       text: text
-
     })
   },
   /**
@@ -470,7 +395,6 @@ Page({
   },
 
 
-
   /**
    * 换视频时
    */
@@ -497,7 +421,6 @@ Page({
     let videoID = lastVideo.id; //上一个视频id
     let flag = 1; //判断是否看完;
     let currentVideo = files[index]; //点击的这个视频
-    self.setType(currentVideo);
 
     if (currentVideo.files == "") {
       let user = wx.getStorageSync('user');
@@ -597,6 +520,30 @@ Page({
       }
     }
   },
+  /**
+   * 点击滑块事件
+   */
+  slderTap:function(){
+    console.log('我点击了')
+  },
+
+  /**
+   * 音频图片swiper滑块的滑动事件
+   */
+  sliderChange: function(e) {
+    let self = this;
+    let px = self.data.px;
+    let files = self.data.files;
+    let video = files[px - 1];
+    let postion = e.detail.value; //滑动到的位置
+    let time_length = video.time_length;
+    let step = time_length * 1 / 100;
+    let currentSliderPosition = this.data.currentSliderPosition;
+    console.log(postion)
+    this.setData({
+      currentTime: postion * step
+    })
+  },
 
   /**
    * 播放进度改变时
@@ -606,6 +553,30 @@ Page({
     let px = self.data.px;
     let files = self.data.files;
     let video = files[px - 1];
+    let currentTime = e.detail.currentTime
+    let showPicIndex = this.data.showPicIndex;
+    let currentSliderPosition = this.data.currentSliderPosition; //当前的slider滑块位置
+
+    if (video.leixing == '1') {
+      let pics = video.pics;
+      let times = video.times;
+
+      for (let i = 0; i < times.length; i++) {
+        let time = i == 0 ? 0 : times[i - 1];
+        let time1 = times[i];
+
+        if (currentTime > time && currentTime < time1) {
+          if (showPicIndex != i) {
+            console.log('设置了' + i)
+            console.log(video)
+            this.setData({
+              showPicIndex: i
+            })
+          }
+          break;
+        }
+      }
+    }
 
     let m = parseInt(e.detail.currentTime / 60);
 
@@ -622,16 +593,26 @@ Page({
     }
 
     first = false;
+    let currentTimeStr = time.formatTimeBySecond2(Math.round(e.detail.currentTime));
+    let time_length = video.time_length;
+    let step = time_length * 1 / 100;
+    let sliderPosition = Math.round(e.detail.currentTime / step);
+
+    if (sliderPosition != currentSliderPosition) {
+      this.setData({
+        currentSliderPosition: sliderPosition
+      })
+    }
 
     self.setData({
       files: files,
-      currentTime: e.detail.currentTime
+      currentTime: e.detail.currentTime,
+      currentTimeStr: currentTimeStr,
     })
 
   },
 
   tooglePlayaudio: function() {
-    console.log('ok')
     this.audioContext.play();
   },
 
@@ -697,8 +678,6 @@ Page({
 
 
     let currentVideo = files[px]; //当前视频
-
-    self.setType(currentVideo);
 
     if (currentVideo.files == "") {
       let user = wx.getStorageSync('user');
@@ -905,7 +884,6 @@ Page({
   onUnload: function() {
     let self = this;
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
-    this.audioContext.destroy();
 
     if (self.data.loaded) { //载入完毕才执行
       let kcid = self.data.kcid;
@@ -989,6 +967,7 @@ Page({
       let m = parseInt(length / 60);
       let s = length % 60 < 10 ? '0' + length % 60 - 1 : length % 60 - 1;
       video.time = m + '分' + s + '秒';
+      video.allTimeStr = m + ':' + s;
       video.playCourseArr = [];
       //初始化已观看视频的时间数组
       if (video.playCourseArr == "") { //如果是空数组，说明是首次观看

@@ -8,24 +8,46 @@
 
 /* 音频 */
 .myAudio {
-  position: absolute;
-  width: 750rpx;
-  height: 422rpx;
-  z-index: 10;
-  top:0rpx;
-}
-
-.audio-content{
   position: relative;
   width: 750rpx;
   height: 422rpx;
+  z-index: 15;
   top:0rpx;
+}
+
+/* 音频控件 */
+.control{
+  width:100%;
+  position:absolute;
+  bottom:0rpx;
+  display: flex;
+  z-index:16;
+  height:90rpx;
+  line-height: 87rpx;
+  background:linear-gradient(to bottom,rgba(255, 255, 255, 0),rgba(2, 2, 2, 0.5));
+}
+
+.control-play{
+  width:34rpx;
+  height:34rpx;
+  margin-top:29rpx;
+  margin-left:30rpx;
+}
+
+.control-text{
+  width:80rpx;
+  font-size:20rpx;
+  color:white;
+}
+
+.audio-content{
+  width: 750rpx;
+  height: 422rpx;
 }
 
 .audio-content-img{
   width: 750rpx;
   height: 422rpx;
-
 }
 
 .wifi {
@@ -81,8 +103,7 @@
   color: #b74e2a;
 }
 
-.video-play {
-}
+
 
 .video-icon {
   width: 90rpx;
