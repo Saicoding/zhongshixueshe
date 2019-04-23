@@ -38,13 +38,13 @@ Page({
     currentTime: 0, //当前播放时间
     autoplay: true, //默认自动播放
     showBeisu: false, //是否显示倍速
+    showSwiper:true,//是否显示
     loadingMore: false, //是否在加载更多
     loadingText: "", //上拉载入更多的文字
     showLoadingGif: false, //是否显示刷新gif图
   },
 
   test: function() {
-
     var filePath = '/images/test.pptx'   ;
     wx.openDocument({
       filePath: filePath,
@@ -131,20 +131,31 @@ Page({
     this.videoContext.playbackRate(beisu);
     this.videoContext.play();
 
+    this.delay();
+  },
+
+
+  /**
+   * delay 延迟
+   */
+  delay:function(){
+    let self = this;
+    self.setData({
+      showControl: true,
+    })
     let lastTimeout = self.data.timeOut;
     clearTimeout(lastTimeout);
-    let showBeisu = this.data.showBeisu; //当前是否显示倍速
 
-    let timeOut = setTimeout(function() {
+    let timeOut = setTimeout(function () {
       self.setData({
-        showBeisu: false,
+        showControl: false,
       })
-    }, 5000)
+    }, 7000)
 
+    console.log('延迟')
     self.setData({
       timeOut: timeOut
     })
-
   },
 
   quan: function() {
@@ -185,6 +196,7 @@ Page({
     if (user) {
       app.post(API_URL, "action=getCourseShow&cid=" + kcid + "&token=" + token + "&zcode=" + zcode, false, false, "", "", false, self).then((res) => {
         let files = res.data.data[0].files; //视频列表
+        console.log(files)
         //最后播放视频索引
         let lastpx = wx.getStorageSync('lastVideo' + kcid + user.zcode);
         let scroll = lastpx * 100 * windowWidth / 750;
@@ -239,6 +251,9 @@ Page({
           buy: buy,
           todayDoneKe: todayDoneKe //今日看课节数
         });
+
+        self.delay();
+
         wx.setNavigationBarTitle({ //设置标题
           title: res.data.data[0].kc_name
         });
@@ -460,9 +475,11 @@ Page({
       files: files,
       isPlaying: isPlaying,
       px: index + 1,
-
       currentTime: currentVideo.lastViewLength //将当前播放时间置为该视频的播放进度
     })
+
+    self.delay();
+
     wx.pageScrollTo({
       scrollTop: 0
     })
@@ -528,21 +545,65 @@ Page({
   },
 
   /**
-   * 音频图片swiper滑块的滑动事件
+   * 音频slider滑块滑动中事件
+   */
+  sliderChange2:function(e){
+    let self = this;
+    let px = self.data.px;
+    let files = self.data.files;
+    let video = files[px - 1];
+    let position = e.detail.value; //滑动到的位置
+    let time_length = video.time_length;
+    let step = time_length * 1 / 100;
+    let currentTimeStr = time.formatTimeBySecond2(Math.round(position * step));
+    this.setData({
+      changeTimeStr:true,
+      currentTimeStr: currentTimeStr
+    })
+    this.delay();
+  },
+
+  /**
+   * 音频图片slider滑块的滑动事件
    */
   sliderChange: function(e) {
     let self = this;
     let px = self.data.px;
     let files = self.data.files;
     let video = files[px - 1];
-    let postion = e.detail.value; //滑动到的位置
+    let position = e.detail.value; //滑动到的位置
     let time_length = video.time_length;
     let step = time_length * 1 / 100;
     let currentSliderPosition = this.data.currentSliderPosition;
-    console.log(postion)
+    this.videoContext.seek(position * step);
+    this.videoContext.play();
+    let currentTimeStr = time.formatTimeBySecond2(Math.round(position * step));
+
+    console.log('当前播放的slider位置'+position)
     this.setData({
-      currentTime: postion * step
+      changeTimeStr: false,
+      currentTime: position * step,
+      currentTimeStr: currentTimeStr,
+      currentSliderPosition: currentSliderPosition
     })
+  },
+
+  /**
+   * 视频缓冲时
+   */
+  waiting:function(e){
+    let self = this;
+    let px = self.data.px;
+    let files = self.data.files;
+    let video = files[px - 1];
+    console.log('暂停中')
+    if(video.leixing == '1'){//如果是MP3文件
+      this.setData({
+        showSwiper:false,
+        showControl:true,
+        isWaiting:true
+      })
+    }
   },
 
   /**
@@ -553,7 +614,14 @@ Page({
     let px = self.data.px;
     let files = self.data.files;
     let video = files[px - 1];
-    let currentTime = e.detail.currentTime
+    let currentTime = e.detail.currentTime;
+    let lastCurrentTime = this.data.currentTime;
+
+    if (Math.abs(currentTime - lastCurrentTime)<1){//如果变化不够一秒
+      console.log('不够一秒')
+      return
+    }
+
     let showPicIndex = this.data.showPicIndex;
     let currentSliderPosition = this.data.currentSliderPosition; //当前的slider滑块位置
 
@@ -604,16 +672,31 @@ Page({
       })
     }
 
-    self.setData({
-      files: files,
-      currentTime: e.detail.currentTime,
-      currentTimeStr: currentTimeStr,
-    })
+    if(this.data.isWaiting){//如果刚才缓存视频的方法过来,就显示面板
+      this.delay();
+      this.setData({
+        isWaiting:false
+      })
+    }
 
-  },
+    if (!this.data.changeTimeStr){
+      self.setData({
+        files: files,
+        audioShowLoading: false,
+        showSwiper: true,
+        currentTime: e.detail.currentTime,
+        currentTimeStr: currentTimeStr,
+      })
+    }else{
+      self.setData({
+        files: files,
+        showSwiper: true,
+        audioShowLoading: false,
+        currentTime: e.detail.currentTime, 
+      })
+    }
 
-  tooglePlayaudio: function() {
-    this.audioContext.play();
+
   },
 
   /**
@@ -656,6 +739,7 @@ Page({
     let self = this;
     let windowWidth = self.data.windowWidth;
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
+    console.log('播放结束')
 
     if (changeVideo) { //如果点击的视频时结尾状态就暂停
       self.videoContext.stop();
@@ -723,6 +807,8 @@ Page({
       currentTime: currentVideo.lastViewLength //将当前播放时间置为该视频的播放进度
     })
 
+    self.delay();
+
     let user = wx.getStorageSync('user');
     if (user) {
       //获取当前看课节数
@@ -771,11 +857,29 @@ Page({
   },
 
   /**
+   * 切换全屏状态
+   */
+  toogleFullScreen:function(){
+
+    let fullScreen = this.data.fullScreen;
+    this.setData({
+      fullScreen: !fullScreen
+    })
+
+    if (!fullScreen){//如果没有全屏
+      this.videoContext.requestFullScreen({
+        direction:90
+      }) 
+    }else{
+      this.videoContext.exitFullScreen({})
+    }
+  },
+
+  /**
    * 切换播放状态
    */
   tooglePlay: function() {
     let self = this;
-
 
     let px = self.data.px; //当前视频编号
     let files = self.data.files; //当前所有视频
@@ -812,25 +916,20 @@ Page({
    */
   toogleShow: function() {
     let self = this;
-    let showBeisu = this.data.showBeisu;
+    let showControl = this.data.showControl;
     this.setData({
-      showBeisu: !showBeisu
+      showControl: !showControl,
     })
 
     let lastTimeout = self.data.timeOut;
-
     clearTimeout(lastTimeout);
 
-    if (!showBeisu) {
-      let showBeisu = this.data.showBeisu; //当前是否显示倍速
-
+    if (!showControl) {
       let timeOut = setTimeout(function() {
         self.setData({
-          showBeisu: false,
+          showControl: false,
         })
-      }, 5000)
-
-
+      }, 7000)
       self.setData({
         timeOut: timeOut
       })

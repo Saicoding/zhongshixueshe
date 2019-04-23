@@ -12,8 +12,8 @@ Page({
    */
   data: {
     banners: [
-      '/images/test/video.png',
-      '/images/test/video.png'
+      '/images/test/zixun.png',
+      '/images/test/zixun.png'
     ],
     loadedList: [{
         loaded: false,
