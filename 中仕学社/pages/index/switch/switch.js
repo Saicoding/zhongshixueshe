@@ -42,6 +42,13 @@ Page({
   onUnload:function(){
     //如果改变了类别,就设置上个页面的标题
     if(this.data.title){
+      
+      let pages = getCurrentPages();
+      let prepage = pages[pages.length - 2];
+      prepage.setData({//初始化上个页面,用于更新上个页面的参数
+        first: true
+      })
+
       wx.setNavigationBarTitle({
         title: this.data.title
       })

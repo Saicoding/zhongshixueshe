@@ -85,7 +85,7 @@ Page({
         //获取课程列表分类
         app.post(API_URL, "action=getCourseType&xcx_id=" + xcx_id, false, false, "").then(res => {
           let loadedList = res.data.data[0].list; //已载入视频列表
-
+          console.log(res)
           let lastke = wx.getStorageSync('lastkesub' + zcode + xcx_id);
 
           let currentIndex = lastke.options ? lastke.options.index * 1 : 0; //根据是否有浏览记录获取当前的index值
