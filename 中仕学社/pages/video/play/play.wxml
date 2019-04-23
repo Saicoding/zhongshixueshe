@@ -40,7 +40,7 @@
       </view>
       <view class="control-text" style="text-align:right;margin-left:-30rpx;">{{currentTimeStr?currentTimeStr:'00:00'}}</view>
 
-      <slider bindtap="slderTap" bindchanging="sliderChange2" bindchange="sliderChange" max="100" min="0" activeColor="white" backgroundColor="rgb(105, 105, 105);" value="{{currentSliderPosition}}" block-size="13" block-color="#fefcfe" style="height:80rpx;margin-top:29rpx;margin-left:30rpx;width:{{fullScreen?(windowHeight-160)+'rpx':'390rpx;'}}"></slider>
+      <slider  bindchanging="sliderChange2" bindchange="sliderChange" max="100" min="0" activeColor="white" backgroundColor="rgb(105, 105, 105);" value="{{currentSliderPosition}}" block-size="13" block-color="#fefcfe" style="height:80rpx;margin-top:29rpx;margin-left:30rpx;width:{{fullScreen?(windowHeight-160)+'rpx':'390rpx;'}}"></slider>
       <view class="control-text" style="margin-left:10rpx;">{{files[px-1].allTimeStr?files[px-1].allTimeStr:'00:00'}}</view>
       <view class="control-play-container" bindtap="fullScreen">
         <image class="control-play" style="margin-left:5rpx;" src="{{fullScreen?'/images/video/outFullScreen.png':'/images/video/fullScreen.png'}}" bindtap="toogleFullScreen"></image>

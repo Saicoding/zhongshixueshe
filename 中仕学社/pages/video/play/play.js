@@ -44,23 +44,11 @@ Page({
     showLoadingGif: false, //是否显示刷新gif图
   },
 
-  test: function() {
-    var filePath = '/images/test.pptx'   ;
-    wx.openDocument({
-      filePath: filePath,
-      success: function(res) {
-        console.log('打开文档成功')
-      }
-    })
-
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     var kcid = options.kc_id;
-
     this.setData({
       kcid: kcid,
       options: options
@@ -107,7 +95,6 @@ Page({
       let time1 = pic.length / 1000
       if (currentTime - time > 0 && currentTime - time <= time1) {
         if (i != this.data.showPicIndex) {
-          console.log(i)
           this.setData({
             showPicIndex: i
           })
@@ -152,7 +139,6 @@ Page({
       })
     }, 7000)
 
-    console.log('延迟')
     self.setData({
       timeOut: timeOut
     })
@@ -196,7 +182,7 @@ Page({
     if (user) {
       app.post(API_URL, "action=getCourseShow&cid=" + kcid + "&token=" + token + "&zcode=" + zcode, false, false, "", "", false, self).then((res) => {
         let files = res.data.data[0].files; //视频列表
-        console.log(files)
+
         //最后播放视频索引
         let lastpx = wx.getStorageSync('lastVideo' + kcid + user.zcode);
         let scroll = lastpx * 100 * windowWidth / 750;
@@ -211,7 +197,6 @@ Page({
         }
 
         let currentVideo = files[px - 1];
-        console.log(currentVideo)
 
         //获取当前看课节数
         let myDate = new Date(); //获取系统当前时间
@@ -520,7 +505,6 @@ Page({
         },
       })
 
-      console.log('播放了', playTime)
       app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {
 
       })
@@ -537,12 +521,6 @@ Page({
       }
     }
   },
-  /**
-   * 点击滑块事件
-   */
-  slderTap:function(){
-    console.log('我点击了')
-  },
 
   /**
    * 音频slider滑块滑动中事件
@@ -557,7 +535,7 @@ Page({
     let time_length = video.time_length;
     let step = time_length * 1 / 100;
     let currentTimeStr = time.formatTimeBySecond2(Math.round(position * step));
-    console.log('改变了位置'+position)
+
     let lastTimeout = self.data.timeOut;
     clearTimeout(lastTimeout);
     this.setData({
@@ -572,7 +550,6 @@ Page({
    * 音频图片slider滑块的滑动事件
    */
   sliderChange: function(e) {
-    console.log(e)
     let self = this;
     let px = self.data.px;
     let files = self.data.files;
@@ -585,7 +562,6 @@ Page({
     this.videoContext.play();
     let currentTimeStr = time.formatTimeBySecond2(Math.round(position * step));
 
-    console.log('当前播放的slider位置'+position)
     this.setData({
       changeTimeStr: false,
       currentTime: position * step,
@@ -602,7 +578,7 @@ Page({
     let px = self.data.px;
     let files = self.data.files;
     let video = files[px - 1];
-    console.log('暂停中')
+
     if(video.leixing == '1'){//如果是MP3文件
       this.setData({
         showSwiper:false,
@@ -646,8 +622,6 @@ Page({
 
         if (currentTime > time && currentTime < time1) {
           if (showPicIndex != i) {
-            console.log('设置了' + i)
-            console.log(video)
             this.setData({
               showPicIndex: i
             })
@@ -693,7 +667,6 @@ Page({
 
 
     if (!this.data.changeTimeStr){
-      console.log('默认设置播放时间' + currentTimeStr)
       self.setData({
         files: files,
         audioShowLoading: false,
@@ -702,7 +675,6 @@ Page({
         currentTimeStr: currentTimeStr,
       })
     }else{
-      console.log('正在滑块时')
       self.setData({
         files: files,
         showSwiper: true,
@@ -754,7 +726,6 @@ Page({
     let self = this;
     let windowWidth = self.data.windowWidth;
     let xcx_id = wx.getStorageSync('kaoshi').tid ? wx.getStorageSync('kaoshi').tid : 1 //考试类别
-    console.log('播放结束')
 
     if (changeVideo) { //如果点击的视频时结尾状态就暂停
       self.videoContext.stop();
@@ -863,7 +834,6 @@ Page({
         },
       })
 
-      console.log('播放了', playTime)
       app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {
 
       })
@@ -1071,7 +1041,7 @@ Page({
             options: options
           },
         })
-        console.log('播放了', playTime)
+
         app.post(API_URL, "action=savePlayTime&zcode=" + zcode + "&token=" + token + "&videoid=" + videoID + "&playTime=" + playTime + "&kcid=" + kcid + "&flag=" + flag, false, true, "").then((res) => {})
 
         if (self.data.options.fromIndex == 'true') {
