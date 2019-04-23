@@ -13,6 +13,8 @@
   height: 422rpx;
   z-index: 15;
   top:0rpx;
+  margin:0 auto;
+  border:none;
 }
 
 .swiperModel{
@@ -21,6 +23,7 @@
   width: 750rpx;
   height: 422rpx;
   opacity: 0;
+  margin:0 auto;
   z-index:16;
 }
 
@@ -62,6 +65,7 @@
 .audio-content-img{
   width: 750rpx;
   height: 422rpx;
+  border:none;
 }
 
 .audioLoading{
