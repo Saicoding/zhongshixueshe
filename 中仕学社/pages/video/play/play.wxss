@@ -27,6 +27,16 @@
   z-index:16;
 }
 
+.control2{
+  width:100%;
+  position: absolute;
+  z-index: 100;
+  right:0rpx;
+  height:90rpx;
+  top:0rpx;
+  background:linear-gradient(to top,rgba(255, 255, 255, 0),rgba(2, 2, 2, 0.5));
+}
+
 /* 音频控件 */
 .control{
   width:100%;
@@ -302,16 +312,15 @@
 
 .beisu-container {
   display: flex;
-  right: 0;
-  position: absolute;
-  z-index: 100;
+  margin-right: 50rpx;
+  float: right;
 }
 
 .beisu {
   width: 4em;
   text-align: center;
-  border: 1px rgba(238, 238, 238, 0.3) solid;
-  background: rgba(255, 255, 255, 0.3);
+  border: 1px rgb(99, 99, 99) solid;
+  background: rgb(46, 46, 46);
   font-size: 22rpx;
   border-radius: 4px;
   line-height: 38rpx;
@@ -322,9 +331,9 @@
 }
 
 .beisu.on {
-  background: rgba(255, 153, 0, 0.2);
+  background: rgb(252, 202, 127);
   color: #fff;
-  border: 1px rgba(252, 177, 65, 0.2) solid;
+  border: 1px rgb(255, 211, 146) solid;
 }
 
 .hasNopage-text {

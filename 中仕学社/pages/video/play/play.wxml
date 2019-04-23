@@ -1,7 +1,7 @@
 <!--pages/video/videoDetail/videoDetail.wxml-->
 <scroll-view scroll-y style="height:{{windowHeight-120}}rpx;" lower-threshold="100rpx" bindscroll="scroll" bindscrolltolower="scrolltolower" scroll-top="{{scrollTop}}">
   <video id="myVideo" class='myVideo' style="{{fixed}}" controls="{{files[px-1].leibie!='1' && files[px-1].leibie}}" initial-time="{{files[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{files[px-1].files}}" bindended="end" bindfullscreenchange="quan"
-    bindtimeupdate="timeupdate" bindwaiting="waiting" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture  autoplay="{{autoplay}}">
+    bindtimeupdate="timeupdate" bindwaiting="waiting" custom-cache="false" bindplay="play" bindpause="pause" enable-progress-gesture autoplay="{{autoplay}}">
 
     <!-- <view class="unBuy" wx:if="{{buy==0}}">
     <image class="video-icon" src="/images/course/ypad_btn_answers_play@2x.png" />
@@ -13,23 +13,25 @@
     </view>
 
     <!--倍速-->
-    <view wx:if="{{showControl && !showBlank}}" class="beisu-container">
-      <text class='beisu ' style='border:0'>速率：{{file.pics.length}}</text>
-      <view class='beisu {{playbackRate=="0.8"?"on":""}}' catchtap='beisu' data-su='0.8'>x0.8</view>
-      <view class='beisu {{playbackRate=="1.0"?"on":""}}' catchtap='beisu' data-su='1.0'>x1.0</view>
-      <view class='beisu {{playbackRate=="1.25"?"on":""}}' catchtap='beisu' data-su='1.25'>x1.25</view>
-      <view class='beisu {{playbackRate=="1.5"?"on":""}}' catchtap='beisu' data-su='1.5'>x1.5</view>
+    <view wx:if="{{showControl && !showBlank}}" class="control2">
+      <view class="beisu-container">
+        <text class='beisu ' style='border:0'>速率：{{file.pics.length}}</text>
+        <view class='beisu {{playbackRate=="0.8"?"on":""}}' catchtap='beisu' data-su='0.8'>x0.8</view>
+        <view class='beisu {{playbackRate=="1.0"?"on":""}}' catchtap='beisu' data-su='1.0'>x1.0</view>
+        <view class='beisu {{playbackRate=="1.25"?"on":""}}' catchtap='beisu' data-su='1.25'>x1.25</view>
+        <view class='beisu {{playbackRate=="1.5"?"on":""}}' catchtap='beisu' data-su='1.5'>x1.5</view>
+      </view>
     </view>
     <!-- 音频滑块 -->
-    <swiper wx:if="{{files[px-1].leixing=='1' && showSwiper}}" duration="200" current="{{showPicIndex}}" skip-hidden-item-layout="true" class="myAudio" bindchange="sliderChange" style="width:{{fullScreen?(750*750/422)+'rpx':'750rpx'}};height:{{fullScreen?'750rpx':'422rpx'}}">
+    <swiper wx:if="{{files[px-1].leixing=='1' && showSwiper}}" duration="200" current="{{showPicIndex}}" skip-hidden-item-layout="true" class="myAudio" bindchange="sliderChange" style="width:{{fullScreen?(750*750/422)+'rpx':showBlank?'375rpx':'750rpx'}};height:{{fullScreen?'750rpx':showBlank?'211rpx':'422rpx'}}">
       <block wx:for="{{files[px-1].pics}}" wx:for-item="pic" wx:key="p">
         <swiper-item>
-          <image class="audio-content-img" src="{{pic}}" mode="aspectFit" style="width:{{fullScreen?(750*750/422)+'rpx':'750rpx'}};height:{{fullScreen?'750rpx':'422rpx'}}"></image>
+          <image class="audio-content-img" src="{{pic}}" mode="aspectFit" style="width:{{fullScreen?(750*750/422)+'rpx':showBlank?'375rpx':'750rpx'}};height:{{fullScreen?'750rpx':showBlank?'211rpx':'422rpx'}}"></image>
         </swiper-item>
       </block>
     </swiper>
     <!-- 盖住swiper滑块的蒙版 -->
-    <view class="swiperModel" bindtap="toogleShow" style="width:{{fullScreen?(750*750/422)+'rpx':'750rpx'}};height:{{fullScreen?'750rpx':'422rpx'}}"></view>
+    <view class="swiperModel" bindtap="toogleShow" style="width:{{fullScreen?(750*750/422)+'rpx':showBlank?'375rpx':'750rpx'}};height:{{fullScreen?'750rpx':showBlank?'211rpx':'422rpx'}}"></view>
 
     <!-- 音频控件 -->
     <view wx:if="{{showControl}}" class="control" bindtouchstart="delay" bindtouchmove='delay' bindlongtap='delay'>
@@ -38,7 +40,7 @@
       </view>
       <view class="control-text" style="text-align:right;margin-left:-30rpx;">{{currentTimeStr?currentTimeStr:'00:00'}}</view>
 
-      <slider bindtap="slderTap" bindchanging="sliderChange2" bindchange="sliderChange" max="100" min="0" activeColor="white" backgroundColor="rgb(145, 145, 145);" value="{{currentSliderPosition}}" block-size="13" block-color="#fefcfe" style="height:80rpx;margin-top:29rpx;margin-left:30rpx;width:{{fullScreen?(windowHeight-160)+'rpx':'390rpx;'}}"></slider>
+      <slider bindtap="slderTap" bindchanging="sliderChange2" bindchange="sliderChange" max="100" min="0" activeColor="white" backgroundColor="rgb(105, 105, 105);" value="{{currentSliderPosition}}" block-size="13" block-color="#fefcfe" style="height:80rpx;margin-top:29rpx;margin-left:30rpx;width:{{fullScreen?(windowHeight-160)+'rpx':'390rpx;'}}"></slider>
       <view class="control-text" style="margin-left:10rpx;">{{files[px-1].allTimeStr?files[px-1].allTimeStr:'00:00'}}</view>
       <view class="control-play-container" bindtap="fullScreen">
         <image class="control-play" style="margin-left:5rpx;" src="{{fullScreen?'/images/video/outFullScreen.png':'/images/video/fullScreen.png'}}" bindtap="toogleFullScreen"></image>
@@ -54,7 +56,7 @@
   <!-- 浮动视频窗口的占位框 -->
   <view wx:if="{{showBlank}}" style="width:750rpx;height:422rpx;"></view>
 
-    <view>{{files[px-1].leibie!='1' && files[px-1].leibie}}</view>
+  <view>{{files[px-1].leibie!='1' && files[px-1].leibie}}</view>
 
   <image wx:if="{{!loaded}}" class="loading-img" src="/images/imgLoading.gif" mode="aspectFit"></image>
   <view hidden="{{!loaded}}">

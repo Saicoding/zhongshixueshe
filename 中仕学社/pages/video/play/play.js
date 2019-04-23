@@ -547,26 +547,32 @@ Page({
   /**
    * 音频slider滑块滑动中事件
    */
-  sliderChange2:function(e){
+  sliderChange2: function (e) {
+    let position = e.detail.value; //滑动到的位置
+    if(position == this.data.position) return;
     let self = this;
     let px = self.data.px;
     let files = self.data.files;
     let video = files[px - 1];
-    let position = e.detail.value; //滑动到的位置
     let time_length = video.time_length;
     let step = time_length * 1 / 100;
     let currentTimeStr = time.formatTimeBySecond2(Math.round(position * step));
+    console.log('改变了位置'+position)
+    let lastTimeout = self.data.timeOut;
+    clearTimeout(lastTimeout);
     this.setData({
       changeTimeStr:true,
-      currentTimeStr: currentTimeStr
+      currentTimeStr: currentTimeStr,
+      position: position,
+      showControl:true
     })
-    this.delay();
   },
 
   /**
    * 音频图片slider滑块的滑动事件
    */
   sliderChange: function(e) {
+    console.log(e)
     let self = this;
     let px = self.data.px;
     let files = self.data.files;
@@ -584,8 +590,8 @@ Page({
       changeTimeStr: false,
       currentTime: position * step,
       currentTimeStr: currentTimeStr,
-      currentSliderPosition: currentSliderPosition
     })
+    this.delay();
   },
 
   /**
@@ -618,7 +624,12 @@ Page({
     let lastCurrentTime = this.data.currentTime;
 
     if (Math.abs(currentTime - lastCurrentTime)<1){//如果变化不够一秒
-      console.log('不够一秒')
+      return
+    } else if (this.data.changeTimeStr) { //如果正在拖动slider就只更新当前时间
+      this.setData({
+        currentTime: this.data.currentTime
+      })
+
       return
     }
 
@@ -679,7 +690,10 @@ Page({
       })
     }
 
+
+
     if (!this.data.changeTimeStr){
+      console.log('默认设置播放时间' + currentTimeStr)
       self.setData({
         files: files,
         audioShowLoading: false,
@@ -688,6 +702,7 @@ Page({
         currentTimeStr: currentTimeStr,
       })
     }else{
+      console.log('正在滑块时')
       self.setData({
         files: files,
         showSwiper: true,
@@ -873,6 +888,7 @@ Page({
     }else{
       this.videoContext.exitFullScreen({})
     }
+    this.delay();
   },
 
   /**
@@ -906,6 +922,17 @@ Page({
 
     isPlaying ? this.videoContext.play() : this.videoContext.pause();
 
+    if(isPlaying){
+      this.videoContext.play();
+    }else{
+      let lastTimeout = self.data.timeOut;
+      clearTimeout(lastTimeout);
+      this.videoContext.pause();
+      this.setData({
+        showControl:true
+      })
+    }
+
     self.setData({
       isPlaying: isPlaying,
     })
@@ -917,6 +944,9 @@ Page({
   toogleShow: function() {
     let self = this;
     let showControl = this.data.showControl;
+
+    if (this.data.showBlank) return;
+
     this.setData({
       showControl: !showControl,
     })
@@ -1094,12 +1124,14 @@ Page({
     if (scrollTop > 422 && lastScroll <= 422) {
       this.setData({
         fixed: 'position: fixed;width:375rpx;height:211rpx;left:375rpx;top:0rpx;',
-        showBlank: true
+        showBlank: true,
+        showControl:false,
       })
     } else if (scrollTop <= 422 && lastScroll >= 422) {
       this.setData({
         fixed: '',
-        showBlank: false
+        showBlank: false,
+        showControl:true
       })
     }
 
