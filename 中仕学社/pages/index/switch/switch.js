@@ -45,8 +45,9 @@ Page({
       
       let pages = getCurrentPages();
       let prepage = pages[pages.length - 2];
+
       prepage.setData({//初始化上个页面,用于更新上个页面的参数
-        first: true
+        first: prepage.data.midHeight?false:true,
       })
 
       wx.setNavigationBarTitle({

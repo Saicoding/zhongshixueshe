@@ -319,6 +319,7 @@ Page({
       random: new Date().toLocaleDateString()
     })
 
+    console.log(first)
     if (first) { //如果是首次渲染,说明onload已经更新数据
       this.setData({
         first: false,
