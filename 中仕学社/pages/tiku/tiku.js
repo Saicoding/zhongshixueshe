@@ -106,14 +106,19 @@ Page({
           let num = null;
           console.log(zhangjies)
           if (jieIdx != 'hasno') {
-            self.step(zhangIdx, num, windowWidth, zhangjies);
             num = zhangjies[zhangIdx * 1].zhangjie_child.length //取得有多少个章节
+            self.step(zhangIdx, num, windowWidth, zhangjies);
           } else {
             zhangjies[zhangIdx * 1].selected = true;
             self.setData({
               zhangjies: zhangjies
             })
           }
+
+          self.setData({
+            zhangIdx: zhangIdx,
+            jieIdx: jieIdx
+          })
 
           setTimeout(function() {
             wx.pageScrollTo({
@@ -516,10 +521,10 @@ Page({
   step: function(index, num, windowWidth, zhangjie) {
     let self = this;
     let isFolder = zhangjie[index].isFolder; //取得现在是什么状态
+    console.log(zhangjie[index].isFolder)
     let jie_num = 0;
 
     let height = 121 * num; //上下边框2px 转化为rpx
-
 
     if (isFolder) { //展开
       let spreadAnimation = wx.createAnimation({
@@ -531,7 +536,6 @@ Page({
       spreadAnimation.height(height + "rpx", 0).opacity(1).step({
 
       })
-
       zhangjie[index].isFolder = false;
       zhangjie[index].height = height;
       zhangjie[index].spreadData = spreadAnimation.export()
@@ -542,7 +546,6 @@ Page({
 
     } else { //折叠
       zhangjie[index].display = true;
-
       self.setData({
         zhangjies: zhangjie
       })
@@ -633,16 +636,16 @@ Page({
     let zhangIdx = e.currentTarget.dataset.zhangidx; //点击的章index
     let jieIdx = e.currentTarget.dataset.jieidx != undefined ? e.currentTarget.dataset.jieidx : 'hasno'; //点击的节index
 
-    let lastZhangeIdx = this.data.lastZhangeIdx ? this.data.lastZhangeIdx : 0;
-    let lastJieIdx = this.data.lastJieIdx ? this.data.lastJieIdx : 'hasno';
+    let lastZhangeIdx = this.data.zhangIdx;
+    let lastJieIdx = this.data.jieIdx;
     let zhangjies = this.data.zhangjies; //当前科目所有章节
 
-    if (!(zhangIdx == lastZhangeIdx && jieIdx == lastJieIdx)) { //点击了不同章节
-
-      if (lastJieIdx != 'hasno') {
-        zhangjies[lastZhangeIdx].zhangjie_child[lastJieIdx].selected = false;
+    if (!(zhangIdx == lastZhangeIdx*1 && jieIdx == lastJieIdx*1)) { //点击了不同章节
+      console.log(lastJieIdx)
+      if (lastJieIdx != 'hasno' ) {
+        zhangjies[lastZhangeIdx*1].zhangjie_child[lastJieIdx*1].selected = false;
       } else {
-        zhangjies[lastZhangeIdx].selected = false;
+        zhangjies[lastZhangeIdx*1].selected = false;
       }
 
       if (jieIdx != 'hasno') {
@@ -651,8 +654,8 @@ Page({
       }
 
       this.setData({
-        lastZhangeIdx: zhangIdx,
-        lastJieIdx: jieIdx,
+        zhangIdx: zhangIdx,
+        jieIdx: jieIdx,
         zhangjies: zhangjies
       })
     }

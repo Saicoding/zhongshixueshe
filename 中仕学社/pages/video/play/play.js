@@ -137,7 +137,7 @@ Page({
       self.setData({
         showControl: false,
       })
-    }, 7000)
+    }, 5000)
 
     self.setData({
       timeOut: timeOut
@@ -929,7 +929,7 @@ Page({
         self.setData({
           showControl: false,
         })
-      }, 7000)
+      }, 5000)
       self.setData({
         timeOut: timeOut
       })
